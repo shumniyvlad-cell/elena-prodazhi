@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Елена — Продажи как разговор</title>
+<meta name="description" content="Авторский курс Елены. Продажи не как давление, а как разговор. Двадцать лет практики, собранные в одну тетрадь." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com" referrerpolicy="no-referrer"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          vellum:    '#faf9f5',
+          fold:      '#f2f1ec',
+          ink:       '#141413',
+          cocoa:     '#472425',
+          ash:       '#73726c',
+          hairline:  '#dedcd1',
+        },
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          sans:    ['Inter', 'system-ui', 'sans-serif'],
+          mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        },
+        fontSize: {
+          '8xl':  ['7rem',  { lineHeight: '0.96', letterSpacing: '-0.025em' }],
+          '9xl':  ['8.5rem',{ lineHeight: '0.94', letterSpacing: '-0.028em' }],
+          '10xl': ['10rem', { lineHeight: '0.92', letterSpacing: '-0.03em'  }],
+        },
+        letterSpacing: {
+          eyebrow: '0.18em',
+          micro:   '0.16em',
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html, body { background:#faf9f5; color:#472425; }
+  body { font-family:'Inter', system-ui, sans-serif; font-size:17px; line-height:1.55; -webkit-font-smoothing:antialiased; }
+  .display { font-family:'Fraunces', serif; font-weight:400; letter-spacing:-0.025em; }
+  .display em { font-style:italic; font-weight:400; color:#472425; }
+  .eyebrow  { font-family:'JetBrains Mono', ui-monospace, monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.18em; color:#73726c; }
+  .num      { font-family:'JetBrains Mono', ui-monospace, monospace; font-size:12px; letter-spacing:0.18em; color:#73726c; }
+  .rule     { border-color:#dedcd1; }
+  .ink-text { color:#141413; }
+  a.lnk     { position:relative; display:inline-block; padding-bottom:2px; border-bottom:1px solid #472425; transition:opacity .25s ease, transform .25s ease; }
+  a.lnk:hover { opacity:.65; transform:translateY(-1px); }
+  .cta-filled {
+    display:inline-flex; align-items:center; gap:14px;
+    padding:18px 28px; background:#141413; color:#faf9f5;
+    font-size:13px; letter-spacing:0.16em; text-transform:uppercase;
+    transition:transform .3s ease, background .3s ease;
+  }
+  .cta-filled:hover { background:#472425; transform:translateY(-1px); }
+  .cta-filled .arrow { transition:transform .3s ease; }
+  .cta-filled:hover .arrow { transform:translateX(4px); }
+  .cta-ghost {
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:13px; letter-spacing:0.16em; text-transform:uppercase;
+    color:#472425; border-bottom:1px solid #472425; padding-bottom:3px;
+    transition:opacity .25s ease;
+  }
+  .cta-ghost:hover { opacity:.6; }
+  .drop-cap::first-letter {
+    font-family:'Fraunces', serif; font-weight:500; font-style:italic;
+    font-size:5.6rem; line-height:0.85;
+    float:left; padding:8px 14px 0 0; color:#472425;
+  }
+  .module-row { display:grid; grid-template-columns: 80px 1fr auto; gap:32px; align-items:start;
+    padding:36px 0; border-top:1px solid #dedcd1; transition:background .3s ease; }
+  .module-row:hover { background:rgba(71,36,37,0.03); }
+  .module-row:last-child { border-bottom:1px solid #dedcd1; }
+  .case-label { display:inline-flex; align-items:center; gap:10px;
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+    font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase;
+    color:#73726c; border:1px solid #dedcd1; padding:6px 12px; }
+  details.faq-entry { border-top:1px dashed #dedcd1; padding:22px 0; }
+  details.faq-entry:last-of-type { border-bottom:1px dashed #dedcd1; }
+  details.faq-entry summary {
+    list-style:none; cursor:pointer; display:flex; justify-content:space-between; gap:24px;
+    font-family:'Fraunces', serif; font-weight:400; font-size:1.5rem; line-height:1.25; color:#472425;
+  }
+  details.faq-entry summary::-webkit-details-marker { display:none; }
+  details.faq-entry summary .plus { font-family:'Fraunces', serif; font-weight:300; font-size:1.8rem; line-height:1; transition:transform .35s ease; }
+  details.faq-entry[open] summary .plus { transform:rotate(45deg); }
+  details.faq-entry p { margin-top:14px; max-width:62ch; color:#73726c; line-height:1.65; }
+  .pricing-card { padding:48px 36px; border:1px solid #dedcd1; background:#faf9f5; display:flex; flex-direction:column;
+    transition:background .35s ease, border-color .35s ease; }
+  .pricing-card:hover { background:#f2f1ec; border-color:#73726c; }
+  .pricing-card.feature { background:#141413; color:#faf9f5; border-color:#141413; }
+  .pricing-card.feature .eyebrow { color:#dedcd1; }
+  .pricing-card.feature li { color:#dedcd1; }
+  .pricing-card.feature:hover { background:#472425; border-color:#472425; }
+  .quiet-link { color:#73726c; transition:color .3s ease; }
+  .quiet-link:hover { color:#472425; }
+  .col-rule { border-left:1px solid #dedcd1; padding-left:32px; }
+  @media (max-width:640px) {
+    .module-row { grid-template-columns: 60px 1fr; gap:20px; padding:28px 0; }
+    .module-row > .module-meta { grid-column: 1 / -1; padding-left:60px; }
+    .col-rule { border-left:none; border-top:1px solid #dedcd1; padding-left:0; padding-top:32px; margin-top:32px; }
+  }
+</style>
+</head>
+<body class="bg-vellum text-cocoa">
+
+<!-- ============================== NAV ============================== -->
+<header class="border-b rule">
+  <div class="max-w-[1100px] mx-auto px-6 sm:px-10 h-20 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3 group">
+      <span class="display text-2xl ink-text">Елена<span class="text-ash">.</span></span>
+      <span class="eyebrow hidden sm:inline">Школа разговора</span>
+    </a>
+    <nav class="hidden sm:flex items-center gap-9 text-[13px] text-ash">
+      <a href="#manifesto" class="quiet-link">Манифест</a>
+      <a href="#program" class="quiet-link">Программа</a>
+      <a href="#cases" class="quiet-link">Истории</a>
+      <a href="#pricing" class="quiet-link">Участие</a>
+      <a href="#faq" class="quiet-link">Вопросы</a>
+    </nav>
+    <a href="#pricing" class="text-[12px] tracking-eyebrow uppercase ink-text border-b border-ink pb-1 hover:opacity-60 transition">
+      Записаться
+    </a>
+  </div>
+</header>
+
+<!-- ============================== HERO ============================== -->
+<section id="top" class="border-b rule">
+  <div class="max-w-[1100px] mx-auto px-6 sm:px-10 pt-28 sm:pt-40 pb-28 sm:pb-44">
+    <div class="grid grid-cols-12 gap-8 mb-16 sm:mb-24">
+      <div class="col-span-12 sm:col-span-3">
+        <div class="eyebrow">N<sup>o</sup> 01 — Манифест</div>
+      </div>
+      <div class="col-span-12 sm:col-span-9">
+        <div class="eyebrow">Сочи · с 2005 года</div>
+      </div>
+    </div>
+
+    <h1 class="display ink-text text-[clamp(3.2rem,11vw,10rem)] leading-[0.94] tracking-[-0.03em] max-w-[12ch]">
+      Продажа&nbsp;— это <em>разговор,</em> а не атака.
+    </h1>
+
+    <div class="grid grid-cols-12 gap-8 mt-20 sm:mt-28">
+      <div class="col-span-12 sm:col-span-5">
+        <p class="text-[15px] text-ash leading-relaxed max-w-[36ch]">
+          Двадцать лет я продаю людям, которые не хотят, чтобы им продавали. И всё ещё нахожу этот разговор честным.
+          Этот курс&nbsp;— тетрадь, в которой собрано всё, что я хотела бы услышать в начале пути.
+        </p>
+      </div>
+      <div class="col-span-12 sm:col-span-4 sm:col-start-8 flex flex-col gap-6">
+        <p class="display text-2xl text-cocoa italic leading-snug">
+          «Клиент не возражает. Клиент <em>думает вслух.</em> Услышьте&nbsp;— и сделка случится сама.»
+        </p>
+        <div class="eyebrow">— Елена, автор курса</div>
+      </div>
+    </div>
+
+    <div class="mt-20 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10">
+      <a href="#pricing" class="cta-filled">
+        Записаться на поток
+        <span class="arrow">→</span>
+      </a>
+      <a href="#manifesto" class="cta-ghost">
+        Читать манифест
+      </a>
+      <div class="hidden sm:block ml-auto eyebrow">
+        Следующий поток · 14 сентября
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== METRICS STRIP ============================== -->
+<section class="border-b rule bg-fold">
+  <div class="max-w-[1100px] mx-auto px-6 sm:px-10 py-12 grid grid-cols-2 sm:grid-cols-4 gap-10 sm:gap-6">
+    <div>
+      <div class="display text-5xl ink-text">20</div>
+      <div class="eyebrow mt-2">лет в продажах</div>
+    </div>
+    <div>
+      <div class="display text-5xl ink-text">5</div>
+      <div class="eyebrow mt-2">модулей · 28 встреч</div>
+    </div>
+    <div>
+      <div class="display text-5xl ink-text">340<span class="text-ash">+</span></div>
+      <div class="eyebrow mt-2">выпускников</div>
+    </div>
+    <div>
+      <div class="display text-5xl ink-text">×3.2</div>
+      <div class="eyebrow mt-2">средний рост чека</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== MANIFESTO ============================== -->
+<section id="manifesto" class="border-b rule">
+  <div class="max-w-[1100px] mx-auto px-6 sm:px-10 py-28 sm:py-40">
+    <div class="grid grid-cols-12 gap-10">
+      <aside class="col-span-12 sm:col-span-3">
+        <div class="num">§ 01 / 05</div>
+        <div class="eyebrow mt-3">Манифест</div>
+        <div class="display text-4xl text-cocoa italic mt-10 leading-tight">О чём этот курс</div>
+      </aside>
+
+      <div class="col-span-12 sm:col-span-9">
+        <p class="drop-cap text-[19px] leading-[1.7] text-cocoa max-w-[64ch]">
+          Большинство тренингов учат давить. Они называют это <em>«закрытием»</em>, словно клиент&nbsp;— дверь,
+          которую нужно запереть. Я двадцать лет работаю иначе. Я научилась слышать паузу перед «нет»
+          и понимать, что за ней стоит не отказ, а сомнение, требующее аккуратного слова. Этот курс&nbsp;—
+          о том самом слове. О тоне, который не унижает ни клиента, ни вас.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 mt-16">
+          <div>
+            <div class="num">I.</div>
+            <h3 class="display text-2xl ink-text mt-3 leading-snug">Тишина дороже скрипта.</h3>
+            <p class="text-[15px] text-ash mt-3 leading-relaxed">
+              Пауза в три секунды продаёт больше, чем три заученных абзаца.
+            </p>
+          </div>
+          <div>
+            <div class="num">II.</div>
+            <h3 class="display text-2xl ink-text mt-3 leading-snug">Вопрос сильнее аргумента.</h3>
+            <p class="text-[15px] text-ash mt-3 leading-relaxed">
+              Хороший вопрос разворачивает клиента к собственному решению.
+            </p>
+          </div>
+          <div>
+            <div class="num">III.</div>
+            <h3 class="display text-2xl ink-text mt-3 leading-snug">Отказ&nbsp;— не финал.</h3>
+            <p class="text-[15px] text-ash mt-3 leading-relaxed">
+              «Нет» сегодня часто означает «не сейчас». Этот разговор&nbsp;— долгий.
+            </p>
+          </div>
+          <div>
+            <div class="num">IV.</div>
+            <h3 class="display text-2xl ink-text mt-3 leading-snug">Деньги приходят за уважением.</h3>
+            <p class="text-[15px] text-ash mt-3 leading-relaxed">
+              Чек растёт, когда клиент чувствует, что его слышат, а не обрабатывают.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PROGRAM ============================== -->
+<section id="program" class="border-b rule">
+  <div class="max-w-[1100px] mx-auto px-6 sm:px-10 py-28 sm:py-40">
+
+    <div class="grid grid-cols-12 gap-10 mb-20">
+      <div class="col-span-12 sm:col-span-3">
+        <div class="num">§ 02 / 05</div>
+        <div class="eyebrow mt-3">Программа</div>
+      </div>
+      <div class="col-span-12 sm:col-span-9">
+        <h2 class="display ink-text text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-[-0.025em] max-w-[14ch]">
+          Пять модулей. <em>Двадцать восемь</em> встреч.
+        </h2>
+        <p class="text-[15px] text-ash mt-8 max-w-[52ch]">
+          Каждый модуль&nbsp;— это глава тетради: теория, практика на ваших живых сделках, разбор записанных разговоров.
+          Я не даю скриптов. Я даю слух.
+        </p>
+      </div>
+    </div>
+
+    <div>
+
+      <!-- Module I -->
+      <div class="module-row">
+        <div class="num pt-2">I</div>
+        <div>
+          <h3 class="display text-3xl ink-text leading-tight">Слышать, а не <em>слушать.</em></h3>
+          <p class="text-[15px] text-ash mt-3 max-w-[58ch] leading-relaxed">
+            Анатомия первой минуты. Как распознать, чего клиент на самом деле боится, и почему его «дорого»
+            никогда не про деньги.
+          </p>
+        </div>
+        <div class="module-meta eyebrow text-right">
+          5 встреч<br/><span class="text-cocoa">2 недели</span>
+        </div>
+      </div>
+
+      <!-- Module II -->
+      <div class="module-row">
+        <div class="num pt-2">II</div>
+        <div>
+          <h3 class="display text-3xl ink-text leading-tight">Вопрос как <em>инструмент.</em></h3>
+          <p class="text-[15px] text-ash mt-3 max-w-[58ch] leading-relaxed">
+            Шесть форм вопросов, которыми я веду переговоры. Когда переспросить, когда промолчать,
+            когда задать неудобный.
+          </p>
+        </div>
+        <div class="module-meta eyebrow text-right">
+          6 встреч<br/><span class="text-cocoa">2 недели</span>
+        </div>
+      </div>
+
+      <!-- Module III -->
+      <div class="module-row">
+        <div class="num pt-2">III</div>
+        <div>
+          <h3 class="display text-3xl ink-text leading-tight">Цена без <em>извинений.</em></h3>
+          <p class="text-[15px] text-ash mt-3 max-w-[58ch] leading-relaxed">
+            Как называть цифру так, чтобы за ней не следовало оправдание. Скидка как редкое исключение,
+            а не как костыль.
+          </p>
+        </div>
+        <div class="module-meta eyebrow text-right">
+          6 встреч<br/><span class="text-cocoa">3 недели</span>
+        </div>
+      </div>
+
+      <!-- Module IV -->
+      <div class="module-row">
+        <div class="num pt-2">IV</div>
+        <div>
+          <h3 class="display text-3xl ink-text leading-tight">Возражение&nbsp;— это <em>приглашение.</em></h3>
+          <p class="text-[15px] text-ash mt-3 max-w-[58ch] leading-relaxed">
+            Разбор десяти возражений, которые звучат как стена, а на самом деле просят, чтобы их аккуратно
+            развернули.
+          </p>
+        </div>
+        <div class="module-meta eyebrow text-right">
+          6 встреч<br/><span class="text-cocoa">3 недели</span>
+        </div>
+      </div>
+
+      <!-- Module V -->
+      <div class="module-row">
+        <div class="num pt-2">V</div>
+        <div>
+          <h3 class="display text-3xl ink-text leading-tight">Длинный <em>контакт.</em></h3>
+          <p class="text-[15px] text-ash mt-3 max-w-[58ch] leading-relaxed">
+            Что делать после «нет» и после «да». Как один клиент превращается в трёх, а трое&nbsp;— в репутацию,
+            которая работает за вас.
+          </p>
+        </div>
+        <div class="module-meta eyebrow text-right">
+          5 встреч<br/><span class="text-cocoa">2 недели</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mt-16 flex justify-end">
+      <a href="#pricing" class="cta-ghost">Посмотреть участие</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================== CASES ============================== -->
+<section id="cases" class="border-b rule bg-fold">
+  <div class="max-w-[1100px] mx-auto px-6 sm:px-10 py-28 sm:py-40">
+
+    <div class="grid grid-cols-12 gap-10 mb-20">
+      <div class="col-span-12 sm:col-span-3">
+        <div class="num">§ 03 / 05</div>
+        <div class="eyebrow mt-3">Истории</div>
+      </div>
+      <div class="col-span-12 sm:col-span-9">
+        <h2 class="display ink-text text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-[-0.025em] max-w-[14ch]">
+          Три разговора, которые <em>изменили</em> цифры.
+        </h2>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-12">
+
+      <!-- Case 01 -->
+      <article class="col-span-12 sm:col-span-4">
+        <div class="case-label">
+          <span>Кейс 01</span><span class="text-cocoa">·</span><span>Теле-2</span>
+        </div>
+        <h3 class="display text-2xl ink-text mt-6 leading-tight">
+          От «холодного» отдела к команде, которую слушают.
+        </h3>
+        <p class="text-[14.5px] text-ash mt-5 leading-relaxed">
+          Корпоративный отдел продаж. До курса&nbsp;— 11% конверсии и текучка 60% в год.
+          После шести недель&nbsp;— 24% и команда, которая впервые перестала ненавидеть собственные звонки.
+        </p>
+        <div class="num mt-6">× 2.18 конверсия</div>
+      </article>
+
+      <!-- Case 02 -->
+      <article class="col-span-12 sm:col-span-4 sm:col-rule">
+        <div class="case-label">
+          <span>Кейс 02</span><span class="text-cocoa">·</span><span>Ювелирка</span>
+        </div>
+        <h3 class="display text-2xl ink-text mt-6 leading-tight">
+          Как продавец перестала «бояться больших цифр».
+        </h3>
+        <p class="text-[14.5px] text-ash mt-5 leading-relaxed">
+          Бутик авторских украшений. Средний чек 38&nbsp;000&nbsp;₽ казался потолком. За три месяца после курса&nbsp;—
+          120&nbsp;000&nbsp;₽ без новой коллекции и без скидок. Изменился только разговор.
+        </p>
+        <div class="num mt-6">× 3.15 средний чек</div>
+      </article>
+
+      <!-- Case 03 -->
+      <article class="col-span-12 sm:col-span-4 sm:col-rule">
+        <div class="case-label">
+          <span>Кейс 03</span><span class="text-cocoa">·</span><span>14 этаж</span>
+        </div>
+        <h3 class="display text-2xl ink-text mt-6 leading-tight">
+          Бизнес-завтрак, после которого подписали трёх клиентов из четырёх.
+        </h3>
+        <p class="text-[14.5px] text-ash mt-5 leading-relaxed">
+          Закрытая встреча на 14 этаже бизнес-центра. Четыре собственника, два часа разговора, один сценарий
+          без слайдов. Трое из четырёх вышли с подписанным договором, четвёртый вернулся через месяц.
+        </p>
+        <div class="num mt-6">75% конверсия встречи</div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PRICING ============================== -->
+<section id="pricing" class="border-b rule">
+  <div class="max-w-[1100px] mx-auto px-6 sm:px-10 py-28 sm:py-40">
+
+    <div class="grid grid-cols-12 gap-10 mb-20">
+      <div class="col-span-12 sm:col-span-3">
+        <div class="num">§ 04 / 05</div>
+        <div class="eyebrow mt-3">Участие</div>
+      </div>
+      <div class="col-span-12 sm:col-span-9">
+        <h2 class="display ink-text text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-[-0.025em] max-w-[16ch]">
+          Три формата. <em>Один</em> разговор.
+        </h2>
+        <p class="text-[15px] text-ash mt-8 max-w-[52ch]">
+          Программа одна. Разница&nbsp;— в глубине моего личного участия и в том, сколько ваших живых сделок мы разберём
+          вместе.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-0 sm:gap-0">
+
+      <!-- Базовый -->
+      <div class="pricing-card sm:border-r-0">
+        <div class="num">01</div>
+        <h3 class="display text-3xl ink-text mt-4">Базовый</h3>
+        <p class="text-[14px] text-ash mt-3">Тетрадь и групповые встречи.</p>
+        <div class="display text-5xl ink-text mt-10">14 990 <span class="text-2xl text-ash align-top">₽</span></div>
+        <ul class="mt-10 space-y-3 text-[14.5px] text-cocoa border-t rule pt-6">
+          <li>— Все 28 встреч в записи</li>
+          <li>— Тетрадь курса (PDF, 84 стр.)</li>
+          <li>— Закрытый чат потока</li>
+          <li>— Доступ к записям 12 месяцев</li>
+        </ul>
+        <a href="#" class="cta-ghost mt-10 self-start">Выбрать формат</a>
+      </div>
+
+      <!-- Интенсив+ -->
+      <div class="pricing-card feature">
+        <div class="num">02</div>
+        <div class="eyebrow mt-1" style="color:#dedcd1">— рекомендую</div>
+        <h3 class="display text-3xl mt-4">Интенсив<span class="text-ash">+</span></h3>
+        <p class="text-[14px] mt-3" style="color:#dedcd1">Живые разборы ваших сделок.</p>
+        <div class="display text-5xl mt-10">24 990 <span class="text-2xl align-top" style="color:#dedcd1">₽</span></div>
+        <ul class="mt-10 space-y-3 text-[14.5px] border-t pt-6" style="border-color:#473e3e;">
+          <li>— Всё из «Базового»</li>
+          <li>— 6 живых встреч-разборов</li>
+          <li>— Разбор трёх ваших сделок</li>
+          <li>— Личные комментарии к домашним</li>
+          <li>— Доступ к записям бессрочно</li>
+        </ul>
+        <a href="#" class="mt-10 self-start cta-filled" style="background:#faf9f5; color:#141413">
+          Записаться <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <!-- VIP -->
+      <div class="pricing-card sm:border-l-0">
+        <div class="num">03</div>
+        <h3 class="display text-3xl ink-text mt-4">VIP</h3>
+        <p class="text-[14px] text-ash mt-3">Работа со мной один на один.</p>
+        <div class="display text-5xl ink-text mt-10">от 90 000 <span class="text-2xl text-ash align-top">₽</span></div>
+        <ul class="mt-10 space-y-3 text-[14.5px] text-cocoa border-t rule pt-6">
+          <li>— Всё из «Интенсива+»</li>
+          <li>— 10 личных сессий</li>
+          <li>— Аудит вашей воронки</li>
+          <li>— Сопровождение трёх ключевых сделок</li>
+          <li>— Связь со мной в мессенджере</li>
+        </ul>
+        <a href="#" class="cta-ghost mt-10 self-start">Запросить место</a>
+      </div>
+
+    </div>
+
+    <p class="num mt-10 text-center">Поток ограничен&nbsp;— 24 места. Старт 14 сентября.</p>
+
+  </div>
+</section>
+
+<!-- ============================== FAQ ============================== -->
+<section id="faq" class="border-b rule">
+  <div class="max-w-[1100px] mx-auto px-6 sm:px-10 py-28 sm:py-40">
+
+    <div class="grid grid-cols-12 gap-10 mb-16">
+      <div class="col-span-12 sm:col-span-3">
+        <div class="num">§ 05 / 05</div>
+        <div class="eyebrow mt-3">Вопросы</div>
+      </div>
+      <div class="col-span-12 sm:col-span-9">
+        <h2 class="display ink-text text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-[-0.025em] max-w-[14ch]">
+          То, о чём чаще всего <em>спрашивают.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-10">
+      <div class="col-span-12 sm:col-start-4 sm:col-span-9">
+
+        <details class="faq-entry">
+          <summary>
+            <span>Курс подойдёт, если я никогда не продавал?</span>
+            <span class="plus">+</span>
+          </summary>
+          <p>
+            Да. Я начинала с теми, кто впервые услышал слово «воронка», и теми, кто двадцать лет в продажах
+            и устал. Программа выстроена так, что один и тот же модуль звучит по-разному для новичка и для опытного.
+          </p>
+        </details>
+
+        <details class="faq-entry">
+          <summary>
+            <span>Это про B2C или B2B?</span>
+            <span class="plus">+</span>
+          </summary>
+          <p>
+            И о том, и о другом. Принципы разговора одни. Меняются только декорации&nbsp;— длина цикла, число
+            лиц, принимающих решение, и масштаб цифр. На курсе мы разбираем оба контура.
+          </p>
+        </details>
+
+        <details class="faq-entry">
+          <summary>
+            <span>Я не люблю продавать. Это пройдёт?</span>
+            <span class="plus">+</span>
+          </summary>
+          <p>
+            Чаще всего это значит, что вам показывали продажи как насилие. Когда продажа становится разговором,
+            нелюбовь уходит. Я видела это десятки раз.
+          </p>
+        </details>
+
+        <details class="faq-entry">
+          <summary>
+            <span>Что, если я не успею проходить вовремя?</span>
+            <span class="plus">+</span>
+          </summary>
+          <p>
+            Доступ к записям&nbsp;— минимум на год, в «Интенсиве+» и VIP&nbsp;— бессрочно. Живые встречи проходят
+            раз в неделю по вечерам, записи&nbsp;— в течение суток.
+          </p>
+        </details>
+
+        <details class="faq-entry">
+          <summary>
+            <span>Будет ли возврат, если не подойдёт?</span>
+            <span class="plus">+</span>
+          </summary>
+          <p>
+            Да. В течение первых семи дней курса возвращаю стоимость без вопросов. Это моя страховка
+            вашей честности перед собой.
+          </p>
+        </details>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================== CLOSING ============================== -->
+<section class="border-b rule bg-fold">
+  <div class="max-w-[1100px] mx-auto px-6 sm:px-10 py-32 sm:py-44 text-center">
+    <div class="eyebrow">— Эпилог</div>
+    <p class="display text-cocoa italic text-[clamp(2.2rem,5vw,4rem)] leading-[1.15] tracking-[-0.02em] mt-10 max-w-[22ch] mx-auto">
+      «Лучшая продажа — та, после которой вам хочется позвонить ещё раз.»
+    </p>
+    <div class="eyebrow mt-10">Елена · Сочи</div>
+    <a href="#pricing" class="cta-filled mt-14">
+      Занять место в потоке <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer>
+  <div class="max-w-[1100px] mx-auto px-6 sm:px-10 py-16 grid grid-cols-12 gap-10 items-start">
+    <div class="col-span-12 sm:col-span-5">
+      <div class="display text-3xl ink-text">Елена<span class="text-ash">.</span></div>
+      <p class="text-[14px] text-ash mt-4 max-w-[36ch] leading-relaxed">
+        Авторский курс о продажах, в которых не нужно давить.
+        Двадцать лет практики, собранные в одну тетрадь.
+      </p>
+    </div>
+    <div class="col-span-6 sm:col-span-3">
+      <div class="eyebrow mb-5">Разделы</div>
+      <ul class="space-y-2 text-[14px]">
+        <li><a href="#manifesto" class="quiet-link">Манифест</a></li>
+        <li><a href="#program" class="quiet-link">Программа</a></li>
+        <li><a href="#cases" class="quiet-link">Истории</a></li>
+        <li><a href="#pricing" class="quiet-link">Участие</a></li>
+      </ul>
+    </div>
+    <div class="col-span-6 sm:col-span-4">
+      <div class="eyebrow mb-5">Связь</div>
+      <ul class="space-y-2 text-[14px]">
+        <li><a href="mailto:hello@elena.school" class="lnk">hello@elena.school</a></li>
+        <li><a href="#" class="quiet-link">Telegram-канал</a></li>
+        <li><a href="#" class="quiet-link">Полная программа (PDF)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t rule">
+    <div class="max-w-[1100px] mx-auto px-6 sm:px-10 py-8 flex flex-col sm:flex-row justify-between gap-3 num">
+      <span>© 2026 · Елена · Школа разговора</span>
+      <span>Сочи · ул. Курортная · 14 этаж</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

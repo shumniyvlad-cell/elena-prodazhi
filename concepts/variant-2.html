@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Елена Соколова — Школа продаж без впаривания</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: {
+            0: "#08090a",
+            1: "#121214",
+            2: "#1c1c1f",
+            3: "#34343a",
+            4: "#8a8f98",
+            5: "#f7f8f8",
+          },
+        },
+        fontFamily: {
+          serif: ['"Instrument Serif"', "serif"],
+          mono: ['"Geist Mono"', "ui-monospace", "monospace"],
+        },
+        letterSpacing: {
+          atelier: "0.2em",
+        },
+      },
+    },
+  };
+</script>
+<style>
+  html, body { background: #08090a; color: #f7f8f8; }
+  body {
+    font-family: "Geist Mono", ui-monospace, monospace;
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .serif { font-family: "Instrument Serif", serif; font-weight: 400; }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+
+  /* Display sizes — overshoot Tailwind defaults */
+  .display-1 { font-size: clamp(64px, 11vw, 168px); line-height: 0.9; letter-spacing: -0.02em; }
+  .display-2 { font-size: clamp(56px, 9vw, 132px); line-height: 0.92; letter-spacing: -0.02em; }
+  .display-3 { font-size: clamp(40px, 6vw, 88px); line-height: 0.95; letter-spacing: -0.015em; }
+
+  .eyebrow { font-family: "Geist Mono", monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #8a8f98; }
+  .micro   { font-family: "Geist Mono", monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #8a8f98; }
+
+  /* Hairlines */
+  .hairline-b { border-bottom: 1px solid #1c1c1f; }
+  .hairline-t { border-top: 1px solid #1c1c1f; }
+  .hairline-r { border-right: 1px solid #1c1c1f; }
+  .hairline-l { border-left: 1px solid #1c1c1f; }
+
+  /* Vertical side rule that the user requested */
+  .siderule {
+    position: fixed; left: 24px; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(180deg, transparent 0, #34343a 96px, #34343a calc(100% - 96px), transparent 100%);
+    z-index: 30; pointer-events: none;
+  }
+  .siderule-r {
+    position: fixed; right: 24px; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(180deg, transparent 0, #1c1c1f 96px, #1c1c1f calc(100% - 96px), transparent 100%);
+    z-index: 30; pointer-events: none;
+  }
+  @media (max-width: 640px) {
+    .siderule, .siderule-r { display: none; }
+  }
+
+  /* Ghost CTA */
+  .ghost {
+    display: inline-flex; align-items: center; gap: 14px;
+    border: 1px solid rgba(247, 248, 248, 0.4);
+    background: transparent; color: #f7f8f8;
+    padding: 18px 28px; border-radius: 0;
+    font-family: "Geist Mono", monospace; font-size: 11px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    transition: background-color 200ms ease-out, color 200ms ease-out, border-color 200ms ease-out, transform 200ms ease-out;
+  }
+  .ghost:hover { background: #f7f8f8; color: #08090a; border-color: #f7f8f8; }
+  .ghost .arr { transition: transform 200ms ease-out; }
+  .ghost:hover .arr { transform: translateX(4px); }
+
+  /* Quiet hover link */
+  .qlink { position: relative; transition: opacity 200ms ease-out; }
+  .qlink::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -2px;
+    height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left;
+    transition: transform 240ms ease-out;
+  }
+  .qlink:hover::after { transform: scaleX(1); }
+
+  /* Module row hover */
+  .row {
+    transition: background-color 240ms ease-out, padding-left 240ms ease-out;
+  }
+  .row:hover { background: #121214; padding-left: 8px; }
+  .row .arr { opacity: 0; transition: opacity 240ms ease-out, transform 240ms ease-out; }
+  .row:hover .arr { opacity: 1; transform: translateX(4px); }
+
+  /* Subtle scan-line texture on hero — using single radial only, no shadows */
+  .hero-canvas { background: radial-gradient(1200px 600px at 80% 20%, rgba(247,248,248,0.025), transparent 60%), #08090a; }
+
+  /* Video frame — hairline only */
+  .frame { border: 1px solid #34343a; }
+
+  /* Marquee */
+  .marquee { display: flex; gap: 64px; animation: marq 38s linear infinite; }
+  @keyframes marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* Italic display word */
+  .ital { font-style: italic; font-family: "Instrument Serif", serif; }
+
+  /* Section gap helpers */
+  .gap-section { padding-top: 128px; padding-bottom: 128px; }
+  @media (max-width: 640px) { .gap-section { padding-top: 80px; padding-bottom: 80px; } }
+
+  /* Tonal swatch (proof of palette) */
+  .swatch { height: 56px; width: 100%; border: 1px solid #1c1c1f; }
+
+  /* Soft underline divider */
+  .rule-h { height: 1px; background: #1c1c1f; width: 100%; }
+
+  /* Reduce default focus pop */
+  :focus-visible { outline: 1px dashed #8a8f98; outline-offset: 4px; }
+</style>
+</head>
+<body class="bg-ink-0 text-ink-5">
+  <div class="siderule"></div>
+  <div class="siderule-r"></div>
+
+  <!-- TOP NAV ============================================================== -->
+  <header class="hairline-b bg-ink-0/85 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-[1440px] mx-auto px-10 sm:px-16 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <span class="micro">№ 04</span>
+        <span class="mono text-[12px] tracking-atelier uppercase text-ink-5">Sokolova / Atelier</span>
+      </a>
+      <nav class="hidden sm:flex items-center gap-10 micro">
+        <a href="#manifest" class="qlink">Манифест</a>
+        <a href="#program" class="qlink">Программа</a>
+        <a href="#cases" class="qlink">Кейсы</a>
+        <a href="#tariffs" class="qlink">Тарифы</a>
+        <a href="#faq" class="qlink">FAQ</a>
+      </nav>
+      <a href="#tariffs" class="ghost">
+        <span>Записаться</span>
+        <span class="arr">&rarr;</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO ================================================================ -->
+  <section class="hero-canvas relative">
+    <div class="max-w-[1440px] mx-auto px-10 sm:px-16 pt-24 pb-28 sm:pt-36 sm:pb-40 relative">
+      <!-- top meta strip -->
+      <div class="flex items-center justify-between mb-24 sm:mb-32">
+        <div class="flex items-center gap-6">
+          <span class="micro">01 — Cabinet</span>
+          <span class="hidden sm:block w-12 h-px bg-ink-3"></span>
+          <span class="micro hidden sm:inline">Sochi · 2026</span>
+        </div>
+        <div class="flex items-center gap-6">
+          <span class="micro hidden sm:inline">Edition I</span>
+          <span class="micro">20 yrs in practice</span>
+        </div>
+      </div>
+
+      <!-- Eyebrow + author line -->
+      <div class="flex items-baseline gap-6 mb-12">
+        <span class="micro">A school by</span>
+        <span class="serif text-2xl leading-none">Елена Соколова</span>
+        <span class="hidden sm:block w-24 h-px bg-ink-3 ml-2"></span>
+      </div>
+
+      <!-- DISPLAY H1 -->
+      <h1 class="serif display-1 text-ink-5">
+        Продажи<br />
+        <span class="ital text-ink-4">без</span> впаривания.
+      </h1>
+
+      <!-- Sub block -->
+      <div class="grid grid-cols-12 mt-16 sm:mt-24 gap-8">
+        <div class="col-span-12 sm:col-span-3">
+          <div class="micro mb-4">Tezis</div>
+          <div class="rule-h mb-6"></div>
+          <p class="mono text-[12px] leading-relaxed text-ink-4">
+            Тихая школа продаж для людей, которые не выносят давления и не умеют им работать. Двадцать лет переговоров — собраны в спокойную систему.
+          </p>
+        </div>
+        <div class="col-span-12 sm:col-span-5 sm:col-start-5">
+          <div class="micro mb-4">Format</div>
+          <div class="rule-h mb-6"></div>
+          <p class="serif text-2xl sm:text-[28px] leading-snug text-ink-5">
+            Пять модулей, двадцать восемь уроков, личное сопровождение. Без скриптов, без манипуляций, без «закрытий любой ценой».
+          </p>
+        </div>
+        <div class="col-span-12 sm:col-span-3 sm:col-start-10">
+          <div class="micro mb-4">Action</div>
+          <div class="rule-h mb-6"></div>
+          <div class="flex flex-col gap-4">
+            <a href="#tariffs" class="ghost">
+              <span>Посмотреть тарифы</span>
+              <span class="arr">&rarr;</span>
+            </a>
+            <a href="#manifest" class="micro qlink">Сначала — манифест</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hairline meta row -->
+      <div class="hairline-t mt-28 pt-6 grid grid-cols-2 sm:grid-cols-4 gap-y-6">
+        <div>
+          <div class="micro mb-2">01 / Опыт</div>
+          <div class="serif text-3xl">20 лет</div>
+        </div>
+        <div>
+          <div class="micro mb-2">02 / Сегменты</div>
+          <div class="serif text-3xl">B2B · B2C · VIP</div>
+        </div>
+        <div>
+          <div class="micro mb-2">03 / Учеников</div>
+          <div class="serif text-3xl">340+</div>
+        </div>
+        <div>
+          <div class="micro mb-2">04 / Тон</div>
+          <div class="serif text-3xl italic">тихий</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE STRIP -->
+  <section class="hairline-t hairline-b py-5 overflow-hidden">
+    <div class="marquee whitespace-nowrap mono text-[11px] tracking-atelier uppercase text-ink-4">
+      <span>Теле-2</span><span>—</span><span>Ювелирный дом «Кант»</span><span>—</span>
+      <span>Бизнес-завтрак, 14-й этаж</span><span>—</span><span>Школа адвокатов</span><span>—</span>
+      <span>Премиальные клиники</span><span>—</span><span>Финансовое консультирование</span><span>—</span>
+      <span>Теле-2</span><span>—</span><span>Ювелирный дом «Кант»</span><span>—</span>
+      <span>Бизнес-завтрак, 14-й этаж</span><span>—</span><span>Школа адвокатов</span><span>—</span>
+      <span>Премиальные клиники</span><span>—</span><span>Финансовое консультирование</span><span>—</span>
+    </div>
+  </section>
+
+  <!-- MANIFEST ============================================================ -->
+  <section id="manifest" class="gap-section">
+    <div class="max-w-[1440px] mx-auto px-10 sm:px-16">
+      <div class="grid grid-cols-12 gap-8">
+        <!-- left rail -->
+        <aside class="col-span-12 sm:col-span-3">
+          <div class="micro mb-6">№ 02 — Manifest</div>
+          <div class="rule-h mb-8"></div>
+          <p class="mono text-[12px] leading-relaxed text-ink-4">
+            Текст, который Елена попросила оставить без редактуры. Он объясняет всё, что важно знать до записи на курс.
+          </p>
+          <div class="mt-10 mono text-[11px] tracking-atelier uppercase text-ink-4">
+            Sokolova<br/>Cabinet, 2026
+          </div>
+        </aside>
+
+        <!-- body -->
+        <div class="col-span-12 sm:col-span-8 sm:col-start-5">
+          <h2 class="serif display-2 text-ink-5 mb-16">
+            Продавать —<br/>
+            <span class="ital text-ink-4">значит</span> уважать.
+          </h2>
+
+          <div class="space-y-10 max-w-[640px]">
+            <p class="serif text-3xl sm:text-[34px] leading-snug text-ink-5">
+              Я не учу «закрывать любой ценой». Это разрушает и продавца, и клиента, и продукт.
+            </p>
+            <p class="mono text-[13px] leading-loose text-ink-4">
+              За двадцать лет я провела тысячи переговоров — от палаток до залов на четырнадцатом этаже бизнес-центра. И каждый раз убеждалась: лучшие сделки — те, где никто не давит. Где продавец слышит. Где клиент чувствует, что его не дёргают за рукав.
+            </p>
+            <p class="mono text-[13px] leading-loose text-ink-4">
+              Эта школа — про спокойствие. Про вопросы, которые задают вместо аргументов. Про молчание в нужный момент. Про честные «нет», которые приводят к настоящим «да».
+            </p>
+            <p class="serif text-2xl italic text-ink-4 pl-6 border-l border-ink-3">
+              «Если после звонка вам стыдно — вы делали что-то не то. Тут вы научитесь так, чтобы не было стыдно ни разу.»
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM ============================================================= -->
+  <section id="program" class="hairline-t hairline-b bg-ink-1 gap-section">
+    <div class="max-w-[1440px] mx-auto px-10 sm:px-16">
+      <div class="flex items-end justify-between mb-20">
+        <div>
+          <div class="micro mb-6">№ 03 — Program</div>
+          <h2 class="serif display-2 text-ink-5">
+            Пять модулей.<br/>
+            <span class="ital text-ink-4">Двадцать восемь</span> уроков.
+          </h2>
+        </div>
+        <div class="hidden sm:block max-w-[280px]">
+          <p class="mono text-[12px] leading-relaxed text-ink-4">
+            Программа собрана как маршрут. Каждый модуль закрывает один внутренний страх и одну внешнюю задачу.
+          </p>
+        </div>
+      </div>
+
+      <div class="hairline-t">
+        <!-- MODULE 01 -->
+        <article class="row hairline-b py-10 grid grid-cols-12 gap-8 cursor-pointer">
+          <div class="col-span-2 sm:col-span-1">
+            <span class="serif text-5xl text-ink-4">01</span>
+          </div>
+          <div class="col-span-10 sm:col-span-5">
+            <h3 class="serif text-4xl sm:text-5xl leading-tight text-ink-5">Тишина как инструмент</h3>
+            <p class="mono text-[12px] mt-4 text-ink-4">6 уроков · 1 ч 40 мин · практика на 7 дней</p>
+          </div>
+          <div class="hidden sm:block col-span-4">
+            <p class="mono text-[12px] leading-relaxed text-ink-4">
+              Учимся слушать клиента три минуты подряд, не вмешиваясь. Учимся не закрывать паузу первыми. Этого хватает, чтобы вернуть себе половину сделок.
+            </p>
+          </div>
+          <div class="col-span-12 sm:col-span-2 flex sm:justify-end items-end">
+            <span class="micro flex items-center gap-3">
+              Открыть <span class="arr">&rarr;</span>
+            </span>
+          </div>
+        </article>
+
+        <!-- MODULE 02 -->
+        <article class="row hairline-b py-10 grid grid-cols-12 gap-8 cursor-pointer">
+          <div class="col-span-2 sm:col-span-1">
+            <span class="serif text-5xl text-ink-4">02</span>
+          </div>
+          <div class="col-span-10 sm:col-span-5">
+            <h3 class="serif text-4xl sm:text-5xl leading-tight text-ink-5">Вопрос вместо аргумента</h3>
+            <p class="mono text-[12px] mt-4 text-ink-4">5 уроков · 1 ч 20 мин · практика на 10 дней</p>
+          </div>
+          <div class="hidden sm:block col-span-4">
+            <p class="mono text-[12px] leading-relaxed text-ink-4">
+              Сорок восемь вопросов, после которых клиент сам формулирует свою боль. Готовые цепочки для дорогих продуктов и для повторных продаж.
+            </p>
+          </div>
+          <div class="col-span-12 sm:col-span-2 flex sm:justify-end items-end">
+            <span class="micro flex items-center gap-3">
+              Открыть <span class="arr">&rarr;</span>
+            </span>
+          </div>
+        </article>
+
+        <!-- MODULE 03 -->
+        <article class="row hairline-b py-10 grid grid-cols-12 gap-8 cursor-pointer">
+          <div class="col-span-2 sm:col-span-1">
+            <span class="serif text-5xl text-ink-4">03</span>
+          </div>
+          <div class="col-span-10 sm:col-span-5">
+            <h3 class="serif text-4xl sm:text-5xl leading-tight text-ink-5">Цена без оправданий</h3>
+            <p class="mono text-[12px] mt-4 text-ink-4">6 уроков · 1 ч 55 мин · практика на 14 дней</p>
+          </div>
+          <div class="hidden sm:block col-span-4">
+            <p class="mono text-[12px] leading-relaxed text-ink-4">
+              Как назвать цену, не глотая её. Как держать паузу, когда клиент торгуется. Как поднимать прайс и не терять самых ценных.
+            </p>
+          </div>
+          <div class="col-span-12 sm:col-span-2 flex sm:justify-end items-end">
+            <span class="micro flex items-center gap-3">
+              Открыть <span class="arr">&rarr;</span>
+            </span>
+          </div>
+        </article>
+
+        <!-- MODULE 04 -->
+        <article class="row hairline-b py-10 grid grid-cols-12 gap-8 cursor-pointer">
+          <div class="col-span-2 sm:col-span-1">
+            <span class="serif text-5xl text-ink-4">04</span>
+          </div>
+          <div class="col-span-10 sm:col-span-5">
+            <h3 class="serif text-4xl sm:text-5xl leading-tight text-ink-5">Возражения как карта</h3>
+            <p class="mono text-[12px] mt-4 text-ink-4">6 уроков · 1 ч 50 мин · практика на 10 дней</p>
+          </div>
+          <div class="hidden sm:block col-span-4">
+            <p class="mono text-[12px] leading-relaxed text-ink-4">
+              Каждое «нет» — это указатель, а не стена. Разбираем шесть базовых возражений и учимся не спорить, а уточнять.
+            </p>
+          </div>
+          <div class="col-span-12 sm:col-span-2 flex sm:justify-end items-end">
+            <span class="micro flex items-center gap-3">
+              Открыть <span class="arr">&rarr;</span>
+            </span>
+          </div>
+        </article>
+
+        <!-- MODULE 05 -->
+        <article class="row py-10 grid grid-cols-12 gap-8 cursor-pointer">
+          <div class="col-span-2 sm:col-span-1">
+            <span class="serif text-5xl text-ink-4">05</span>
+          </div>
+          <div class="col-span-10 sm:col-span-5">
+            <h3 class="serif text-4xl sm:text-5xl leading-tight text-ink-5">Долгая игра</h3>
+            <p class="mono text-[12px] mt-4 text-ink-4">5 уроков · 1 ч 30 мин · практика на 21 день</p>
+          </div>
+          <div class="hidden sm:block col-span-4">
+            <p class="mono text-[12px] leading-relaxed text-ink-4">
+              Как строить отношения, в которых клиенты возвращаются годами. CRM как личный дневник, а не как отчётность.
+            </p>
+          </div>
+          <div class="col-span-12 sm:col-span-2 flex sm:justify-end items-end">
+            <span class="micro flex items-center gap-3">
+              Открыть <span class="arr">&rarr;</span>
+            </span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED VIDEO / CABINET PEEK ====================================== -->
+  <section class="gap-section">
+    <div class="max-w-[1440px] mx-auto px-10 sm:px-16">
+      <div class="grid grid-cols-12 gap-8 items-start">
+        <div class="col-span-12 sm:col-span-4">
+          <div class="micro mb-6">№ 04 — Cabinet</div>
+          <h3 class="serif display-3 text-ink-5">
+            Кабинет<br/><span class="ital text-ink-4">ученика.</span>
+          </h3>
+          <p class="mono text-[12px] leading-relaxed text-ink-4 mt-8 max-w-[300px]">
+            Личный кабинет без курсовых интерфейсов. Видео, заметки, прогресс — в одной тишине.
+          </p>
+          <div class="mt-10 flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <span class="micro">Прогресс</span>
+              <span class="mono text-[11px] text-ink-5">03 / 28</span>
+            </div>
+            <div class="h-px bg-ink-2 relative">
+              <div class="absolute left-0 top-0 h-px bg-ink-5" style="width: 10.7%"></div>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="micro">Текущий модуль</span>
+              <span class="mono text-[11px] text-ink-5">01 · Тишина</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Player frame -->
+        <div class="col-span-12 sm:col-span-8">
+          <div class="frame aspect-[16/9] relative flex items-center justify-center bg-ink-1 overflow-hidden">
+            <!-- corner crosshairs -->
+            <span class="absolute top-3 left-3 w-3 h-3 border-l border-t border-ink-3"></span>
+            <span class="absolute top-3 right-3 w-3 h-3 border-r border-t border-ink-3"></span>
+            <span class="absolute bottom-3 left-3 w-3 h-3 border-l border-b border-ink-3"></span>
+            <span class="absolute bottom-3 right-3 w-3 h-3 border-r border-b border-ink-3"></span>
+
+            <!-- center play -->
+            <svg width="80" height="80" viewBox="0 0 64 64" fill="none" class="text-ink-5">
+              <circle cx="32" cy="32" r="31" stroke="currentColor" stroke-opacity="0.6"/>
+              <path d="M26 22 L44 32 L26 42 Z" stroke="currentColor" stroke-opacity="0.85" stroke-width="1" fill="none"/>
+            </svg>
+
+            <!-- bottom HUD -->
+            <div class="absolute left-4 right-4 bottom-4 flex items-center gap-4">
+              <span class="micro">01.02 · Пауза, которую слышно</span>
+              <div class="flex-1 h-px bg-ink-3 relative">
+                <div class="absolute left-0 top-0 h-px bg-ink-5" style="width: 34%;"></div>
+              </div>
+              <span class="mono text-[11px] text-ink-4">04:12 / 12:18</span>
+            </div>
+          </div>
+
+          <div class="mt-6 grid grid-cols-3 gap-px bg-ink-2">
+            <div class="bg-ink-0 px-5 py-4">
+              <div class="micro mb-1">Урок</div>
+              <div class="serif text-xl">Пауза, которую слышно</div>
+            </div>
+            <div class="bg-ink-0 px-5 py-4">
+              <div class="micro mb-1">Модуль</div>
+              <div class="serif text-xl">01 · Тишина</div>
+            </div>
+            <div class="bg-ink-0 px-5 py-4 flex items-center justify-between">
+              <div>
+                <div class="micro mb-1">Статус</div>
+                <div class="serif text-xl">В работе</div>
+              </div>
+              <a href="#" class="ghost py-3 px-4 text-[10px]">
+                <span>Отметить</span>
+                <span class="arr">&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PALETTE PROOF ======================================================== -->
+  <section class="hairline-t hairline-b">
+    <div class="max-w-[1440px] mx-auto px-10 sm:px-16 py-16">
+      <div class="flex items-end justify-between mb-8">
+        <span class="micro">№ 05 — Tonal Range</span>
+        <span class="micro">Four grays · one ink · one paper</span>
+      </div>
+      <div class="grid grid-cols-6 gap-px bg-ink-2">
+        <div class="bg-ink-0">
+          <div class="swatch" style="background:#08090a"></div>
+          <div class="px-3 py-3 micro">#08090a</div>
+        </div>
+        <div class="bg-ink-0">
+          <div class="swatch" style="background:#121214"></div>
+          <div class="px-3 py-3 micro">#121214</div>
+        </div>
+        <div class="bg-ink-0">
+          <div class="swatch" style="background:#1c1c1f"></div>
+          <div class="px-3 py-3 micro">#1c1c1f</div>
+        </div>
+        <div class="bg-ink-0">
+          <div class="swatch" style="background:#34343a"></div>
+          <div class="px-3 py-3 micro">#34343a</div>
+        </div>
+        <div class="bg-ink-0">
+          <div class="swatch" style="background:#8a8f98"></div>
+          <div class="px-3 py-3 micro">#8a8f98</div>
+        </div>
+        <div class="bg-ink-0">
+          <div class="swatch" style="background:#f7f8f8"></div>
+          <div class="px-3 py-3 micro text-ink-4">#f7f8f8</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / CLOSING ======================================================= -->
+  <section class="gap-section">
+    <div class="max-w-[1440px] mx-auto px-10 sm:px-16">
+      <div class="grid grid-cols-12 gap-8 items-end">
+        <div class="col-span-12 sm:col-span-8">
+          <div class="micro mb-6">№ 06 — Closing</div>
+          <h2 class="serif display-2 text-ink-5">
+            Если вы дочитали —<br/>
+            <span class="ital text-ink-4">вам</span> сюда.
+          </h2>
+        </div>
+        <div class="col-span-12 sm:col-span-4 flex flex-col gap-6">
+          <p class="mono text-[12px] leading-relaxed text-ink-4">
+            Следующий поток — пять мест. Записаться можно через короткое письмо: расскажите, что продаёте и где сейчас застряли.
+          </p>
+          <a href="#" class="ghost self-start">
+            <span>Написать Елене</span>
+            <span class="arr">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER ============================================================== -->
+  <footer class="hairline-t">
+    <div class="max-w-[1440px] mx-auto px-10 sm:px-16 py-14 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div>
+        <div class="serif text-2xl">Sokolova / Atelier</div>
+        <div class="micro mt-2">© 2026 · Школа продаж без впаривания</div>
+      </div>
+      <div class="flex items-center gap-10 micro">
+        <a href="#" class="qlink">Telegram</a>
+        <a href="#" class="qlink">Почта</a>
+        <a href="#" class="qlink">Договор оферты</a>
+        <a href="#" class="qlink">Политика данных</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

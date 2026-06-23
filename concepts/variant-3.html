@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Елена Соколова — Продажи без впаривания</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,700&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --linen:#f2edde;
+    --paper:#fdfaf3;
+    --ink:#191919;
+    --oxblood:#472425;
+    --ochre:#af6446;
+    --stone:#8a7e6b;
+  }
+  *{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+  html,body{ background:var(--paper); color:var(--ink); font-family:'Inter Tight', system-ui, sans-serif; font-weight:400; }
+  .ff-display{ font-family:'Fraunces', Georgia, serif; font-optical-sizing:auto; }
+  .ff-body{ font-family:'Inter Tight', system-ui, sans-serif; }
+  .label{
+    font-family:'Inter Tight', system-ui, sans-serif;
+    font-size:11px; font-weight:500;
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    color:var(--stone);
+  }
+  .poster-h1{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-style:italic;
+    font-size: clamp(72px, 14.5vw, 200px);
+    line-height: 0.78;
+    letter-spacing: -0.05em;
+    color:var(--ink);
+  }
+  .manifesto-h2{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-style:italic;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+  }
+  .section-h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-style:italic;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 0.96;
+    letter-spacing: -0.025em;
+  }
+  .lede{
+    font-family:'Inter Tight', sans-serif;
+    font-size: clamp(18px, 1.4vw, 21px);
+    line-height: 1.55;
+    color:var(--ink);
+    font-weight:400;
+  }
+  .body-sm{ font-size:15px; line-height:1.6; color:var(--ink); }
+  .stone{ color:var(--stone); }
+  .ink{ color:var(--ink); }
+  .ochre{ color:var(--ochre); }
+  .oxblood{ color:var(--oxblood); }
+  .bg-linen{ background:var(--linen); }
+  .bg-paper{ background:var(--paper); }
+  .bg-ochre{ background:var(--ochre); }
+  .bg-ink{ background:var(--ink); }
+
+  /* hairlines */
+  .hl-top{ border-top:1px solid rgba(25,25,25,0.18); }
+  .hl-bot{ border-bottom:1px solid rgba(25,25,25,0.18); }
+  .hl-l{ border-left:1px solid rgba(25,25,25,0.18); }
+  .hl-r{ border-right:1px solid rgba(25,25,25,0.18); }
+  .hl-stone-r{ border-right:1px solid rgba(138,126,107,0.55); }
+  .hl-dashed{ border-top:1px dashed rgba(25,25,25,0.35); }
+
+  /* link motion */
+  .lnk{ position:relative; display:inline-block; transition: opacity .35s ease; }
+  .lnk::after{
+    content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px;
+    background: currentColor; transform: scaleX(1); transform-origin: right;
+    transition: transform .5s cubic-bezier(.2,.7,.2,1);
+  }
+  .lnk:hover::after{ transform: scaleX(0); transform-origin: left; }
+  .lnk:hover{ opacity:.7; }
+
+  .arrow-lnk{ transition: transform .4s cubic-bezier(.2,.7,.2,1); display:inline-block; }
+  .group-lnk:hover .arrow-lnk{ transform: translate(6px,-2px); }
+
+  /* portrait inset */
+  .portrait-frame{
+    position:relative;
+    overflow:hidden;
+    background:var(--linen);
+    filter: contrast(0.98) saturate(0.92);
+  }
+  .portrait-frame img{
+    width:100%; height:100%; object-fit:cover;
+    transition: transform 1.6s cubic-bezier(.2,.7,.2,1);
+  }
+  .portrait-frame:hover img{ transform: scale(1.04); }
+
+  /* grain */
+  .grain::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background-image: radial-gradient(rgba(25,25,25,0.18) 1px, transparent 1px);
+    background-size: 3px 3px;
+    opacity:0.04;
+    mix-blend-mode: multiply;
+  }
+
+  /* side numbers */
+  .side-num{
+    font-family:'Inter Tight', sans-serif;
+    font-size:11px; font-weight:500;
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    color:var(--stone);
+  }
+
+  /* utility */
+  .max-shell{ max-width: 1480px; margin-inline:auto; padding-inline: clamp(20px, 4vw, 56px); }
+
+  /* Poster H1 echo */
+  .echo{
+    font-family:'Fraunces', serif;
+    font-weight:400; font-style:italic;
+    color:var(--stone);
+    font-size: clamp(13px, 0.95vw, 15px);
+    line-height: 1.45;
+  }
+
+  /* Module entries */
+  .module-row{
+    display:grid; grid-template-columns: 80px 1fr 1fr 56px; gap: 32px; align-items:start;
+    padding: 44px 0;
+    transition: background .4s ease;
+  }
+  .module-row:hover{ background: rgba(175,100,70,0.04); }
+  .module-row:hover .plus{ transform: rotate(90deg); color:var(--ochre); }
+  .plus{
+    transition: transform .5s cubic-bezier(.2,.7,.2,1), color .3s ease;
+    color: var(--ink);
+    display:inline-block;
+  }
+
+  /* Tariffs */
+  .tariff-col{
+    padding: 48px 36px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    min-height: 520px;
+  }
+  .tariff-col:not(:last-child){ border-right:1px solid rgba(138,126,107,0.55); }
+
+  /* Marquee for footer */
+  @keyframes marq { from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  .marq{ animation: marq 60s linear infinite; white-space:nowrap; }
+
+  /* Nav */
+  .nav-link{
+    position:relative; padding-bottom:2px;
+  }
+  .nav-link::after{
+    content:""; position:absolute; left:0; right:0; bottom:-3px; height:1px;
+    background: currentColor; transform: scaleX(0); transform-origin: left;
+    transition: transform .45s cubic-bezier(.2,.7,.2,1);
+  }
+  .nav-link:hover::after{ transform: scaleX(1); }
+
+  /* CTA bare */
+  .cta-bare{
+    display:inline-flex; align-items:baseline; gap:12px;
+    font-family:'Fraunces', serif; font-style:italic; font-weight:500;
+    font-size: 20px; color:var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 4px;
+    transition: gap .4s cubic-bezier(.2,.7,.2,1), color .3s ease, border-color .3s ease;
+  }
+  .cta-bare:hover{ gap: 20px; color:var(--oxblood); border-color:var(--oxblood); }
+
+  /* Vertical text */
+  .vtxt{
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    font-family:'Inter Tight', sans-serif;
+    font-size:11px; font-weight:500;
+    letter-spacing:0.24em; text-transform:uppercase;
+    color: var(--stone);
+  }
+
+  /* Quote mark */
+  .qmark{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:700;
+    color: var(--ochre);
+    font-size: 160px; line-height: 0.6;
+  }
+
+  @media (max-width: 768px){
+    .module-row{ grid-template-columns: 48px 1fr 32px; gap:16px; padding:28px 0; }
+    .module-row .module-desc{ display:none; }
+    .tariff-col:not(:last-child){ border-right:none; border-bottom:1px solid rgba(138,126,107,0.55); }
+    .tariff-col{ min-height: auto; padding: 32px 0; }
+    .vtxt{ display:none; }
+  }
+</style>
+</head>
+<body class="bg-paper ink">
+
+<!-- ============================================================
+     TOP RAIL
+============================================================ -->
+<header class="hl-bot">
+  <div class="max-shell flex items-center justify-between py-5">
+    <div class="flex items-baseline gap-4">
+      <span class="ff-display italic text-[22px] leading-none">Соколова</span>
+      <span class="label">— Институт честных продаж, с 2005</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 label">
+      <a class="nav-link" href="#manifesto">Манифест</a>
+      <a class="nav-link" href="#program">Программа</a>
+      <a class="nav-link" href="#cases">Кейсы</a>
+      <a class="nav-link" href="#tariffs">Участие</a>
+      <a class="nav-link" href="#faq">Вопросы</a>
+    </nav>
+    <a href="#tariffs" class="hidden md:inline-flex items-center gap-2 label ink">
+      Записаться
+      <svg class="arrow-lnk" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 19L19 5M9 5h10v10"/></svg>
+    </a>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO — POSTER
+============================================================ -->
+<section class="relative grain overflow-hidden">
+  <div class="max-shell pt-10 md:pt-16 pb-20 md:pb-28">
+
+    <!-- top metadata strip -->
+    <div class="grid grid-cols-12 gap-6 mb-12 md:mb-16">
+      <div class="col-span-6 md:col-span-3">
+        <div class="label mb-2">Курс № IV</div>
+        <div class="body-sm stone">Поток открывается 14 января 2026.<br/>Шесть недель практики.</div>
+      </div>
+      <div class="col-span-6 md:col-span-3 md:col-start-10 md:text-right">
+        <div class="label mb-2">Для кого</div>
+        <div class="body-sm stone">Эксперты, основатели, руководители<br/>отделов продаж. Без сценариев и скриптов.</div>
+      </div>
+    </div>
+
+    <!-- POSTER H1 with inset portrait -->
+    <div class="relative">
+
+      <!-- Row 1 -->
+      <h1 class="poster-h1 ff-display">
+        Продажи<span class="not-italic" style="font-style:italic;">,</span>
+      </h1>
+
+      <!-- portrait + middle word -->
+      <div class="grid grid-cols-12 gap-6 items-center my-2 md:my-4">
+        <!-- portrait inset -->
+        <div class="col-span-5 md:col-span-3 md:col-start-2">
+          <div class="portrait-frame aspect-[4/5]">
+            <img alt="Портрет Елены Соколовой" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80"/>
+          </div>
+          <div class="label mt-3">Елена Соколова — С.-Петербург, ателье № 6</div>
+        </div>
+        <div class="col-span-7 md:col-span-8">
+          <h1 class="poster-h1 ff-display text-right md:text-left">
+            которые
+          </h1>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <h1 class="poster-h1 ff-display">
+        не предают
+      </h1>
+
+      <!-- Row 4 + echo -->
+      <div class="grid grid-cols-12 gap-6 items-end mt-2 md:mt-3">
+        <div class="col-span-12 md:col-span-7">
+          <h1 class="poster-h1 ff-display oxblood">человека<span class="ink not-italic" style="font-style:italic;">.</span></h1>
+        </div>
+        <div class="col-span-12 md:col-span-4 md:col-start-9 mt-6 md:mt-0">
+          <div class="echo">
+            «Я двадцать лет учусь одной простой вещи —<br/>
+            доходить до сделки так, чтобы вторая встреча была желанной.<br/>
+            Этот курс — мой ответ всем, кто устал от скриптов.»
+          </div>
+          <div class="label mt-3 ink">— Е.С.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- bottom rail -->
+    <div class="hl-top mt-16 md:mt-24 pt-8 grid grid-cols-12 gap-6 items-end">
+      <div class="col-span-12 md:col-span-5">
+        <p class="lede max-w-xl">
+          Шестинедельная программа для тех, кто продаёт собственным голосом —
+          без давления, без манипуляций и без чувства, что после звонка
+          нужно вымыть руки.
+        </p>
+      </div>
+      <div class="col-span-6 md:col-span-3 md:col-start-7">
+        <div class="label mb-2">Формат</div>
+        <div class="body-sm">6 недель · 28 уроков · 4 живые сессии · разбор ваших звонков</div>
+      </div>
+      <div class="col-span-6 md:col-span-3 text-right">
+        <a href="#tariffs" class="cta-bare group-lnk">
+          Прочитать условия
+          <span class="arrow-lnk">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MANIFESTO — single ochre full-bleed
+============================================================ -->
+<section id="manifesto" class="bg-ochre relative grain">
+  <div class="max-shell py-28 md:py-40 relative">
+    <div class="absolute left-4 md:left-8 top-8 vtxt" style="color:rgba(25,25,25,0.55);">
+      I. Манифест — о честности как ремесле
+    </div>
+
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 md:col-span-2">
+        <div class="label ink">§ 01</div>
+      </div>
+      <div class="col-span-12 md:col-span-9">
+        <p class="manifesto-h2 ink">
+          Впаривание — это<br/>
+          неуверенность,<br/>
+          переодетая<br/>
+          в напор.
+        </p>
+
+        <div class="hl-dashed mt-16 mb-10" style="border-color:rgba(25,25,25,0.45);"></div>
+
+        <div class="grid grid-cols-12 gap-6">
+          <div class="col-span-12 md:col-span-5">
+            <p class="lede ink">
+              Я не верю в продажи, которые держатся на закрытых вопросах,
+              ложной срочности и фразах из методичек девяностых.
+              Покупатель сегодня умнее этой техники — и помнит того,
+              кто к нему пришёл с уважением.
+            </p>
+          </div>
+          <div class="col-span-12 md:col-span-5 md:col-start-8">
+            <p class="lede ink">
+              Этот курс — про другое. Про продажу как разговор взрослых людей,
+              где у каждой стороны есть право сказать «нет» и сохранить лицо.
+              Про деньги, которые приходят не от давления, а от доверия.
+            </p>
+            <a href="#program" class="cta-bare mt-10 group-lnk" style="color:#191919; border-color:#191919;">
+              Перейти к программе
+              <span class="arrow-lnk">↓</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT — Lena
+============================================================ -->
+<section id="about" class="bg-paper hl-bot">
+  <div class="max-shell py-28 md:py-40">
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 md:col-span-2">
+        <div class="side-num">II. — Об авторе</div>
+      </div>
+
+      <div class="col-span-12 md:col-span-5">
+        <div class="portrait-frame aspect-[4/5] max-w-md">
+          <img alt="Елена за работой" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80"/>
+        </div>
+        <div class="label mt-4">Архив, 2024. Фотограф — Анна Решетова</div>
+      </div>
+
+      <div class="col-span-12 md:col-span-5">
+        <h2 class="section-h3 mb-10">
+          Двадцать лет — это <span class="oxblood">не</span> о возрасте.
+          Это о количестве сделок, которые я разобрала по косточкам.
+        </h2>
+
+        <p class="lede stone mb-6">
+          Начинала с салона мобильной связи, где первая премия была за то,
+          что клиенты возвращались, а не за то, что я успела продать в первый звонок.
+        </p>
+        <p class="lede stone mb-6">
+          Работала на стороне больших телеком-операторов, ювелирных домов,
+          консалтинговых бутиков. Видела продажи изнутри — и видела,
+          как одна и та же воронка может приносить деньги или ломать репутацию.
+        </p>
+        <p class="lede stone mb-10">
+          Этот курс я собирала шесть лет: из писем, расшифровок звонков,
+          ошибок моих учеников и моих собственных. Здесь нет ни одного приёма,
+          который я не проверила на себе.
+        </p>
+
+        <div class="hl-top pt-8 grid grid-cols-2 gap-6">
+          <div>
+            <div class="ff-display italic text-5xl leading-none oxblood">412</div>
+            <div class="label mt-3">учеников с 2019</div>
+          </div>
+          <div>
+            <div class="ff-display italic text-5xl leading-none oxblood">94<span class="text-2xl">%</span></div>
+            <div class="label mt-3">доходят до конца программы</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROGRAM — numbered modules
+============================================================ -->
+<section id="program" class="bg-paper hl-bot">
+  <div class="max-shell py-28 md:py-40">
+
+    <!-- header -->
+    <div class="grid grid-cols-12 gap-6 mb-20 md:mb-28">
+      <div class="col-span-12 md:col-span-2">
+        <div class="side-num">III. — Программа</div>
+      </div>
+      <div class="col-span-12 md:col-span-7">
+        <h2 class="section-h3">
+          Пять модулей. <span class="oxblood italic">Двадцать восемь</span> уроков.<br/>
+          Один разговор о том, как продают взрослые.
+        </h2>
+      </div>
+      <div class="col-span-12 md:col-span-3 md:text-right">
+        <div class="label mb-2">Длительность</div>
+        <div class="body-sm">6 недель самостоятельно<br/>+ 4 живые сессии по средам</div>
+      </div>
+    </div>
+
+    <!-- module 01 -->
+    <article class="module-row hl-top group cursor-pointer">
+      <div class="ff-display italic text-4xl md:text-5xl stone leading-none">01</div>
+      <div>
+        <div class="label mb-3">Модуль первый — пять уроков</div>
+        <h3 class="ff-display italic text-3xl md:text-4xl leading-tight">
+          Самоощущение продавца.<br/>
+          <span class="oxblood">Почему</span> вы стесняетесь брать деньги.
+        </h3>
+      </div>
+      <div class="module-desc">
+        <p class="body-sm stone mb-3">
+          Разбираем внутренние установки, которые превращают вас в просящего.
+          Учимся слышать собственную цену и не оправдываться за неё.
+        </p>
+        <p class="label">5 уроков · 1 практика · 1 разбор</p>
+      </div>
+      <div class="text-right ff-display italic text-3xl plus">+</div>
+    </article>
+
+    <!-- module 02 -->
+    <article class="module-row hl-top group cursor-pointer">
+      <div class="ff-display italic text-4xl md:text-5xl stone leading-none">02</div>
+      <div>
+        <div class="label mb-3">Модуль второй — шесть уроков</div>
+        <h3 class="ff-display italic text-3xl md:text-4xl leading-tight">
+          Разговор, в котором<br/>
+          <span class="oxblood">слышно</span> клиента.
+        </h3>
+      </div>
+      <div class="module-desc">
+        <p class="body-sm stone mb-3">
+          Глубинное интервью, мягкая квалификация, работа с молчанием.
+          Учимся задавать тот самый вопрос, после которого клиент рассказывает сам.
+        </p>
+        <p class="label">6 уроков · 2 практики · разбор ваших звонков</p>
+      </div>
+      <div class="text-right ff-display italic text-3xl plus">+</div>
+    </article>
+
+    <!-- module 03 -->
+    <article class="module-row hl-top group cursor-pointer">
+      <div class="ff-display italic text-4xl md:text-5xl stone leading-none">03</div>
+      <div>
+        <div class="label mb-3">Модуль третий — шесть уроков</div>
+        <h3 class="ff-display italic text-3xl md:text-4xl leading-tight">
+          Презентация без хвастовства.<br/>
+          <span class="oxblood">Цена</span> как факт, не извинение.
+        </h3>
+      </div>
+      <div class="module-desc">
+        <p class="body-sm stone mb-3">
+          Структура предложения, в которой нет лишних слов. Как называть стоимость
+          интонацией, после которой не задают вопрос «а скидку можно?».
+        </p>
+        <p class="label">6 уроков · 1 шаблон-каркас · 1 разбор</p>
+      </div>
+      <div class="text-right ff-display italic text-3xl plus">+</div>
+    </article>
+
+    <!-- module 04 -->
+    <article class="module-row hl-top group cursor-pointer">
+      <div class="ff-display italic text-4xl md:text-5xl stone leading-none">04</div>
+      <div>
+        <div class="label mb-3">Модуль четвёртый — шесть уроков</div>
+        <h3 class="ff-display italic text-3xl md:text-4xl leading-tight">
+          Возражения<br/>
+          <span class="oxblood">как</span> приглашение к разговору.
+        </h3>
+      </div>
+      <div class="module-desc">
+        <p class="body-sm stone mb-3">
+          «Дорого», «я подумаю», «нужно посоветоваться с супругом». Что за каждой
+          из этих фраз — и как остаться внутри диалога, а не уйти в защиту.
+        </p>
+        <p class="label">6 уроков · карта 12 возражений · 1 разбор</p>
+      </div>
+      <div class="text-right ff-display italic text-3xl plus">+</div>
+    </article>
+
+    <!-- module 05 -->
+    <article class="module-row hl-top hl-bot group cursor-pointer">
+      <div class="ff-display italic text-4xl md:text-5xl stone leading-none">05</div>
+      <div>
+        <div class="label mb-3">Модуль пятый — пять уроков</div>
+        <h3 class="ff-display italic text-3xl md:text-4xl leading-tight">
+          Закрытие<br/>
+          <span class="oxblood">и</span> вторая встреча.
+        </h3>
+      </div>
+      <div class="module-desc">
+        <p class="body-sm stone mb-3">
+          Финал сделки без давления. Договор как продолжение разговора.
+          Как делать повторные продажи, не превращая клиента в актив.
+        </p>
+        <p class="label">5 уроков · 1 чек-лист закрытия · 1 разбор</p>
+      </div>
+      <div class="text-right ff-display italic text-3xl plus">+</div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     CASES — three short stories
+============================================================ -->
+<section id="cases" class="bg-linen hl-bot">
+  <div class="max-shell py-28 md:py-40">
+    <div class="grid grid-cols-12 gap-6 mb-20">
+      <div class="col-span-12 md:col-span-2">
+        <div class="side-num">IV. — Три истории</div>
+      </div>
+      <div class="col-span-12 md:col-span-8">
+        <h2 class="section-h3">
+          Я не люблю слово «<span class="oxblood">кейс</span>».<br/>
+          Поэтому расскажу три коротких истории — без логотипов и цифр в шапке.
+        </h2>
+      </div>
+    </div>
+
+    <!-- case 1 -->
+    <div class="grid grid-cols-12 gap-6 hl-top py-12">
+      <div class="col-span-12 md:col-span-2">
+        <div class="ff-display italic text-3xl stone">i.</div>
+        <div class="label mt-3">Теле-2, 2014</div>
+      </div>
+      <div class="col-span-12 md:col-span-5">
+        <h3 class="ff-display italic text-3xl leading-tight">
+          Отдел продаж, который<br/>
+          перестал звонить после 19:00.
+        </h3>
+      </div>
+      <div class="col-span-12 md:col-span-5">
+        <p class="body-sm mb-3">
+          Мы сократили рабочий день колл-центра на полтора часа — и за квартал
+          подняли средний чек на 22%. Не за счёт скриптов, а за счёт одной фразы,
+          с которой начинался каждый разговор.
+        </p>
+        <p class="label">Фраза в материалах модуля II.</p>
+      </div>
+    </div>
+
+    <!-- case 2 -->
+    <div class="grid grid-cols-12 gap-6 hl-top py-12">
+      <div class="col-span-12 md:col-span-2">
+        <div class="ff-display italic text-3xl stone">ii.</div>
+        <div class="label mt-3">Ювелирный дом, 2019</div>
+      </div>
+      <div class="col-span-12 md:col-span-5">
+        <h3 class="ff-display italic text-3xl leading-tight">
+          Колье за 1,8 млн, проданное<br/>
+          в чате, без единой скидки.
+        </h3>
+      </div>
+      <div class="col-span-12 md:col-span-5">
+        <p class="body-sm mb-3">
+          Клиент написал в три часа ночи. Я ответила в восемь утра — одним абзацем.
+          Сделка закрылась через четыре дня и одно фото — без переговоров о цене.
+          Этот абзац мы разберём по словам в модуле III.
+        </p>
+        <p class="label">Контекст и расшифровка — в материалах курса.</p>
+      </div>
+    </div>
+
+    <!-- case 3 -->
+    <div class="grid grid-cols-12 gap-6 hl-top hl-bot py-12">
+      <div class="col-span-12 md:col-span-2">
+        <div class="ff-display italic text-3xl stone">iii.</div>
+        <div class="label mt-3">Бизнес-завтрак, 14-й этаж</div>
+      </div>
+      <div class="col-span-12 md:col-span-5">
+        <h3 class="ff-display italic text-3xl leading-tight">
+          Сделка на консалтинг —<br/>
+          между кофе и яичницей.
+        </h3>
+      </div>
+      <div class="col-span-12 md:col-span-5">
+        <p class="body-sm mb-3">
+          Я не продавала. Я слушала, как партнёр рассказывает о своей команде,
+          и задала один уточняющий вопрос. К десерту мы уже договаривались о датах.
+          Это не магия — это четвёртый урок второго модуля.
+        </p>
+        <p class="label">Без логотипа по просьбе клиента.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TARIFFS — text-only stacked, hairline verticals
+============================================================ -->
+<section id="tariffs" class="bg-paper hl-bot">
+  <div class="max-shell py-28 md:py-40">
+
+    <div class="grid grid-cols-12 gap-6 mb-20">
+      <div class="col-span-12 md:col-span-2">
+        <div class="side-num">V. — Участие</div>
+      </div>
+      <div class="col-span-12 md:col-span-7">
+        <h2 class="section-h3">
+          Три формата.<br/>
+          <span class="oxblood italic">Один курс</span> внутри.
+        </h2>
+      </div>
+      <div class="col-span-12 md:col-span-3 md:text-right">
+        <div class="label mb-2">Цены — рубли</div>
+        <div class="body-sm stone">Оплата картой или счётом для ИП/ООО.<br/>Рассрочка — по согласованию.</div>
+      </div>
+    </div>
+
+    <!-- tariff grid -->
+    <div class="hl-top hl-bot">
+      <div class="grid md:grid-cols-3">
+
+        <!-- Базовый -->
+        <div class="tariff-col">
+          <div>
+            <div class="label mb-6">Формат — Базовый</div>
+            <h3 class="ff-display italic text-4xl mb-4">Курс<br/>самостоятельно.</h3>
+            <p class="body-sm stone mb-8">
+              Полный доступ к 28 урокам и материалам.<br/>
+              Темп — ваш. Без живых сессий и разборов.
+            </p>
+            <ul class="space-y-3 body-sm">
+              <li class="hl-top pt-3">— 28 видео-уроков</li>
+              <li class="hl-top pt-3">— Рабочая тетрадь PDF</li>
+              <li class="hl-top pt-3">— Карта возражений</li>
+              <li class="hl-top pt-3">— Доступ 12 месяцев</li>
+            </ul>
+          </div>
+          <div class="mt-10">
+            <div class="ff-display italic text-5xl">14 990</div>
+            <a href="#" class="cta-bare mt-6 group-lnk">
+              Записаться на базовый
+              <span class="arrow-lnk">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Интенсив+ -->
+        <div class="tariff-col">
+          <div>
+            <div class="label mb-6 oxblood">Формат — Интенсив + <span class="ink">·</span> рекомендован</div>
+            <h3 class="ff-display italic text-4xl mb-4">С группой<br/>и обратной связью.</h3>
+            <p class="body-sm stone mb-8">
+              Шесть недель в потоке. Живые сессии,<br/>
+              разбор ваших звонков, доступ к чату.
+            </p>
+            <ul class="space-y-3 body-sm">
+              <li class="hl-top pt-3">— Всё из «Базового»</li>
+              <li class="hl-top pt-3">— 4 живые сессии (Zoom)</li>
+              <li class="hl-top pt-3">— Разбор 2 ваших звонков</li>
+              <li class="hl-top pt-3">— Закрытый чат потока</li>
+              <li class="hl-top pt-3">— Сертификат об окончании</li>
+            </ul>
+          </div>
+          <div class="mt-10">
+            <div class="ff-display italic text-5xl oxblood">24 990</div>
+            <a href="#" class="cta-bare mt-6 group-lnk" style="color:#af6446; border-color:#af6446;">
+              Записаться в поток
+              <span class="arrow-lnk">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- VIP -->
+        <div class="tariff-col">
+          <div>
+            <div class="label mb-6">Формат — VIP, личная работа</div>
+            <h3 class="ff-display italic text-4xl mb-4">Со мной,<br/>один на один.</h3>
+            <p class="body-sm stone mb-8">
+              Восемь встреч tet-a-tet. Я разбираю<br/>
+              вашу воронку и веду до первой сделки.
+            </p>
+            <ul class="space-y-3 body-sm">
+              <li class="hl-top pt-3">— Всё из «Интенсива+»</li>
+              <li class="hl-top pt-3">— 8 личных встреч по 60 минут</li>
+              <li class="hl-top pt-3">— Разбор всей вашей воронки</li>
+              <li class="hl-top pt-3">— Доступ ко мне в Telegram</li>
+              <li class="hl-top pt-3">— Сопровождение до сделки</li>
+            </ul>
+          </div>
+          <div class="mt-10">
+            <div class="label mb-1">от</div>
+            <div class="ff-display italic text-5xl">90 000</div>
+            <a href="#" class="cta-bare mt-6 group-lnk">
+              Запросить интервью
+              <span class="arrow-lnk">→</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <p class="label mt-10 stone">
+      Все три формата дают одинаковый доступ к материалам. Различия — только в глубине обратной связи.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     PULL QUOTE
+============================================================ -->
+<section class="bg-linen hl-bot">
+  <div class="max-shell py-28 md:py-40">
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 md:col-span-2">
+        <div class="qmark">“</div>
+      </div>
+      <div class="col-span-12 md:col-span-9">
+        <p class="manifesto-h2 ink">
+          Хороший продавец после разговора<br/>
+          оставляет человеку <span class="oxblood">тишину</span>,<br/>
+          а не желание закрыть вкладку.
+        </p>
+        <div class="hl-top mt-12 pt-6 flex justify-between items-baseline">
+          <div class="label">— Елена Соколова, заметки 2023</div>
+          <div class="label">XVII</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+============================================================ -->
+<section id="faq" class="bg-paper hl-bot">
+  <div class="max-shell py-28 md:py-40">
+    <div class="grid grid-cols-12 gap-6 mb-20">
+      <div class="col-span-12 md:col-span-2">
+        <div class="side-num">VI. — Вопросы</div>
+      </div>
+      <div class="col-span-12 md:col-span-7">
+        <h2 class="section-h3">
+          Пять вопросов,<br/>
+          которые мне <span class="oxblood">задают</span> чаще всего.
+        </h2>
+      </div>
+    </div>
+
+    <div class="hl-top">
+      <details class="group hl-bot py-8 cursor-pointer">
+        <summary class="flex justify-between items-baseline list-none">
+          <div>
+            <div class="label mb-2">№ 01</div>
+            <h4 class="ff-display italic text-2xl md:text-3xl">Подойдёт ли курс, если у меня нет отдела продаж и я продаю сам?</h4>
+          </div>
+          <span class="ff-display italic text-3xl plus">+</span>
+        </summary>
+        <p class="lede stone mt-6 max-w-3xl">
+          Курс изначально собирался для экспертов и основателей, которые продают сами.
+          У вас не появится отдел и скрипты — но появится язык, на котором сделка
+          закрывается без чувства, что вы кого-то уговорили.
+        </p>
+      </details>
+
+      <details class="group hl-bot py-8 cursor-pointer">
+        <summary class="flex justify-between items-baseline list-none">
+          <div>
+            <div class="label mb-2">№ 02</div>
+            <h4 class="ff-display italic text-2xl md:text-3xl">Сколько времени нужно закладывать в неделю?</h4>
+          </div>
+          <span class="ff-display italic text-3xl plus">+</span>
+        </summary>
+        <p class="lede stone mt-6 max-w-3xl">
+          Три-четыре часа на материалы и одна живая сессия по средам — для тарифа
+          «Интенсив+». Если идёте в «Базовом» темпе, то столько, сколько комфортно.
+        </p>
+      </details>
+
+      <details class="group hl-bot py-8 cursor-pointer">
+        <summary class="flex justify-between items-baseline list-none">
+          <div>
+            <div class="label mb-2">№ 03</div>
+            <h4 class="ff-display italic text-2xl md:text-3xl">Можно ли оплатить от ИП или ООО?</h4>
+          </div>
+          <span class="ff-display italic text-3xl plus">+</span>
+        </summary>
+        <p class="lede stone mt-6 max-w-3xl">
+          Да, я выставлю счёт и пришлю акт. Для юридических лиц также возможна
+          рассрочка двумя платежами — об этом мы договариваемся отдельно.
+        </p>
+      </details>
+
+      <details class="group hl-bot py-8 cursor-pointer">
+        <summary class="flex justify-between items-baseline list-none">
+          <div>
+            <div class="label mb-2">№ 04</div>
+            <h4 class="ff-display italic text-2xl md:text-3xl">Что если я не пройду курс до конца?</h4>
+          </div>
+          <span class="ff-display italic text-3xl plus">+</span>
+        </summary>
+        <p class="lede stone mt-6 max-w-3xl">
+          Доступ к материалам остаётся на 12 месяцев — вы возвращаетесь к ним,
+          когда у вас будет свободное окно. Из живых сессий вы получите записи.
+        </p>
+      </details>
+
+      <details class="group hl-bot py-8 cursor-pointer">
+        <summary class="flex justify-between items-baseline list-none">
+          <div>
+            <div class="label mb-2">№ 05</div>
+            <h4 class="ff-display italic text-2xl md:text-3xl">Чем VIP отличается от «Интенсива+»?</h4>
+          </div>
+          <span class="ff-display italic text-3xl plus">+</span>
+        </summary>
+        <p class="lede stone mt-6 max-w-3xl">
+          В VIP-формате мы работаем один на один. Я смотрю вашу воронку, слушаю
+          ваши звонки и веду вас до первой сделки в новом для вас формате.
+          Это не курс, это сопровождение — и я беру не более четырёх таких клиентов в квартал.
+        </p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CLOSING CTA — bare typography
+============================================================ -->
+<section class="bg-paper hl-bot">
+  <div class="max-shell py-28 md:py-40">
+    <div class="grid grid-cols-12 gap-6 items-end">
+      <div class="col-span-12 md:col-span-8">
+        <div class="label mb-6">VII. — Следующий поток</div>
+        <h2 class="poster-h1 ff-display" style="font-size: clamp(56px, 9vw, 140px);">
+          Записаться<br/>
+          <span class="oxblood">до</span> 14 января.
+        </h2>
+      </div>
+      <div class="col-span-12 md:col-span-4">
+        <p class="lede mb-8">
+          Если вы дочитали до этой строки — у вас уже есть тот самый вопрос,
+          ради которого стоит прийти. Напишите мне коротко, я отвечу лично.
+        </p>
+        <a href="#" class="cta-bare group-lnk">
+          Написать Елене лично
+          <span class="arrow-lnk">→</span>
+        </a>
+        <div class="label mt-6 stone">Ответ — в течение 24 часов, кроме воскресенья.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER — linen
+============================================================ -->
+<footer class="bg-linen relative grain">
+  <div class="overflow-hidden hl-bot">
+    <div class="marq ff-display italic text-[clamp(48px,9vw,140px)] leading-none py-6 ink whitespace-nowrap">
+      Продажи без впаривания · Соколова · поток IV · Продажи без впаривания · Соколова · поток IV ·&nbsp;
+      Продажи без впаривания · Соколова · поток IV · Продажи без впаривания · Соколова · поток IV ·&nbsp;
+    </div>
+  </div>
+
+  <div class="max-shell py-16">
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 md:col-span-4">
+        <div class="ff-display italic text-3xl mb-3">Соколова</div>
+        <div class="label">Институт честных продаж</div>
+        <p class="body-sm stone mt-6 max-w-sm">
+          Курсы и личное сопровождение для тех, кто продаёт собственным голосом.
+          Санкт-Петербург — с 2005 года.
+        </p>
+      </div>
+      <div class="col-span-6 md:col-span-2">
+        <div class="label mb-4">Курс</div>
+        <ul class="space-y-2 body-sm">
+          <li><a class="lnk" href="#manifesto">Манифест</a></li>
+          <li><a class="lnk" href="#program">Программа</a></li>
+          <li><a class="lnk" href="#cases">Истории</a></li>
+          <li><a class="lnk" href="#tariffs">Тарифы</a></li>
+          <li><a class="lnk" href="#faq">Вопросы</a></li>
+        </ul>
+      </div>
+      <div class="col-span-6 md:col-span-2">
+        <div class="label mb-4">Контакты</div>
+        <ul class="space-y-2 body-sm">
+          <li><a class="lnk" href="#">Telegram</a></li>
+          <li><a class="lnk" href="#">Почта</a></li>
+          <li><a class="lnk" href="#">Записаться</a></li>
+        </ul>
+      </div>
+      <div class="col-span-12 md:col-span-4">
+        <div class="label mb-4">Колофон</div>
+        <p class="body-sm stone">
+          Шрифты: Fraunces & Inter Tight.<br/>
+          Палитра: linen <span class="ochre">/</span> ochre <span class="ochre">/</span> oxblood.<br/>
+          Дизайн — Vlad March Media, 2026.
+        </p>
+      </div>
+    </div>
+
+    <div class="hl-top mt-16 pt-6 flex flex-wrap justify-between items-baseline gap-4">
+      <div class="label">© 2026 Е. Соколова · ИП Соколова Е. В.</div>
+      <div class="label">Сделано на берегу Невы · Версия 0.3 «Linen & Ochre»</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
