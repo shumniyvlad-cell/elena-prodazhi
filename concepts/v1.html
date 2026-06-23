@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Соколова · Концепт — soft-aurora</title>
+<meta name="description" content="Концепт-прототип v1 — soft-aurora. Apple Big Sur вдохновение: glass-cards, тёплая аврора, 5 модулей-папок." />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --base:#F5F5F7;
+    --base-warm:#FAFBFC;
+    --base-cool:#F3F7FA;
+
+    --glass-bg: rgba(255,255,255,0.62);
+    --glass-bg-strong: rgba(255,255,255,0.82);
+    --glass-bg-nav: rgba(245,245,247,0.72);
+    --glass-border-top: rgba(255,255,255,0.85);
+    --glass-border-bottom: rgba(15,23,42,0.06);
+
+    --glass-radius-md: 18px;
+    --glass-radius-lg: 24px;
+    --glass-radius-xl: 32px;
+
+    --ink:#1D1D1F;
+    --ink-soft:#86868B;
+
+    --accent:#FF6B4A;
+    --accent-soft:#FF8463;
+    --accent-deep:#FF5A3D;
+    --amber:#FFB35C;
+    --sky:#5E8BFF;
+
+    --shadow-rest:
+      0 0 0 1px rgba(0,0,0,0.02),
+      0 1px 1px 0.5px rgba(0,0,0,0.02),
+      0 6px 6px -3px rgba(0,0,0,0.02),
+      0 12px 12px -6px rgba(0,0,0,0.04),
+      0 24px 24px -12px rgba(0,0,0,0.04);
+
+    --shadow-hover:
+      0 0 0 1px rgba(0,0,0,0.04),
+      0 8px 16px -4px rgba(0,0,0,0.06),
+      0 16px 32px -8px rgba(0,0,0,0.08),
+      0 32px 64px -16px rgba(0,0,0,0.12);
+
+    --shadow-float:
+      0 0 0 1px rgba(0,0,0,0.06),
+      0 2px 4px 0 rgba(0,0,0,0.04),
+      0 8px 24px 0 rgba(0,0,0,0.10),
+      0 16px 32px -12px rgba(0,0,0,0.18);
+
+    --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+    --ease-out:    cubic-bezier(0.16,1,0.3,1);
+    --ease-inout:  cubic-bezier(0.65,0,0.35,1);
+    --ease-tilt:   cubic-bezier(0.2,0.8,0.2,1);
+  }
+
+  *{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+  html{ scroll-behavior:smooth; }
+  html,body{ overflow-x:hidden; }
+
+  body{
+    background:
+      radial-gradient(1200px 800px at 0% 0%, #FFF1E8 0%, transparent 60%),
+      radial-gradient(1000px 700px at 100% 10%, #EEF3FF 0%, transparent 55%),
+      linear-gradient(180deg, var(--base-warm) 0%, var(--base) 100%);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, 'SF Pro Text', system-ui, sans-serif;
+    text-rendering: optimizeLegibility;
+    min-height:100vh;
+  }
+
+  .ff-display{ font-family:'Inter Tight','Inter Display', -apple-system,'SF Pro Display', system-ui, sans-serif; letter-spacing:-0.02em; }
+  .ff-mono{ font-family:'JetBrains Mono','SF Mono', ui-monospace, monospace; }
+
+  /* ============ AMBIENT BLOBS ============ */
+  .blob{
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+    will-change: transform;
+    z-index:0;
+  }
+  .blob-coral{
+    width:720px; height:720px;
+    top:-180px; left:-160px;
+    background: radial-gradient(
+      circle at 30% 30%,
+      rgba(255,107,74,0.55) 0%,
+      rgba(255,179,92,0.28) 35%,
+      rgba(255,211,181,0) 70%
+    );
+    filter: blur(80px);
+  }
+  .blob-amber{
+    width:620px; height:620px;
+    top:-80px; right:-100px;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(255,179,92,0.42) 0%,
+      rgba(255,211,181,0.18) 45%,
+      rgba(255,255,255,0) 75%
+    );
+    filter: blur(95px);
+  }
+  .blob-sky{
+    width:560px; height:560px;
+    bottom:-140px; right:-60px;
+    background: radial-gradient(
+      circle at 60% 40%,
+      rgba(94,139,255,0.34) 0%,
+      rgba(196,226,255,0.16) 45%,
+      rgba(255,255,255,0) 75%
+    );
+    filter: blur(90px);
+  }
+
+  /* slow drift loop */
+  @keyframes drift1{
+    0%   { transform: translate3d(0,0,0) scale(1); }
+    50%  { transform: translate3d(3%,-2%,0) scale(1.04); }
+    100% { transform: translate3d(-2%,2%,0) scale(1.02); }
+  }
+  @keyframes drift2{
+    0%   { transform: translate3d(0,0,0) scale(1); }
+    50%  { transform: translate3d(-3%,2%,0) scale(1.05); }
+    100% { transform: translate3d(2%,-2%,0) scale(1.02); }
+  }
+  @keyframes drift3{
+    0%   { transform: translate3d(0,0,0) scale(1); }
+    50%  { transform: translate3d(2%,3%,0) scale(1.03); }
+    100% { transform: translate3d(-2%,-3%,0) scale(1.04); }
+  }
+  .blob-coral{ animation: drift1 24s var(--ease-inout) infinite alternate; }
+  .blob-amber{ animation: drift2 28s var(--ease-inout) infinite alternate; }
+  .blob-sky{   animation: drift3 30s var(--ease-inout) infinite alternate; }
+
+  /* ============ GLASS SYSTEM ============ */
+  .glass{
+    position: relative;
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid var(--glass-border-top);
+    border-bottom-color: var(--glass-border-bottom);
+    border-radius: var(--glass-radius-lg);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.9) inset,
+      0 -1px 0 rgba(15,23,42,0.04) inset,
+      var(--shadow-rest);
+    isolation: isolate;
+  }
+  .glass-strong{
+    position: relative;
+    background: var(--glass-bg-strong);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    backdrop-filter: blur(40px) saturate(200%);
+    border: 1px solid var(--glass-border-top);
+    border-bottom-color: var(--glass-border-bottom);
+    border-radius: var(--glass-radius-xl);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.95) inset,
+      0 -1px 0 rgba(15,23,42,0.05) inset,
+      var(--shadow-float);
+    isolation: isolate;
+  }
+
+  /* specular rim light */
+  .glass::before, .glass-strong::before{
+    content:""; position:absolute; inset:0; border-radius:inherit; padding:1px;
+    background: linear-gradient(180deg,
+      rgba(255,255,255,0.95) 0%,
+      rgba(255,255,255,0.25) 35%,
+      rgba(255,255,255,0) 60%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events:none;
+    z-index:1;
+  }
+  /* soft top glow */
+  .glass::after, .glass-strong::after{
+    content:""; position:absolute; inset:0; border-radius:inherit;
+    background: radial-gradient(120% 80% at 50% -20%,
+      rgba(255,255,255,0.55), rgba(255,255,255,0) 60%);
+    pointer-events:none; z-index:0;
+    mix-blend-mode: screen;
+  }
+  .glass > *, .glass-strong > *{ position:relative; z-index:2; }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
+    .glass{ background: rgba(255,255,255,0.92); }
+    .glass-strong{ background: rgba(255,255,255,0.96); }
+    .nav-glass{ background: rgba(245,245,247,0.95); }
+  }
+
+  /* ============ NAV ============ */
+  .nav-glass{
+    position: sticky;
+    top: 12px;
+    z-index: 50;
+    background: var(--glass-bg-nav);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    backdrop-filter: saturate(180%) blur(24px);
+    border: 1px solid rgba(255,255,255,0.7);
+    border-radius: var(--glass-radius-md);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.8) inset,
+      0 8px 24px -10px rgba(15,23,42,0.12);
+    transition:
+      backdrop-filter 320ms var(--ease-inout),
+      background 320ms var(--ease-inout);
+  }
+  .nav-glass.is-scrolled{
+    background: rgba(245,245,247,0.85);
+    -webkit-backdrop-filter: saturate(180%) blur(32px);
+    backdrop-filter: saturate(180%) blur(32px);
+  }
+  .nav-link{
+    color: var(--ink);
+    opacity: 0.65;
+    transition: opacity 180ms var(--ease-inout);
+  }
+  .nav-link:hover{ opacity: 1; }
+
+  .pill-cta{
+    background: linear-gradient(180deg, var(--accent-soft) 0%, var(--accent) 100%);
+    color: #fff;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.45) inset,
+      0 -1px 0 rgba(0,0,0,0.08) inset,
+      0 1px 2px rgba(255,90,61,0.25),
+      0 8px 20px -6px rgba(255,107,74,0.45);
+    transition: transform 450ms var(--ease-spring),
+                box-shadow 320ms var(--ease-spring);
+  }
+  .pill-cta:hover{
+    transform: translateY(-1px) scale(1.02);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.55) inset,
+      0 -1px 0 rgba(0,0,0,0.08) inset,
+      0 2px 4px rgba(255,90,61,0.30),
+      0 16px 36px -8px rgba(255,90,61,0.60);
+  }
+
+  /* ============ TEXT ============ */
+  .text-grad{
+    background: linear-gradient(180deg, var(--accent) -10%, var(--amber) 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono','SF Mono', monospace;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color: rgba(29,29,31,0.65);
+  }
+
+  .display-h1{
+    font-family:'Inter Tight','Inter Display', system-ui, sans-serif;
+    font-weight:700;
+    font-size: clamp(48px, 7vw, 84px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+  }
+  .display-h2{
+    font-family:'Inter Tight','Inter Display', system-ui, sans-serif;
+    font-weight:700;
+    font-size: clamp(36px, 4.2vw, 52px);
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+  }
+
+  /* ============ FOLDER TILE ============ */
+  .folder-tile{
+    position:relative;
+    width:100%;
+    max-width:320px;
+    aspect-ratio: 5 / 4;
+    transform-style: preserve-3d;
+    perspective: 900px;
+    transition:
+      transform 420ms var(--ease-tilt),
+      filter 420ms var(--ease-tilt);
+    will-change: transform, filter;
+    cursor:pointer;
+  }
+  .folder-tile .folder-svg{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    overflow:visible;
+    transition: filter 420ms var(--ease-tilt);
+    filter: drop-shadow(0 18px 28px rgba(20,20,30,0.10));
+  }
+  .folder-tile .folder-content{
+    position:absolute; inset:0;
+    padding: 28px 26px 22px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    z-index:2;
+  }
+  .folder-tile .folder-eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    font-weight:500;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color: rgba(29,29,31,0.78);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.55);
+  }
+  .folder-tile .folder-title{
+    font-family:'Inter Tight', system-ui, sans-serif;
+    font-weight:600;
+    font-size: 19px;
+    line-height: 1.2;
+    letter-spacing:-0.015em;
+    color: #1D1D1F;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.45);
+    max-width: 92%;
+  }
+  .folder-tile .folder-meta{
+    font-family:'Inter', system-ui, sans-serif;
+    font-weight:500;
+    font-size: 12.5px;
+    color: rgba(29,29,31,0.70);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+  }
+
+  /* sheen sweep */
+  .folder-tile::after{
+    content:"";
+    position:absolute; inset:0; border-radius:24px;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.55) 50%, transparent 70%);
+    transform: translateX(-110%);
+    pointer-events:none;
+    transition: transform 950ms var(--ease-out);
+    z-index:3;
+    mix-blend-mode: screen;
+    border-radius: 18px;
+  }
+
+  .folder-tile:hover{
+    transform: perspective(900px) rotateX(-4deg) rotateY(4deg) translateY(-6px) scale(1.02);
+    filter: drop-shadow(0 0 28px rgba(255,107,74,0.18));
+  }
+  .folder-tile:hover .folder-svg{
+    filter: drop-shadow(0 28px 44px rgba(20,20,30,0.16));
+  }
+  .folder-tile:hover::after{ transform: translateX(220%); }
+
+  /* lesson bullets under each folder */
+  .lesson-list{
+    margin-top: 22px;
+    display:flex; flex-direction:column; gap: 6px;
+  }
+  .lesson-row{
+    display:flex; align-items:baseline; gap:10px;
+    padding: 2px 0;
+  }
+  .lesson-row .num{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    font-weight:500;
+    letter-spacing: 0.08em;
+    color: rgba(29,29,31,0.45);
+    min-width: 28px;
+  }
+  .lesson-row .ttl{
+    font-family:'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(29,29,31,0.85);
+    line-height: 1.35;
+  }
+
+  /* ============ REVEAL ============ */
+  .reveal{
+    opacity:0;
+    transform: translate3d(0, 28px, 0);
+    transition:
+      opacity 700ms var(--ease-out),
+      transform 700ms var(--ease-out);
+  }
+  .reveal.in{
+    opacity:1;
+    transform: translate3d(0,0,0);
+  }
+
+  /* focus */
+  :focus-visible{
+    outline: 2px solid rgba(255,107,74,0.85);
+    outline-offset: 3px;
+    border-radius: 12px;
+  }
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* hairline */
+  .hairline{
+    height:1px;
+    background: linear-gradient(90deg, transparent, rgba(15,23,42,0.08) 20%, rgba(15,23,42,0.08) 80%, transparent);
+    border:0;
+  }
+
+  /* small chips inside hero stats */
+  .stat-chip{
+    display:flex; flex-direction:column; gap:4px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 4px 14px -6px rgba(15,23,42,0.08);
+  }
+  .stat-chip .v{
+    font-family:'Inter Tight', system-ui, sans-serif;
+    font-weight:600;
+    font-size: 24px;
+    letter-spacing:-0.02em;
+    color: var(--ink);
+  }
+  .stat-chip .l{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    font-weight:500;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color: rgba(29,29,31,0.55);
+  }
+</style>
+</head>
+<body>
+
+<!-- ambient aurora layer -->
+<div aria-hidden="true" class="fixed inset-0 pointer-events-none" style="z-index:-1; overflow:hidden;">
+  <div class="blob blob-coral"></div>
+  <div class="blob blob-amber"></div>
+  <div class="blob blob-sky"></div>
+</div>
+
+<!-- ============ NAV ============ -->
+<div class="max-w-[1180px] mx-auto px-6 pt-3">
+  <nav class="nav-glass flex items-center justify-between px-5" style="height:56px;" id="nav">
+    <a href="#" class="ff-display text-[17px] font-semibold tracking-tight" style="color:var(--ink);">Соколова</a>
+
+    <div class="hidden md:flex items-center gap-8 text-[14px] font-medium">
+      <a href="#about" class="nav-link">О курсе</a>
+      <a href="#program" class="nav-link">Модули</a>
+      <a href="#stories" class="nav-link">Истории</a>
+      <a href="#tariffs" class="nav-link">Тарифы</a>
+    </div>
+
+    <a href="#tariffs" class="pill-cta inline-flex items-center justify-center text-[14px] font-semibold rounded-full" style="padding:10px 20px;">
+      Записаться
+    </a>
+  </nav>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="relative max-w-[1180px] mx-auto px-6 pt-20 md:pt-28 pb-24">
+
+  <div class="reveal">
+    <div class="eyebrow mb-6">01 · ПРОДАЖИ БЕЗ ВПАРИВАНИЯ</div>
+
+    <h1 class="display-h1 max-w-[920px]">
+      Курс продаж<br/>
+      для тех, кто хочет<br/>
+      <span class="text-grad">продавать собственным голосом</span>.
+    </h1>
+
+    <p class="mt-8 max-w-[640px] text-[19px] leading-[1.55]" style="color: rgba(29,29,31,0.78);">
+      Шесть недель, двадцать восемь уроков. Спокойная система,
+      собранная из двадцати лет практики. Без давления,
+      без манипуляций и без чувства, что после звонка нужно вымыть руки.
+    </p>
+
+    <div class="mt-10 flex flex-wrap items-center gap-4">
+      <a href="#program" class="pill-cta inline-flex items-center justify-center font-semibold rounded-full"
+         style="height:56px; padding:0 32px; font-size:16px;">
+        Посмотреть программу
+      </a>
+      <a href="#about" class="glass inline-flex items-center justify-center font-semibold rounded-full"
+         style="height:56px; padding:0 28px; font-size:15px; color:var(--ink); border-radius:999px;">
+        Кому подходит
+      </a>
+    </div>
+  </div>
+
+  <!-- hero glass strip -->
+  <div class="reveal mt-16 glass-strong px-7 py-6 flex flex-wrap items-center gap-x-10 gap-y-4">
+    <div class="stat-chip">
+      <span class="v">6 недель</span>
+      <span class="l">формат</span>
+    </div>
+    <div class="stat-chip">
+      <span class="v">28 уроков</span>
+      <span class="l">видеоматериал</span>
+    </div>
+    <div class="stat-chip">
+      <span class="v">4 сессии</span>
+      <span class="l">живые разборы</span>
+    </div>
+    <div class="stat-chip">
+      <span class="v">20 лет</span>
+      <span class="l">практики автора</span>
+    </div>
+  </div>
+
+</section>
+
+<hr class="hairline max-w-[1180px] mx-auto" />
+
+<!-- ============ PROGRAM ============ -->
+<section id="program" class="relative max-w-[1180px] mx-auto px-6 pt-24 pb-28">
+
+  <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+    <div>
+      <div class="eyebrow mb-4">02 · ПРОГРАММА</div>
+      <h2 class="display-h2 max-w-[760px]">
+        Пять модулей. Двадцать восемь уроков.<br/>
+        Каждый модуль — <span class="text-grad">отдельная папка</span>.
+      </h2>
+    </div>
+    <p class="max-w-[320px] text-[15px] leading-[1.55]" style="color: rgba(29,29,31,0.65);">
+      Откройте папку — увидите уроки, практики и разборы.
+      Темп держите свой, программа никуда не убежит.
+    </p>
+  </div>
+
+  <!-- 5 folders grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
+
+    <!-- MODULE 1 -->
+    <div class="reveal">
+      <div class="folder-tile" tabindex="0" aria-label="Модуль 1 — Самоощущение продавца"
+           style="--folder-tint:#FFB87A; --folder-accent:#FF6B4A;">
+        <svg class="folder-svg" viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="tabGrad-1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFB87A" stop-opacity="0.95"/>
+              <stop offset="100%" stop-color="#FFB87A" stop-opacity="0.78"/>
+            </linearGradient>
+            <linearGradient id="bodyGrad-1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"  stop-color="#FFB87A" stop-opacity="0.98"/>
+              <stop offset="55%" stop-color="#FF6B4A" stop-opacity="0.92"/>
+              <stop offset="100%" stop-color="#FF6B4A" stop-opacity="1"/>
+            </linearGradient>
+            <linearGradient id="tabGloss-1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+              <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.05"/>
+              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="bodySheen-1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.32"/>
+              <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.08"/>
+              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M 20 56 Q 20 42 34 42 L 108 42 Q 118 42 124 50 L 132 60 L 34 60 Q 20 60 20 56 Z" fill="url(#tabGrad-1)"/>
+          <path d="M 22 54 Q 22 44 34 44 L 106 44 Q 116 44 122 52 L 126 58 L 22 58 Z" fill="url(#tabGloss-1)"/>
+          <rect x="14" y="58" width="252" height="148" rx="18" ry="18" fill="url(#bodyGrad-1)"/>
+          <path d="M 14 58 L 266 58 L 266 110 Q 140 80 14 110 Z" fill="url(#bodySheen-1)" opacity="0.7"/>
+          <path d="M 18 64 Q 18 60 22 60 L 258 60 Q 262 60 262 64 L 262 68 Q 140 64 18 68 Z" fill="#FFFFFF" opacity="0.35"/>
+          <rect x="14.5" y="58.5" width="251" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+          <rect x="14.5" y="58.5" width="251" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1" style="mix-blend-mode: multiply;"/>
+        </svg>
+        <div class="folder-content">
+          <div class="folder-eyebrow">01 · МОДУЛЬ</div>
+          <div>
+            <div class="folder-title">Самоощущение<br/>продавца</div>
+            <div class="folder-meta mt-2">5 уроков · 90 мин</div>
+          </div>
+        </div>
+      </div>
+      <ul class="lesson-list">
+        <li class="lesson-row"><span class="num">1.1</span><span class="ttl">Право быть в продажах</span></li>
+        <li class="lesson-row"><span class="num">1.2</span><span class="ttl">Обоснование цены без оправданий</span></li>
+        <li class="lesson-row"><span class="num">1.3</span><span class="ttl">Спокойствие как технология</span></li>
+      </ul>
+    </div>
+
+    <!-- MODULE 2 -->
+    <div class="reveal">
+      <div class="folder-tile" tabindex="0" aria-label="Модуль 2 — Слышать клиента"
+           style="--folder-tint:#FFD088; --folder-accent:#FF9B45;">
+        <svg class="folder-svg" viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="tabGrad-2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFD088" stop-opacity="0.95"/>
+              <stop offset="100%" stop-color="#FFD088" stop-opacity="0.78"/>
+            </linearGradient>
+            <linearGradient id="bodyGrad-2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"  stop-color="#FFD088" stop-opacity="0.98"/>
+              <stop offset="55%" stop-color="#FF9B45" stop-opacity="0.92"/>
+              <stop offset="100%" stop-color="#FF9B45" stop-opacity="1"/>
+            </linearGradient>
+            <linearGradient id="tabGloss-2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+              <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.05"/>
+              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="bodySheen-2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.32"/>
+              <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.08"/>
+              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M 20 56 Q 20 42 34 42 L 108 42 Q 118 42 124 50 L 132 60 L 34 60 Q 20 60 20 56 Z" fill="url(#tabGrad-2)"/>
+          <path d="M 22 54 Q 22 44 34 44 L 106 44 Q 116 44 122 52 L 126 58 L 22 58 Z" fill="url(#tabGloss-2)"/>
+          <rect x="14" y="58" width="252" height="148" rx="18" ry="18" fill="url(#bodyGrad-2)"/>
+          <path d="M 14 58 L 266 58 L 266 110 Q 140 80 14 110 Z" fill="url(#bodySheen-2)" opacity="0.7"/>
+          <path d="M 18 64 Q 18 60 22 60 L 258 60 Q 262 60 262 64 L 262 68 Q 140 64 18 68 Z" fill="#FFFFFF" opacity="0.35"/>
+          <rect x="14.5" y="58.5" width="251" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+          <rect x="14.5" y="58.5" width="251" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1" style="mix-blend-mode: multiply;"/>
+        </svg>
+        <div class="folder-content">
+          <div class="folder-eyebrow">02 · МОДУЛЬ</div>
+          <div>
+            <div class="folder-title">Разговор,<br/>в котором слышно</div>
+            <div class="folder-meta mt-2">6 уроков · 120 мин</div>
+          </div>
+        </div>
+      </div>
+      <ul class="lesson-list">
+        <li class="lesson-row"><span class="num">2.1</span><span class="ttl">Активное слушание без техник</span></li>
+        <li class="lesson-row"><span class="num">2.2</span><span class="ttl">Открытые вопросы вместо допроса</span></li>
+        <li class="lesson-row"><span class="num">2.3</span><span class="ttl">Карта потребности за 7 минут</span></li>
+      </ul>
+    </div>
+
+    <!-- MODULE 3 -->
+    <div class="reveal">
+      <div class="folder-tile" tabindex="0" aria-label="Модуль 3 — Презентация без хвастовства"
+           style="--folder-tint:#FFC4B0; --folder-accent:#FF8470;">
+        <svg class="folder-svg" viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="tabGrad-3" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFC4B0" stop-opacity="0.95"/>
+              <stop offset="100%" stop-color="#FFC4B0" stop-opacity="0.78"/>
+            </linearGradient>
+            <linearGradient id="bodyGrad-3" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"  stop-color="#FFC4B0" stop-opacity="0.98"/>
+              <stop offset="55%" stop-color="#FF8470" stop-opacity="0.92"/>
+              <stop offset="100%" stop-color="#FF8470" stop-opacity="1"/>
+            </linearGradient>
+            <linearGradient id="tabGloss-3" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+              <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.05"/>
+              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="bodySheen-3" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.32"/>
+              <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.08"/>
+              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M 20 56 Q 20 42 34 42 L 108 42 Q 118 42 124 50 L 132 60 L 34 60 Q 20 60 20 56 Z" fill="url(#tabGrad-3)"/>
+          <path d="M 22 54 Q 22 44 34 44 L 106 44 Q 116 44 122 52 L 126 58 L 22 58 Z" fill="url(#tabGloss-3)"/>
+          <rect x="14" y="58" width="252" height="148" rx="18" ry="18" fill="url(#bodyGrad-3)"/>
+          <path d="M 14 58 L 266 58 L 266 110 Q 140 80 14 110 Z" fill="url(#bodySheen-3)" opacity="0.7"/>
+          <path d="M 18 64 Q 18 60 22 60 L 258 60 Q 262 60 262 64 L 262 68 Q 140 64 18 68 Z" fill="#FFFFFF" opacity="0.35"/>
+          <rect x="14.5" y="58.5" width="251" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+          <rect x="14.5" y="58.5" width="251" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1" style="mix-blend-mode: multiply;"/>
+        </svg>
+        <div class="folder-content">
+          <div class="folder-eyebrow">03 · МОДУЛЬ</div>
+          <div>
+            <div class="folder-title">Презентация<br/>без хвастовства</div>
+            <div class="folder-meta mt-2">6 уроков · 110 мин</div>
+          </div>
+        </div>
+      </div>
+      <ul class="lesson-list">
+        <li class="lesson-row"><span class="num">3.1</span><span class="ttl">Каркас сильного предложения</span></li>
+        <li class="lesson-row"><span class="num">3.2</span><span class="ttl">Один вопрос вместо длинной речи</span></li>
+        <li class="lesson-row"><span class="num">3.3</span><span class="ttl">Шаблон коммерческого письма</span></li>
+      </ul>
+    </div>
+
+    <!-- MODULE 4 -->
+    <div class="reveal">
+      <div class="folder-tile" tabindex="0" aria-label="Модуль 4 — Возражения"
+           style="--folder-tint:#B8D4FF; --folder-accent:#5E8BFF;">
+        <svg class="folder-svg" viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="tabGrad-4" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#B8D4FF" stop-opacity="0.95"/>
+              <stop offset="100%" stop-color="#B8D4FF" stop-opacity="0.78"/>
+            </linearGradient>
+            <linearGradient id="bodyGrad-4" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"  stop-color="#B8D4FF" stop-opacity="0.98"/>
+              <stop offset="55%" stop-color="#5E8BFF" stop-opacity="0.92"/>
+              <stop offset="100%" stop-color="#5E8BFF" stop-opacity="1"/>
+            </linearGradient>
+            <linearGradient id="tabGloss-4" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+              <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.05"/>
+              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="bodySheen-4" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.32"/>
+              <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.08"/>
+              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M 20 56 Q 20 42 34 42 L 108 42 Q 118 42 124 50 L 132 60 L 34 60 Q 20 60 20 56 Z" fill="url(#tabGrad-4)"/>
+          <path d="M 22 54 Q 22 44 34 44 L 106 44 Q 116 44 122 52 L 126 58 L 22 58 Z" fill="url(#tabGloss-4)"/>
+          <rect x="14" y="58" width="252" height="148" rx="18" ry="18" fill="url(#bodyGrad-4)"/>
+          <path d="M 14 58 L 266 58 L 266 110 Q 140 80 14 110 Z" fill="url(#bodySheen-4)" opacity="0.7"/>
+          <path d="M 18 64 Q 18 60 22 60 L 258 60 Q 262 60 262 64 L 262 68 Q 140 64 18 68 Z" fill="#FFFFFF" opacity="0.35"/>
+          <rect x="14.5" y="58.5" width="251" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+          <rect x="14.5" y="58.5" width="251" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1" style="mix-blend-mode: multiply;"/>
+        </svg>
+        <div class="folder-content">
+          <div class="folder-eyebrow">04 · МОДУЛЬ</div>
+          <div>
+            <div class="folder-title">Возражения<br/>как разговор</div>
+            <div class="folder-meta mt-2">6 уроков · 130 мин</div>
+          </div>
+        </div>
+      </div>
+      <ul class="lesson-list">
+        <li class="lesson-row"><span class="num">4.1</span><span class="ttl">Карта 12 типовых возражений</span></li>
+        <li class="lesson-row"><span class="num">4.2</span><span class="ttl">Дорого, подумаю, посоветуюсь</span></li>
+        <li class="lesson-row"><span class="num">4.3</span><span class="ttl">Когда возражение — это «да»</span></li>
+      </ul>
+    </div>
+
+    <!-- MODULE 5 -->
+    <div class="reveal">
+      <div class="folder-tile" tabindex="0" aria-label="Модуль 5 — Закрытие"
+           style="--folder-tint:#D4C5FF; --folder-accent:#9B7BFF;">
+        <svg class="folder-svg" viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="tabGrad-5" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#D4C5FF" stop-opacity="0.95"/>
+              <stop offset="100%" stop-color="#D4C5FF" stop-opacity="0.78"/>
+            </linearGradient>
+            <linearGradient id="bodyGrad-5" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"  stop-color="#D4C5FF" stop-opacity="0.98"/>
+              <stop offset="55%" stop-color="#9B7BFF" stop-opacity="0.92"/>
+              <stop offset="100%" stop-color="#9B7BFF" stop-opacity="1"/>
+            </linearGradient>
+            <linearGradient id="tabGloss-5" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+              <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.05"/>
+              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="bodySheen-5" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.32"/>
+              <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.08"/>
+              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M 20 56 Q 20 42 34 42 L 108 42 Q 118 42 124 50 L 132 60 L 34 60 Q 20 60 20 56 Z" fill="url(#tabGrad-5)"/>
+          <path d="M 22 54 Q 22 44 34 44 L 106 44 Q 116 44 122 52 L 126 58 L 22 58 Z" fill="url(#tabGloss-5)"/>
+          <rect x="14" y="58" width="252" height="148" rx="18" ry="18" fill="url(#bodyGrad-5)"/>
+          <path d="M 14 58 L 266 58 L 266 110 Q 140 80 14 110 Z" fill="url(#bodySheen-5)" opacity="0.7"/>
+          <path d="M 18 64 Q 18 60 22 60 L 258 60 Q 262 60 262 64 L 262 68 Q 140 64 18 68 Z" fill="#FFFFFF" opacity="0.35"/>
+          <rect x="14.5" y="58.5" width="251" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+          <rect x="14.5" y="58.5" width="251" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1" style="mix-blend-mode: multiply;"/>
+        </svg>
+        <div class="folder-content">
+          <div class="folder-eyebrow">05 · МОДУЛЬ</div>
+          <div>
+            <div class="folder-title">Закрытие<br/>без давления</div>
+            <div class="folder-meta mt-2">5 уроков · 95 мин</div>
+          </div>
+        </div>
+      </div>
+      <ul class="lesson-list">
+        <li class="lesson-row"><span class="num">5.1</span><span class="ttl">Сигналы готовности у клиента</span></li>
+        <li class="lesson-row"><span class="num">5.2</span><span class="ttl">Тихое предложение следующего шага</span></li>
+        <li class="lesson-row"><span class="num">5.3</span><span class="ttl">Как разойтись красиво, если «нет»</span></li>
+      </ul>
+    </div>
+
+    <!-- footer card placeholder to balance grid on lg -->
+    <div class="reveal hidden lg:flex">
+      <div class="glass-strong w-full p-7 flex flex-col justify-between rounded-[28px]" style="max-width:320px; aspect-ratio: 5 / 4;">
+        <div>
+          <div class="eyebrow mb-3">+ БОНУС</div>
+          <div class="ff-display font-semibold text-[20px] leading-tight" style="color:var(--ink);">
+            Живые разборы<br/>ваших звонков
+          </div>
+        </div>
+        <div class="text-[13px] font-medium" style="color: rgba(29,29,31,0.65);">
+          4 групповые сессии с Еленой по Zoom.<br/>
+          Запись остаётся в кабинете.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- bottom note -->
+  <div class="reveal mt-16 flex justify-center">
+    <div class="glass inline-flex items-center gap-3 px-5 py-3 rounded-full" style="border-radius:999px;">
+      <span class="eyebrow" style="color:rgba(29,29,31,0.65);">УЧАСТИЕ ОТКРЫТО</span>
+      <span class="ff-mono text-[12px]" style="color:rgba(29,29,31,0.55);">·</span>
+      <a href="#tariffs" class="text-[14px] font-semibold" style="color:var(--accent);">Выбрать тариф →</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="max-w-[1180px] mx-auto px-6 pb-16">
+  <hr class="hairline" />
+  <div class="pt-6 flex flex-wrap items-center justify-between gap-4 text-[13px]" style="color:rgba(29,29,31,0.55);">
+    <div>© Соколова · Институт честных продаж</div>
+    <div class="ff-mono">CONCEPT · V1 · SOFT-AURORA</div>
+  </div>
+</footer>
+
+<script>
+  // unique-id all gradient defs so multiple folders don't clash with global ids ↑
+  // (already namespaced via tabGrad-1..5, bodyGrad-1..5)
+
+  // nav scroll state
+  const nav = document.getElementById('nav');
+  let lastY = -1;
+  function onScroll(){
+    const y = window.scrollY || 0;
+    if (Math.abs(y - lastY) < 2) return;
+    lastY = y;
+    if (y > 40) nav.classList.add('is-scrolled');
+    else nav.classList.remove('is-scrolled');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // reveal on intersect
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting){
+        const delay = (e.target.dataset.delay || (i * 60));
+        setTimeout(() => e.target.classList.add('in'), Math.min(delay, 400));
+        io.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.dataset.delay = String((i % 6) * 70);
+    io.observe(el);
+  });
+
+  // parallax blobs (rAF + lerp)
+  const blobs = [
+    { el: document.querySelector('.blob-coral'), speed: 0.15, x: 0, tx: 0 },
+    { el: document.querySelector('.blob-amber'), speed: -0.10, x: 0, tx: 0 },
+    { el: document.querySelector('.blob-sky'),   speed:  0.08, x: 0, tx: 0 },
+  ];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function tick(){
+    const y = window.scrollY || 0;
+    blobs.forEach(b => {
+      b.tx = y * b.speed;
+      b.x += (b.tx - b.x) * 0.08;
+      if (b.el) b.el.style.transform = `translate3d(0, ${b.x.toFixed(1)}px, 0)`;
+    });
+    requestAnimationFrame(tick);
+  }
+  if (!reduceMotion) requestAnimationFrame(tick);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Соколова · Crisp Finder · v2</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --base: #FBFBFD;
+    --paper: #FFFFFF;
+    --ink: #1D1D1F;
+    --ink-soft: #6E6E73;
+    --ink-mute: #A1A1A6;
+    --hairline: rgba(15,23,42,0.08);
+    --hairline-strong: rgba(15,23,42,0.14);
+    --sky: #0A84FF;
+    --sky-soft: #5AB0FF;
+    --sky-deep: #006FE0;
+    --row-hover: rgba(10,132,255,0.07);
+
+    --tint-1: #F6B86A;  --acc-1: #E58A2C;
+    --tint-2: #FFD179;  --acc-2: #E0A323;
+    --tint-3: #FF9F8A;  --acc-3: #E16245;
+    --tint-4: #8FB4FF;  --acc-4: #3A6FE0;
+    --tint-5: #B5A4FF;  --acc-5: #6F55D6;
+
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+  }
+
+  html, body { background: var(--base); color: var(--ink); }
+  body {
+    font-family: 'Inter', -apple-system, 'SF Pro Text', BlinkMacSystemFont, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.003em;
+  }
+
+  /* Subtle paper noise */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.045 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.55;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  body::after {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(900px 600px at 100% -10%, rgba(10,132,255,0.05), transparent 60%),
+      radial-gradient(700px 500px at -10% 110%, rgba(10,132,255,0.04), transparent 60%);
+    z-index: 0;
+  }
+
+  .display { font-family: 'Inter Tight', 'Inter', -apple-system, system-ui, sans-serif; }
+  .mono    { font-family: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace; }
+
+  /* Nav */
+  .nav-glass {
+    background: rgba(251,251,253,0.78);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid rgba(15,23,42,0.08);
+    border-radius: 14px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.85) inset, 0 6px 18px -10px rgba(15,23,42,0.10);
+  }
+  .nav-link { color: var(--ink); opacity: 0.65; transition: opacity 180ms cubic-bezier(0.65,0,0.35,1); }
+  .nav-link:hover { opacity: 1; }
+
+  .pill-sky {
+    background: var(--sky);
+    color: #fff;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.35) inset,
+      0 -1px 0 rgba(0,0,0,0.10) inset,
+      0 6px 16px -6px rgba(10,132,255,0.45);
+    transition: transform 320ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 280ms ease;
+  }
+  .pill-sky:hover { transform: translateY(-1px); box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 -1px 0 rgba(0,0,0,0.12) inset, 0 10px 22px -6px rgba(10,132,255,0.55); }
+
+  /* Finder window */
+  .finder {
+    background: var(--paper);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-xl);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.9) inset,
+      0 1px 2px rgba(15,23,42,0.04),
+      0 16px 40px -12px rgba(15,23,42,0.14),
+      0 32px 80px -24px rgba(15,23,42,0.18);
+    overflow: hidden;
+  }
+  .finder-bar {
+    height: 44px;
+    display: flex; align-items: center;
+    padding: 0 16px;
+    border-bottom: 1px solid var(--hairline);
+    background: linear-gradient(180deg, #FDFDFE 0%, #F4F4F6 100%);
+  }
+  .tl { width: 12px; height: 12px; border-radius: 999px; display: inline-block; box-shadow: 0 1px 0 rgba(255,255,255,0.55) inset, 0 0 0 0.5px rgba(0,0,0,0.18); }
+  .tl-r { background: #FF5F57; }
+  .tl-y { background: #FEBC2E; }
+  .tl-g { background: #28C840; }
+
+  .crumb {
+    color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+  }
+  .crumb b { color: var(--ink); font-weight: 600; }
+
+  .hairline { height: 1px; background: var(--hairline); }
+  .hairline-soft { height: 1px; background: rgba(15,23,42,0.05); }
+
+  /* Eyebrow */
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  /* Hero typography */
+  .h-display {
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 700;
+    font-size: clamp(48px, 6.4vw, 84px);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+  .h-display .sky { color: var(--sky); }
+  .lede {
+    font-size: 19px; line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 56ch;
+  }
+
+  /* Stat chip */
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--hairline);
+    font-size: 13px; color: var(--ink);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.85) inset, 0 1px 2px rgba(15,23,42,0.03);
+  }
+  .chip .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--sky); box-shadow: 0 0 0 3px rgba(10,132,255,0.15); }
+
+  /* Section heads */
+  .h2 {
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 700;
+    font-size: clamp(32px, 3.6vw, 46px);
+    line-height: 1.04;
+    letter-spacing: -0.028em;
+    color: var(--ink);
+  }
+
+  /* ===== FOLDER GRID ===== */
+  .folder-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0,1fr));
+    gap: 18px;
+  }
+  @media (max-width: 1100px) { .folder-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 720px)  { .folder-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 460px)  { .folder-grid { grid-template-columns: 1fr; } }
+
+  .module {
+    display: flex; flex-direction: column;
+    gap: 14px;
+    padding: 4px;
+  }
+
+  .folder-card {
+    position: relative;
+    aspect-ratio: 5 / 4;
+    transform-style: preserve-3d;
+    perspective: 1100px;
+    cursor: pointer;
+  }
+  .folder-card .svg-wrap {
+    position: absolute; inset: 0;
+    transform-origin: 50% 70%;
+    transition:
+      transform 480ms cubic-bezier(0.2,0.8,0.2,1),
+      filter   480ms cubic-bezier(0.2,0.8,0.2,1);
+    will-change: transform, filter;
+  }
+  .folder-card svg.folder { width: 100%; height: 100%; display: block; }
+
+  /* Idle shadow under folder */
+  .folder-card .shadow-disc {
+    position: absolute;
+    left: 8%; right: 8%; bottom: -2%;
+    height: 22px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(15,23,42,0.22), rgba(15,23,42,0) 70%);
+    filter: blur(8px);
+    opacity: 0.55;
+    transition: opacity 480ms ease, transform 480ms cubic-bezier(0.2,0.8,0.2,1), filter 480ms ease;
+    z-index: 0;
+  }
+
+  /* Hover lift + tilt + glow */
+  .folder-card:hover .svg-wrap {
+    transform: translateY(-8px) rotateX(8deg) rotateY(-2deg) scale(1.015);
+    filter: drop-shadow(0 18px 24px rgba(15,23,42,0.18)) drop-shadow(0 8px 12px rgba(15,23,42,0.10));
+  }
+  .folder-card:hover .shadow-disc {
+    opacity: 0.85;
+    transform: translateY(8px) scaleX(1.05);
+    filter: blur(12px);
+  }
+  .folder-card:hover .module-num {
+    color: var(--sky);
+  }
+
+  /* Module text */
+  .module-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    transition: color 240ms ease;
+  }
+  .module-title {
+    font-family: 'Inter Tight', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 1.22;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .lesson {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 13.5px; line-height: 1.45;
+    color: var(--ink-soft);
+    padding: 4px 0;
+    border-top: 1px solid rgba(15,23,42,0.05);
+  }
+  .lesson:first-child { border-top: 0; }
+  .lesson .ix {
+    flex: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-mute);
+    padding-top: 2px;
+    min-width: 22px;
+    letter-spacing: 0.02em;
+  }
+  .lesson .tx { color: var(--ink); opacity: 0.78; }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    transition: opacity 600ms cubic-bezier(0.16,1,0.3,1), transform 600ms cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.in { opacity: 1; transform: translate3d(0,0,0); }
+
+  /* Tag */
+  .tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(10,132,255,0.08);
+    color: var(--sky-deep);
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  /* Focus */
+  :focus-visible { outline: 2px solid rgba(10,132,255,0.7); outline-offset: 3px; border-radius: 8px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- =============== NAV =============== -->
+<div class="sticky top-3 z-50 px-4 md:px-6">
+  <nav class="nav-glass mx-auto max-w-[1180px] h-14 px-4 md:px-5 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2.5">
+      <span class="inline-block w-7 h-7 rounded-[8px]" style="background: linear-gradient(180deg, #fff 0%, #F0F1F4 100%); border:1px solid rgba(15,23,42,0.10); box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset;">
+        <svg viewBox="0 0 28 28" class="w-full h-full">
+          <path d="M6 9 Q6 7 8 7 L13 7 Q14 7 14.6 7.7 L15.4 8.6 L19.5 8.6 Q21 8.6 21 10.2 L21 19 Q21 20.5 19.5 20.5 L8 20.5 Q6 20.5 6 18.8 Z" fill="#0A84FF"/>
+        </svg>
+      </span>
+      <span class="display font-semibold text-[17px] tracking-tight">Соколова</span>
+      <span class="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--ink-mute)] ml-1 hidden md:inline">/ курс</span>
+    </a>
+    <div class="hidden md:flex items-center gap-7 text-[14px] font-medium">
+      <a href="#about" class="nav-link">О курсе</a>
+      <a href="#program" class="nav-link">Программа</a>
+      <a href="#stories" class="nav-link">Истории</a>
+      <a href="#plans" class="nav-link">Тарифы</a>
+    </div>
+    <a href="#enroll" class="pill-sky inline-flex items-center h-9 px-4 rounded-full text-[13.5px] font-semibold">Записаться</a>
+  </nav>
+</div>
+
+<!-- =============== HERO =============== -->
+<section id="about" class="relative z-10 px-4 md:px-6 pt-14 md:pt-20 pb-16">
+  <div class="mx-auto max-w-[1180px]">
+
+    <div class="flex items-center gap-3 mb-6 reveal">
+      <span class="eyebrow">КУРС · 5 МОДУЛЕЙ · 20 УРОКОВ</span>
+      <span class="hairline flex-1" style="opacity:.6"></span>
+      <span class="mono text-[11px] text-[color:var(--ink-mute)]">v2 / crisp-finder</span>
+    </div>
+
+    <div class="grid md:grid-cols-12 gap-10 items-end">
+      <div class="md:col-span-7 reveal">
+        <h1 class="h-display">
+          Продажи<br/>
+          без впаривания.<br/>
+          <span class="sky">По‑честному.</span>
+        </h1>
+      </div>
+      <div class="md:col-span-5 reveal">
+        <p class="lede">
+          Курс Елены Соколовой — двадцать лет в продажах, переложенные в пять модулей. Не скрипты и не давление, а спокойный разговор, после которого клиент возвращается сам.
+        </p>
+        <div class="mt-7 flex flex-wrap items-center gap-3">
+          <a href="#enroll" class="pill-sky inline-flex items-center h-12 px-6 rounded-full text-[15px] font-semibold">Записаться на поток</a>
+          <a href="#program" class="inline-flex items-center h-12 px-5 rounded-full text-[14px] font-medium border border-[color:var(--hairline-strong)] bg-white hover:bg-[color:var(--row-hover)] transition">
+            Открыть программу
+            <svg width="14" height="14" viewBox="0 0 14 14" class="ml-2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 4l3 3-3 3"/></svg>
+          </a>
+        </div>
+
+        <div class="mt-7 flex flex-wrap gap-2.5">
+          <span class="chip"><span class="dot"></span>4 недели</span>
+          <span class="chip"><span class="dot"></span>живые разборы</span>
+          <span class="chip"><span class="dot"></span>обратная связь от Елены</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =============== PROGRAM / FOLDERS =============== -->
+<section id="program" class="relative z-10 px-4 md:px-6 pb-24">
+  <div class="mx-auto max-w-[1180px]">
+
+    <!-- Finder window -->
+    <div class="finder reveal">
+
+      <div class="finder-bar">
+        <div class="flex items-center gap-2 mr-4">
+          <span class="tl tl-r"></span><span class="tl tl-y"></span><span class="tl tl-g"></span>
+        </div>
+        <div class="crumb"><b>Курс</b> &nbsp;›&nbsp; Программа &nbsp;›&nbsp; <b>5 модулей</b></div>
+        <div class="ml-auto flex items-center gap-3">
+          <div class="hidden md:flex items-center gap-1.5 mono text-[11px] text-[color:var(--ink-mute)]">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <span>поиск по программе</span>
+          </div>
+          <span class="mono text-[11px] text-[color:var(--ink-mute)] hidden md:inline">⌘K</span>
+        </div>
+      </div>
+
+      <div class="px-6 md:px-10 pt-8 pb-3 flex items-end justify-between gap-6 flex-wrap">
+        <div>
+          <div class="eyebrow mb-3">ПРОГРАММА КУРСА</div>
+          <h2 class="h2">Пять папок —<br/>пять навыков продавца.</h2>
+        </div>
+        <p class="text-[15px] text-[color:var(--ink-soft)] max-w-[44ch]">
+          Каждый модуль — папка с тремя ключевыми уроками. Открывается в кабинете последовательно, по мере прохождения предыдущего.
+        </p>
+      </div>
+
+      <div class="hairline mx-6 md:mx-10 my-6"></div>
+
+      <!-- Folders grid -->
+      <div class="px-6 md:px-10 pb-10">
+        <div class="folder-grid">
+
+          <!-- ========= MODULE 1 ========= -->
+          <div class="module reveal">
+            <div class="folder-card" tabindex="0" aria-label="Модуль 1: Фундамент">
+              <div class="svg-wrap">
+                <!-- Folder SVG -->
+                <svg class="folder" viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg" style="--tint:var(--tint-1); --acc:var(--acc-1);">
+                  <defs>
+                    <linearGradient id="tab1" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--tint)" stop-opacity="0.98"/>
+                      <stop offset="100%" stop-color="var(--tint)" stop-opacity="0.82"/>
+                    </linearGradient>
+                    <linearGradient id="body1" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%"   stop-color="var(--tint)" stop-opacity="1"/>
+                      <stop offset="55%"  stop-color="var(--acc)"  stop-opacity="0.95"/>
+                      <stop offset="100%" stop-color="var(--acc)"  stop-opacity="1"/>
+                    </linearGradient>
+                    <linearGradient id="sheen1" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%"  stop-color="#fff" stop-opacity="0.55"/>
+                      <stop offset="55%" stop-color="#fff" stop-opacity="0.05"/>
+                      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- Tab -->
+                  <path d="M 22 56 Q 22 42 36 42 L 104 42 Q 114 42 120 50 L 128 60 L 36 60 Q 22 60 22 56 Z" fill="url(#tab1)"/>
+                  <!-- Body -->
+                  <rect x="16" y="58" width="248" height="148" rx="18" ry="18" fill="url(#body1)"/>
+                  <!-- Glass sheen -->
+                  <path d="M 16 58 L 264 58 L 264 116 Q 140 84 16 116 Z" fill="url(#sheen1)" opacity="0.78"/>
+                  <!-- Top hairline -->
+                  <path d="M 20 62 Q 20 60 22 60 L 258 60 Q 260 60 260 62 L 260 64 Q 140 60 20 64 Z" fill="#fff" opacity="0.38"/>
+                  <!-- Outer borders -->
+                  <rect x="16.5" y="58.5" width="247" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+                  <rect x="16.5" y="58.5" width="247" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="1" style="mix-blend-mode:multiply"/>
+                </svg>
+              </div>
+              <div class="shadow-disc"></div>
+            </div>
+            <div>
+              <div class="module-num">01 · ФУНДАМЕНТ</div>
+              <div class="module-title mt-1">Кто такой продавец без впаривания</div>
+              <div class="mt-3 space-y-0">
+                <div class="lesson"><span class="ix">1.1</span><span class="tx">Позиция, в которой не стыдно продавать</span></div>
+                <div class="lesson"><span class="ix">1.2</span><span class="tx">Этика, доверие и личная граница</span></div>
+                <div class="lesson"><span class="ix">1.3</span><span class="tx">Как звучать спокойно и уверенно</span></div>
+              </div>
+              <div class="mt-3"><span class="tag">3 урока · 60 мин</span></div>
+            </div>
+          </div>
+
+          <!-- ========= MODULE 2 ========= -->
+          <div class="module reveal" style="transition-delay:80ms">
+            <div class="folder-card" tabindex="0" aria-label="Модуль 2: Слушать клиента">
+              <div class="svg-wrap">
+                <svg class="folder" viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg" style="--tint:var(--tint-2); --acc:var(--acc-2);">
+                  <defs>
+                    <linearGradient id="tab2" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--tint)" stop-opacity="0.98"/>
+                      <stop offset="100%" stop-color="var(--tint)" stop-opacity="0.82"/>
+                    </linearGradient>
+                    <linearGradient id="body2" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%"   stop-color="var(--tint)" stop-opacity="1"/>
+                      <stop offset="55%"  stop-color="var(--acc)"  stop-opacity="0.95"/>
+                      <stop offset="100%" stop-color="var(--acc)"  stop-opacity="1"/>
+                    </linearGradient>
+                    <linearGradient id="sheen2" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%"  stop-color="#fff" stop-opacity="0.55"/>
+                      <stop offset="55%" stop-color="#fff" stop-opacity="0.05"/>
+                      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M 22 56 Q 22 42 36 42 L 104 42 Q 114 42 120 50 L 128 60 L 36 60 Q 22 60 22 56 Z" fill="url(#tab2)"/>
+                  <rect x="16" y="58" width="248" height="148" rx="18" ry="18" fill="url(#body2)"/>
+                  <path d="M 16 58 L 264 58 L 264 116 Q 140 84 16 116 Z" fill="url(#sheen2)" opacity="0.78"/>
+                  <path d="M 20 62 Q 20 60 22 60 L 258 60 Q 260 60 260 62 L 260 64 Q 140 60 20 64 Z" fill="#fff" opacity="0.38"/>
+                  <rect x="16.5" y="58.5" width="247" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+                  <rect x="16.5" y="58.5" width="247" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="1" style="mix-blend-mode:multiply"/>
+                </svg>
+              </div>
+              <div class="shadow-disc"></div>
+            </div>
+            <div>
+              <div class="module-num">02 · СЛУШАТЬ</div>
+              <div class="module-title mt-1">Понять клиента раньше, чем заговорил</div>
+              <div class="mt-3">
+                <div class="lesson"><span class="ix">2.1</span><span class="tx">Активное слушание и вопросы по делу</span></div>
+                <div class="lesson"><span class="ix">2.2</span><span class="tx">Карта боли: где у клиента болит на самом деле</span></div>
+                <div class="lesson"><span class="ix">2.3</span><span class="tx">Что нельзя пропускать в первом разговоре</span></div>
+              </div>
+              <div class="mt-3"><span class="tag">3 урока · 70 мин</span></div>
+            </div>
+          </div>
+
+          <!-- ========= MODULE 3 ========= -->
+          <div class="module reveal" style="transition-delay:160ms">
+            <div class="folder-card" tabindex="0" aria-label="Модуль 3: Диалог">
+              <div class="svg-wrap">
+                <svg class="folder" viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg" style="--tint:var(--tint-3); --acc:var(--acc-3);">
+                  <defs>
+                    <linearGradient id="tab3" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--tint)" stop-opacity="0.98"/>
+                      <stop offset="100%" stop-color="var(--tint)" stop-opacity="0.82"/>
+                    </linearGradient>
+                    <linearGradient id="body3" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%"   stop-color="var(--tint)" stop-opacity="1"/>
+                      <stop offset="55%"  stop-color="var(--acc)"  stop-opacity="0.95"/>
+                      <stop offset="100%" stop-color="var(--acc)"  stop-opacity="1"/>
+                    </linearGradient>
+                    <linearGradient id="sheen3" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%"  stop-color="#fff" stop-opacity="0.55"/>
+                      <stop offset="55%" stop-color="#fff" stop-opacity="0.05"/>
+                      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M 22 56 Q 22 42 36 42 L 104 42 Q 114 42 120 50 L 128 60 L 36 60 Q 22 60 22 56 Z" fill="url(#tab3)"/>
+                  <rect x="16" y="58" width="248" height="148" rx="18" ry="18" fill="url(#body3)"/>
+                  <path d="M 16 58 L 264 58 L 264 116 Q 140 84 16 116 Z" fill="url(#sheen3)" opacity="0.78"/>
+                  <path d="M 20 62 Q 20 60 22 60 L 258 60 Q 260 60 260 62 L 260 64 Q 140 60 20 64 Z" fill="#fff" opacity="0.38"/>
+                  <rect x="16.5" y="58.5" width="247" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+                  <rect x="16.5" y="58.5" width="247" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="1" style="mix-blend-mode:multiply"/>
+                </svg>
+              </div>
+              <div class="shadow-disc"></div>
+            </div>
+            <div>
+              <div class="module-num">03 · ДИАЛОГ</div>
+              <div class="module-title mt-1">Презентация, которая ведёт к «да»</div>
+              <div class="mt-3">
+                <div class="lesson"><span class="ix">3.1</span><span class="tx">Как говорить о цене и не извиняться</span></div>
+                <div class="lesson"><span class="ix">3.2</span><span class="tx">Структура продающего разговора 1:1</span></div>
+                <div class="lesson"><span class="ix">3.3</span><span class="tx">Сторителлинг через клиентские кейсы</span></div>
+              </div>
+              <div class="mt-3"><span class="tag">3 урока · 80 мин</span></div>
+            </div>
+          </div>
+
+          <!-- ========= MODULE 4 ========= -->
+          <div class="module reveal" style="transition-delay:240ms">
+            <div class="folder-card" tabindex="0" aria-label="Модуль 4: Возражения">
+              <div class="svg-wrap">
+                <svg class="folder" viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg" style="--tint:var(--tint-4); --acc:var(--acc-4);">
+                  <defs>
+                    <linearGradient id="tab4" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--tint)" stop-opacity="0.98"/>
+                      <stop offset="100%" stop-color="var(--tint)" stop-opacity="0.82"/>
+                    </linearGradient>
+                    <linearGradient id="body4" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%"   stop-color="var(--tint)" stop-opacity="1"/>
+                      <stop offset="55%"  stop-color="var(--acc)"  stop-opacity="0.95"/>
+                      <stop offset="100%" stop-color="var(--acc)"  stop-opacity="1"/>
+                    </linearGradient>
+                    <linearGradient id="sheen4" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%"  stop-color="#fff" stop-opacity="0.55"/>
+                      <stop offset="55%" stop-color="#fff" stop-opacity="0.05"/>
+                      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M 22 56 Q 22 42 36 42 L 104 42 Q 114 42 120 50 L 128 60 L 36 60 Q 22 60 22 56 Z" fill="url(#tab4)"/>
+                  <rect x="16" y="58" width="248" height="148" rx="18" ry="18" fill="url(#body4)"/>
+                  <path d="M 16 58 L 264 58 L 264 116 Q 140 84 16 116 Z" fill="url(#sheen4)" opacity="0.78"/>
+                  <path d="M 20 62 Q 20 60 22 60 L 258 60 Q 260 60 260 62 L 260 64 Q 140 60 20 64 Z" fill="#fff" opacity="0.38"/>
+                  <rect x="16.5" y="58.5" width="247" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+                  <rect x="16.5" y="58.5" width="247" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="1" style="mix-blend-mode:multiply"/>
+                </svg>
+              </div>
+              <div class="shadow-disc"></div>
+            </div>
+            <div>
+              <div class="module-num">04 · ВОЗРАЖЕНИЯ</div>
+              <div class="module-title mt-1">Когда клиент говорит «дорого» и «я подумаю»</div>
+              <div class="mt-3">
+                <div class="lesson"><span class="ix">4.1</span><span class="tx">Шесть базовых возражений и спокойные ответы</span></div>
+                <div class="lesson"><span class="ix">4.2</span><span class="tx">Как отличать сомнение от вежливого «нет»</span></div>
+                <div class="lesson"><span class="ix">4.3</span><span class="tx">Возврат клиента, который сказал «дорого»</span></div>
+              </div>
+              <div class="mt-3"><span class="tag">3 урока · 75 мин</span></div>
+            </div>
+          </div>
+
+          <!-- ========= MODULE 5 ========= -->
+          <div class="module reveal" style="transition-delay:320ms">
+            <div class="folder-card" tabindex="0" aria-label="Модуль 5: Система">
+              <div class="svg-wrap">
+                <svg class="folder" viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg" style="--tint:var(--tint-5); --acc:var(--acc-5);">
+                  <defs>
+                    <linearGradient id="tab5" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--tint)" stop-opacity="0.98"/>
+                      <stop offset="100%" stop-color="var(--tint)" stop-opacity="0.82"/>
+                    </linearGradient>
+                    <linearGradient id="body5" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%"   stop-color="var(--tint)" stop-opacity="1"/>
+                      <stop offset="55%"  stop-color="var(--acc)"  stop-opacity="0.95"/>
+                      <stop offset="100%" stop-color="var(--acc)"  stop-opacity="1"/>
+                    </linearGradient>
+                    <linearGradient id="sheen5" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%"  stop-color="#fff" stop-opacity="0.55"/>
+                      <stop offset="55%" stop-color="#fff" stop-opacity="0.05"/>
+                      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M 22 56 Q 22 42 36 42 L 104 42 Q 114 42 120 50 L 128 60 L 36 60 Q 22 60 22 56 Z" fill="url(#tab5)"/>
+                  <rect x="16" y="58" width="248" height="148" rx="18" ry="18" fill="url(#body5)"/>
+                  <path d="M 16 58 L 264 58 L 264 116 Q 140 84 16 116 Z" fill="url(#sheen5)" opacity="0.78"/>
+                  <path d="M 20 62 Q 20 60 22 60 L 258 60 Q 260 60 260 62 L 260 64 Q 140 60 20 64 Z" fill="#fff" opacity="0.38"/>
+                  <rect x="16.5" y="58.5" width="247" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+                  <rect x="16.5" y="58.5" width="247" height="147" rx="17.5" ry="17.5" fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="1" style="mix-blend-mode:multiply"/>
+                </svg>
+              </div>
+              <div class="shadow-disc"></div>
+            </div>
+            <div>
+              <div class="module-num">05 · СИСТЕМА</div>
+              <div class="module-title mt-1">Регулярные продажи без выгорания</div>
+              <div class="mt-3">
+                <div class="lesson"><span class="ix">5.1</span><span class="tx">Воронка эксперта на одном листе</span></div>
+                <div class="lesson"><span class="ix">5.2</span><span class="tx">CRM и заметки, чтобы клиенты не терялись</span></div>
+                <div class="lesson"><span class="ix">5.3</span><span class="tx">Ритм недели: продажи без 24/7</span></div>
+              </div>
+              <div class="mt-3"><span class="tag">3 урока · 70 мин</span></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footer row -->
+        <div class="hairline mt-10 mb-5"></div>
+        <div class="flex flex-wrap items-center justify-between gap-4 px-1">
+          <div class="mono text-[12px] text-[color:var(--ink-mute)]">5 элементов · 20 уроков · ~6 часов видео</div>
+          <a href="#enroll" class="pill-sky inline-flex items-center h-10 px-5 rounded-full text-[13.5px] font-semibold">
+            Записаться на ближайший поток
+            <svg width="14" height="14" viewBox="0 0 14 14" class="ml-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 4l3 3-3 3"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // Scroll-reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Nav-scroll state (subtle)
+  const nav = document.querySelector('.nav-glass');
+  const onScroll = () => {
+    if (!nav) return;
+    if (window.scrollY > 30) nav.style.boxShadow = '0 1px 0 rgba(255,255,255,0.85) inset, 0 10px 24px -12px rgba(15,23,42,0.18)';
+    else nav.style.boxShadow = '0 1px 0 rgba(255,255,255,0.85) inset, 0 6px 18px -10px rgba(15,23,42,0.10)';
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>
+
+</body>
+</html>

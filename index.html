@@ -1,2052 +1,2387 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Елена Соколова — Продажи без впаривания</title>
-<meta name="description" content="Шестинедельная программа для тех, кто продаёт собственным голосом — без давления, без манипуляций. Двадцать лет практики, собранные в спокойную систему." />
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Соколова — Продажи без впаривания</title>
+<meta name="description" content="Курс Елены Соколовой. Двадцать лет в продажах, переложенные в пять модулей. Не скрипты и не давление — спокойный разговор, после которого клиент возвращается сам." />
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,700&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  /* ============================================================
-     DESIGN TOKENS — Linen & Ochre, edition IV
-     ============================================================ */
-  :root{
-    --linen:#f2edde;
-    --paper:#fdfaf3;
-    --paper-2:#f7f2e6;
-    --ink:#191919;
-    --ink-soft:#2a2826;
-    --oxblood:#472425;
-    --ochre:#9a5a3f;
-    --ochre-hi:#af6446;
-    --stone:#8a7e6b;
-    --stone-soft:#c8bfa9;
-  }
+/* ============================================================
+   ELENA SOKOLOVA — Big Sur / Finder edition
+   Glass-system: rgba surfaces + backdrop-filter + specular rim
+   Folders: hard-coded hex gradients (Safari-safe), spring tilt
+   Background: warm-sky aurora blobs + paper noise + rAF parallax
+   ============================================================ */
 
-  *{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-  html,body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Inter Tight', system-ui, sans-serif;
-    font-weight:400;
-    overflow-x:hidden;
-  }
-  html{ scroll-behavior:smooth; }
+:root {
+  /* Palette */
+  --base:        #FBFBFD;
+  --base-warm:   #FCFCFE;
+  --paper:       #FFFFFF;
+  --ink:         #1D1D1F;
+  --ink-soft:    #6E6E73;
+  --ink-mute:    #A1A1A6;
+  --hairline:        rgba(15,23,42,0.08);
+  --hairline-strong: rgba(15,23,42,0.14);
 
-  /* ============================================================
-     TYPOGRAPHY SYSTEM
-     ============================================================ */
-  .ff-display{ font-family:'Fraunces', Georgia, serif; font-optical-sizing:auto; }
-  .ff-body{ font-family:'Inter Tight', system-ui, sans-serif; }
-  .ff-mono{ font-family:'JetBrains Mono', ui-monospace, monospace; }
+  --sky:        #0A84FF;
+  --sky-soft:   #5AB0FF;
+  --sky-deep:   #006FE0;
+  --warm:       #FFB477;
+  --warm-deep:  #FF8A3D;
+  --peach:      #FFD3B5;
 
-  .label{
-    font-family:'Inter Tight', system-ui, sans-serif;
-    font-size:11px; font-weight:500;
-    text-transform:uppercase;
-    letter-spacing:0.18em;
-    color:var(--stone);
-  }
-  .label-ink{ color:var(--ink); }
-  .label-ochre{ color:var(--ochre); }
+  --row-hover:  rgba(10,132,255,0.07);
 
-  /* Poster H1 — the big editorial scream. Mostly regular weight, italic only on accent words. */
-  .poster-h1{
-    font-family:'Fraunces', serif;
-    font-weight:400;
-    font-style:normal;
-    font-size: clamp(48px, 10.5vw, 148px);
-    line-height: 0.88;
-    letter-spacing: -0.04em;
-    color:var(--ink);
-  }
-  .poster-h1 em{
-    font-style:italic;
-    font-weight:400;
-    color:var(--ink);
-    font-feature-settings: 'ss01';
-  }
-  .poster-h1 .ox{ color:var(--oxblood); font-style:italic; font-weight:400; }
+  /* Glass tokens */
+  --glass-bg:        rgba(255,255,255,0.62);
+  --glass-bg-strong: rgba(255,255,255,0.78);
+  --glass-bg-nav:    rgba(251,251,253,0.72);
+  --glass-border-top:    rgba(255,255,255,0.85);
+  --glass-border-bottom: rgba(15,23,42,0.06);
 
-  .manifesto-h2{
-    font-family:'Fraunces', serif;
-    font-weight:400;
-    font-size: clamp(48px, 8vw, 104px);
-    line-height: 0.94;
-    letter-spacing: -0.03em;
-  }
-  .manifesto-h2 em{ font-style:italic; font-weight:700; }
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-pill: 999px;
 
-  .section-h3{
-    font-family:'Fraunces', serif;
-    font-weight:400;
-    font-size: clamp(36px, 5vw, 64px);
-    line-height: 0.98;
-    letter-spacing: -0.025em;
-  }
-  .section-h3 em{ font-style:italic; font-weight:500; }
+  /* Shadow tokens (Aqua six-layer) */
+  --shadow-rest:
+    0 0 0 1px rgba(0,0,0,0.02),
+    0 1px 1px 0.5px rgba(0,0,0,0.02),
+    0 6px 6px -3px rgba(0,0,0,0.02),
+    0 12px 12px -6px rgba(0,0,0,0.04),
+    0 24px 24px -12px rgba(0,0,0,0.04);
+  --shadow-hover:
+    0 0 0 1px rgba(0,0,0,0.04),
+    0 8px 16px -4px rgba(0,0,0,0.06),
+    0 16px 32px -8px rgba(0,0,0,0.08),
+    0 32px 64px -16px rgba(0,0,0,0.12);
+  --shadow-float:
+    0 0 0 1px rgba(0,0,0,0.06),
+    0 2px 4px 0 rgba(0,0,0,0.04),
+    0 8px 24px 0 rgba(0,0,0,0.10),
+    0 16px 32px -12px rgba(0,0,0,0.18);
+  --shadow-window:
+    0 1px 0 rgba(255,255,255,0.9) inset,
+    0 1px 2px rgba(15,23,42,0.04),
+    0 16px 40px -12px rgba(15,23,42,0.14),
+    0 36px 90px -28px rgba(15,23,42,0.22);
 
-  .lede{
-    font-family:'Inter Tight', sans-serif;
-    font-size: clamp(17px, 1.3vw, 20px);
-    line-height: 1.58;
-    color:var(--ink);
-    font-weight:400;
-  }
-  .body-sm{ font-size:15px; line-height:1.62; color:var(--ink); }
-  .stone{ color:var(--stone); }
-  .ink{ color:var(--ink); }
-  .ochre{ color:var(--ochre); }
-  .oxblood{ color:var(--oxblood); }
-  .bg-linen{ background:var(--linen); }
-  .bg-paper{ background:var(--paper); }
-  .bg-paper-2{ background:var(--paper-2); }
-  .bg-ochre{ background:var(--ochre); }
-  .bg-ink{ background:var(--ink); }
-  .bg-oxblood{ background:var(--oxblood); }
+  /* Motion */
+  --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+  --ease-out:    cubic-bezier(0.16,1,0.3,1);
+  --ease-inout:  cubic-bezier(0.65,0,0.35,1);
+  --ease-fluid:  cubic-bezier(0.22,1,0.36,1);
+  --ease-tilt:   cubic-bezier(0.2,0.8,0.2,1);
+}
 
-  /* ============================================================
-     HAIRLINES — editorial rules
-     ============================================================ */
-  .hl-top{ border-top:1px solid rgba(25,25,25,0.16); }
-  .hl-bot{ border-bottom:1px solid rgba(25,25,25,0.16); }
-  .hl-l{ border-left:1px solid rgba(25,25,25,0.16); }
-  .hl-r{ border-right:1px solid rgba(25,25,25,0.16); }
-  .hl-stone-r{ border-right:1px solid rgba(138,126,107,0.55); }
-  .hl-dashed{ border-top:1px dashed rgba(25,25,25,0.35); }
-  .hl-ochre-top{ border-top:1px solid var(--ochre); }
+* { -webkit-tap-highlight-color: transparent; }
 
-  /* ============================================================
-     LINK MOTION
-     ============================================================ */
-  .lnk{ position:relative; display:inline-block; transition: opacity .35s ease; }
-  .lnk::after{
-    content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px;
-    background: currentColor; transform: scaleX(1); transform-origin: right;
-    transition: transform .5s cubic-bezier(.2,.7,.2,1);
-  }
-  .lnk:hover::after{ transform: scaleX(0); transform-origin: left; }
-  .lnk:hover{ opacity:.7; }
+html, body { background: var(--base); color: var(--ink); }
+body {
+  font-family: 'Inter', -apple-system, 'SF Pro Text', BlinkMacSystemFont, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  letter-spacing: -0.003em;
+  overflow-x: hidden;
+}
 
-  .arrow-lnk{ transition: transform .4s cubic-bezier(.2,.7,.2,1); display:inline-block; }
-  .group-lnk:hover .arrow-lnk{ transform: translate(6px,-2px); }
+/* =====================  AURORA BACKDROP  ===================== */
+.canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.canvas::after {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(900px 600px at 100% -10%, rgba(10,132,255,0.05), transparent 60%),
+    radial-gradient(700px 500px at -10% 110%, rgba(10,132,255,0.04), transparent 60%);
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+  filter: blur(120px);
+  opacity: 0.7;
+}
+.blob-warm {
+  width: 620px; height: 620px;
+  top: -10%; left: -8%;
+  background: radial-gradient(circle at 30% 30%,
+    rgba(255,180,119,0.28) 0%,
+    rgba(255,211,181,0.14) 35%,
+    rgba(255,255,255,0) 70%);
+  animation: drift1 46s ease-in-out -3s infinite alternate;
+}
+.blob-sky {
+  width: 560px; height: 560px;
+  top: 18%; right: -10%;
+  background: radial-gradient(circle at 60% 40%,
+    rgba(10,132,255,0.22) 0%,
+    rgba(90,176,255,0.12) 40%,
+    rgba(255,255,255,0) 75%);
+  animation: drift2 54s ease-in-out -11s infinite alternate;
+}
+.blob-peach {
+  width: 520px; height: 520px;
+  bottom: -8%; left: 35%;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(255,211,181,0.26) 0%,
+    rgba(255,180,119,0.10) 45%,
+    rgba(255,255,255,0) 75%);
+  animation: drift3 60s ease-in-out -23s infinite alternate;
+}
+@keyframes drift1 {
+  0%   { transform: translate3d(0,0,0)       scale(1)    rotate(0deg);  }
+  50%  { transform: translate3d(28px,18px,0) scale(1.04) rotate(4deg);  }
+  100% { transform: translate3d(48px,36px,0) scale(1.10) rotate(-3deg); }
+}
+@keyframes drift2 {
+  0%   { transform: translate3d(0,0,0)         scale(1)    rotate(0deg);  }
+  50%  { transform: translate3d(-22px,26px,0)  scale(1.06) rotate(-5deg); }
+  100% { transform: translate3d(-38px,46px,0)  scale(1.12) rotate(3deg);  }
+}
+@keyframes drift3 {
+  0%   { transform: translate3d(0,0,0)         scale(1)    rotate(0deg);  }
+  50%  { transform: translate3d(-32px,-16px,0) scale(1.04) rotate(6deg);  }
+  100% { transform: translate3d(-58px,-36px,0) scale(1.08) rotate(-4deg); }
+}
 
-  /* Nav link — underline grows from left */
-  .nav-link{ position:relative; padding-bottom:2px; }
-  .nav-link::after{
-    content:""; position:absolute; left:0; right:0; bottom:-3px; height:1px;
-    background: currentColor; transform: scaleX(0); transform-origin: left;
-    transition: transform .45s cubic-bezier(.2,.7,.2,1);
-  }
-  .nav-link:hover::after{ transform: scaleX(1); }
+/* =====================  TYPOGRAPHY  ===================== */
+.display { font-family: 'Inter Tight', 'Inter', -apple-system, system-ui, sans-serif; }
+.mono    { font-family: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace; }
 
-  /* ============================================================
-     PORTRAIT — soft frame, slow zoom on hover
-     ============================================================ */
-  .portrait-frame{
-    position:relative;
-    overflow:hidden;
-    background:var(--linen);
-    filter: contrast(0.97) saturate(0.94);
-  }
-  .portrait-frame img{
-    width:100%; height:100%; object-fit:cover;
-    transition: transform 1.8s cubic-bezier(.2,.7,.2,1);
-  }
-  .portrait-frame:hover img{ transform: scale(1.04); }
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.h-display {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: clamp(40px, 4.4vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  color: var(--ink);
+}
+.h-display .accent {
+  color: #FF8A3D;
+}
+.h2 {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: clamp(30px, 3.4vw, 44px);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.h3 {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: clamp(20px, 1.8vw, 24px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+.lede {
+  font-size: 19px; line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 56ch;
+}
 
-  /* SVG portrait — stylised, no AI-stock face */
-  .portrait-svg{ width:100%; height:auto; display:block; }
+/* =====================  GLASS SYSTEM  ===================== */
+.glass {
+  position: relative;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+          backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--glass-border-top);
+  border-bottom-color: var(--glass-border-bottom);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.9) inset,
+    0 -1px 0 rgba(15,23,42,0.04) inset,
+    var(--shadow-rest);
+  isolation: isolate;
+  transition:
+    transform 0.5s var(--ease-spring),
+    box-shadow 0.5s var(--ease-spring),
+    background 0.3s ease;
+}
+.glass-strong {
+  position: relative;
+  background: var(--glass-bg-strong);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+          backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid var(--glass-border-top);
+  border-bottom-color: var(--glass-border-bottom);
+  border-radius: var(--radius-2xl);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.95) inset,
+    0 -1px 0 rgba(15,23,42,0.05) inset,
+    var(--shadow-float);
+  isolation: isolate;
+}
+.glass::before, .glass-strong::before {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.95) 0%,
+    rgba(255,255,255,0.25) 35%,
+    rgba(255,255,255,0) 60%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+.glass > .rim-bottom, .glass-strong > .rim-bottom { display: none; }
+.glass, .glass-strong { /* second pseudo via background-clip workaround using box-shadow inset bottom rim */ }
+.glass::after, .glass-strong::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(120% 80% at 50% -20%,
+      rgba(255,255,255,0.55),
+      rgba(255,255,255,0) 60%),
+    linear-gradient(0deg, rgba(15,23,42,0.06), transparent 35%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-blend-mode: normal, normal, overlay;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: normal;
+}
+.glass > *, .glass-strong > * { position: relative; z-index: 2; }
+.glass.is-interactive:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.95) inset,
+    var(--shadow-hover);
+}
 
-  /* ============================================================
-     GRAIN — paper texture
-     ============================================================ */
-  .grain::before{
-    content:""; position:absolute; inset:0; pointer-events:none;
-    background-image: radial-gradient(rgba(25,25,25,0.18) 1px, transparent 1px);
-    background-size: 3px 3px;
-    opacity:0.04;
-    mix-blend-mode: multiply;
-  }
-  .grain-strong::before{
-    content:""; position:absolute; inset:0; pointer-events:none;
-    background-image: radial-gradient(rgba(25,25,25,0.22) 1px, transparent 1px);
-    background-size: 3px 3px;
-    opacity:0.09;
-    mix-blend-mode: multiply;
-  }
+/* Fallback */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass        { background: rgba(255,255,255,0.92); }
+  .glass-strong { background: rgba(255,255,255,0.96); }
+  .nav-glass    { background: rgba(251,251,253,0.95); }
+}
 
-  /* ============================================================
-     SIDE NUMBERS / TYPE
-     ============================================================ */
-  .side-num{
-    font-family:'Inter Tight', sans-serif;
-    font-size:11px; font-weight:500;
-    text-transform:uppercase;
-    letter-spacing:0.18em;
-    color:var(--stone);
-  }
-  .micro{
-    font-family:'JetBrains Mono', monospace;
-    font-size:10.5px; font-weight:500;
-    letter-spacing:0.22em; text-transform:uppercase;
-    color:var(--stone);
-  }
+/* =====================  NAV  ===================== */
+.nav-glass {
+  background: var(--glass-bg-nav);
+  -webkit-backdrop-filter: saturate(180%) blur(22px);
+          backdrop-filter: saturate(180%) blur(22px);
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: 16px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.85) inset,
+    0 8px 24px -10px rgba(15,23,42,0.10);
+  transition:
+    backdrop-filter 320ms var(--ease-inout),
+    background 320ms var(--ease-inout),
+    box-shadow 320ms var(--ease-inout),
+    transform 320ms var(--ease-spring),
+    border-radius 320ms var(--ease-inout);
+}
+.nav-glass.is-scrolled {
+  background: rgba(251,251,253,0.86);
+  -webkit-backdrop-filter: saturate(190%) blur(34px);
+          backdrop-filter: saturate(190%) blur(34px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.95) inset,
+    0 14px 36px -14px rgba(15,23,42,0.20);
+  transform: scale(0.985);
+}
+.nav-link {
+  color: var(--ink);
+  opacity: 0.65;
+  transition: opacity 180ms var(--ease-inout), color 180ms var(--ease-inout);
+}
+.nav-link:hover { opacity: 1; }
+.nav-link.is-active { opacity: 1; color: var(--sky); }
 
-  /* ============================================================
-     SHELL
-     ============================================================ */
-  .max-shell{ max-width: 1480px; margin-inline:auto; padding-inline: clamp(20px, 4vw, 56px); }
-  .max-shell-tight{ max-width: 1240px; margin-inline:auto; padding-inline: clamp(20px, 4vw, 56px); }
+/* =====================  BUTTONS  ===================== */
+.pill-sky {
+  background: #FF8A3D;
+  color: #fff;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.22) inset,
+    0 1px 2px rgba(0,0,0,0.04),
+    0 8px 20px -8px rgba(255,138,61,0.35);
+  transition:
+    transform 320ms var(--ease-spring),
+    box-shadow 320ms var(--ease-spring),
+    background 200ms ease;
+  will-change: transform;
+}
+.pill-sky:hover {
+  transform: translateY(-1px);
+  background: #FF7A20;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.25) inset,
+    0 2px 4px rgba(0,0,0,0.05),
+    0 12px 26px -8px rgba(255,138,61,0.45);
+}
+.pill-ghost {
+  background: rgba(255,255,255,0.7);
+  -webkit-backdrop-filter: blur(16px);
+          backdrop-filter: blur(16px);
+  color: var(--ink);
+  border: 1px solid var(--hairline-strong);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.95) inset, 0 1px 2px rgba(15,23,42,0.04);
+  transition: transform 450ms var(--ease-spring), box-shadow 320ms var(--ease-spring), background 200ms ease;
+}
+.pill-ghost:hover {
+  transform: translateY(-1px) scale(1.02);
+  background: rgba(255,255,255,0.85);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.95) inset, 0 6px 14px -4px rgba(15,23,42,0.10);
+}
 
-  /* ============================================================
-     ECHO — small italic quote
-     ============================================================ */
-  .echo{
-    font-family:'Fraunces', serif;
-    font-weight:400; font-style:italic;
-    color:var(--stone);
-    font-size: clamp(13px, 0.95vw, 15px);
-    line-height: 1.5;
-  }
+.magnetic { will-change: transform; }
 
-  /* ============================================================
-     STICKY PROGRESS RAIL (left vertical reading rule)
-     ============================================================ */
-  .progress-rail{
-    position:fixed;
-    left:20px; top:0; bottom:0;
-    width:1px;
-    background: linear-gradient(180deg,
-      transparent 0,
-      rgba(25,25,25,0.28) 96px,
-      rgba(25,25,25,0.28) calc(100% - 96px),
-      transparent 100%);
-    z-index:30;
-    pointer-events:none;
-  }
-  .progress-rail::after{
-    content:"";
-    position:absolute;
-    left:-2px; top:96px;
-    width:5px; height:0;
-    background: var(--oxblood);
-    transition: height .15s linear;
-  }
-  .progress-rail-r{
-    position:fixed;
-    right:20px; top:0; bottom:0;
-    width:1px;
-    background: linear-gradient(180deg,
-      transparent 0,
-      rgba(138,126,107,0.45) 96px,
-      rgba(138,126,107,0.45) calc(100% - 96px),
-      transparent 100%);
-    z-index:30;
-    pointer-events:none;
-  }
-  .progress-rail-label{
-    position:fixed;
-    left:32px; top:50%;
-    transform:rotate(-90deg) translateX(50%);
-    transform-origin:left center;
-    z-index:31;
-    pointer-events:none;
-  }
-  @media (max-width: 900px){
-    .progress-rail, .progress-rail-r, .progress-rail-label{ display:none; }
-  }
+/* =====================  CHIPS / TAGS  ===================== */
+.chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.7);
+  -webkit-backdrop-filter: blur(14px);
+          backdrop-filter: blur(14px);
+  border: 1px solid var(--hairline);
+  font-size: 13px; color: var(--ink);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.85) inset, 0 1px 2px rgba(15,23,42,0.03);
+}
+.chip .dot {
+  width: 6px; height: 6px; border-radius: 999px;
+  background: #FF8A3D;
+  box-shadow: 0 0 0 3px rgba(255,138,61,0.18);
+}
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(15,23,42,0.06);
+  color: var(--ink-soft);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.tag.tag-warm {
+  background: rgba(255,138,61,0.10);
+  color: #C46415;
+}
 
-  /* ============================================================
-     MODULE ROWS — improved hover
-     ============================================================ */
-  .module-row{
-    display:grid; grid-template-columns: 80px 1fr 1fr 56px;
-    gap: 32px; align-items:start;
-    padding: 44px 0;
-    transition: background .4s ease, padding-left .35s cubic-bezier(.2,.7,.2,1);
-    position:relative;
-  }
-  .module-row .mod-num{
-    transition: color .35s ease;
-    position:relative;
-    display:inline-block;
-  }
-  .module-row .mod-num::after{
-    content:""; position:absolute;
-    left:0; bottom:-6px;
-    height:1px; width:0;
-    background: var(--ochre);
-    transition: width .5s cubic-bezier(.2,.7,.2,1);
-  }
-  .module-row .mod-title{
-    transition: transform .45s cubic-bezier(.2,.7,.2,1);
-    display:inline-block;
-    will-change: transform;
-  }
-  .module-row:hover{ background: rgba(154,90,63,0.045); }
-  .module-row:hover .plus{ transform: rotate(90deg); color:var(--ochre); }
-  .module-row:hover .mod-num::after{ width:48px; }
-  .module-row:hover .mod-num{ color:var(--ochre); }
-  .module-row:hover .mod-title{ transform: translateX(8px); }
-  .plus{
-    transition: transform .5s cubic-bezier(.2,.7,.2,1), color .3s ease;
-    color: var(--ink);
-    display:inline-block;
-  }
+/* Stat chip (Aqua) */
+.stat-chip {
+  position: relative;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.78);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+          backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.85);
+  border-bottom-color: var(--glass-border-bottom);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.9) inset,
+    0 1px 2px rgba(15,23,42,0.04),
+    0 8px 20px -8px rgba(15,23,42,0.10);
+}
+.stat-chip .num {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.stat-chip .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 8px;
+}
 
-  /* ============================================================
-     TARIFFS
-     ============================================================ */
-  .tariff-col{
-    padding: 56px 36px 48px;
-    display:flex; flex-direction:column; justify-content:space-between;
-    min-height: 580px;
-    position:relative;
-    transition: transform .45s cubic-bezier(.2,.7,.2,1);
-    will-change: transform;
-  }
-  .tariff-col:hover{ transform: translateY(-4px); }
-  .tariff-col:not(:last-child){ border-right:1px solid rgba(138,126,107,0.55); }
-  .tariff-col .ox-line{
-    position:absolute; left:0; right:0; bottom:0;
-    height:1px; background:var(--oxblood);
-    transform: scaleX(0); transform-origin: left;
-    transition: transform .6s cubic-bezier(.2,.7,.2,1);
-  }
-  .tariff-col:hover .ox-line{ transform: scaleX(1); }
-  .tariff-col.featured{ background: rgba(154,90,63,0.04); }
-  .tariff-col.featured .top-rule{
-    position:absolute; left:24px; right:24px; top:0;
-    height:1px; background: var(--ochre);
-  }
+/* =====================  HAIRLINES  ===================== */
+.hairline { height: 1px; background: var(--hairline); }
+.hairline-soft { height: 1px; background: rgba(15,23,42,0.05); }
 
-  /* ============================================================
-     MARQUEE — footer endless type
-     ============================================================ */
-  @keyframes marq { from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
-  .marq{ animation: marq 60s linear infinite; white-space:nowrap; }
+/* =====================  FINDER WINDOW  ===================== */
+.finder {
+  position: relative;
+  background: rgba(255,255,255,0.78);
+  -webkit-backdrop-filter: blur(34px) saturate(190%);
+          backdrop-filter: blur(34px) saturate(190%);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-window);
+  overflow: hidden;
+  isolation: isolate;
+}
+.finder::before {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.95) 0%,
+    rgba(255,255,255,0.25) 30%,
+    rgba(255,255,255,0) 55%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  z-index: 5;
+}
+.finder-bar {
+  height: 44px;
+  display: flex; align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--hairline);
+  background: linear-gradient(180deg, rgba(253,253,254,0.85) 0%, rgba(244,244,246,0.85) 100%);
+  -webkit-backdrop-filter: blur(20px);
+          backdrop-filter: blur(20px);
+  position: relative; z-index: 4;
+}
+.tl {
+  width: 12px; height: 12px;
+  border-radius: 999px;
+  display: inline-block;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.55) inset, 0 0 0 0.5px rgba(0,0,0,0.18);
+}
+.tl-r { background: #FF5F57; }
+.tl-y { background: #FEBC2E; }
+.tl-g { background: #28C840; }
+.crumb {
+  color: var(--ink-soft);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+.crumb b { color: var(--ink); font-weight: 600; }
 
-  /* ============================================================
-     CTA — bare typographic
-     ============================================================ */
-  .cta-bare{
-    display:inline-flex; align-items:baseline; gap:12px;
-    font-family:'Fraunces', serif; font-style:italic; font-weight:500;
-    font-size: 20px; color:var(--ink);
-    border-bottom: 1px solid var(--ink);
-    padding-bottom: 4px;
-    transition: gap .4s cubic-bezier(.2,.7,.2,1), color .3s ease, border-color .3s ease;
-  }
-  .cta-bare:hover{ gap: 20px; color:var(--oxblood); border-color:var(--oxblood); }
+/* =====================  FOLDER GRID  ===================== */
+.folder-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap: 20px;
+}
+@media (max-width: 1100px) { .folder-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 720px)  { .folder-grid { grid-template-columns: repeat(2, 1fr) !important; } }
 
-  .cta-pill{
-    display:inline-flex; align-items:center; gap:10px;
-    font-size:11px; font-weight:500;
-    letter-spacing:0.18em; text-transform:uppercase;
-    color:var(--paper);
-    background:var(--ink);
-    padding: 14px 22px;
-    border: 1px solid var(--ink);
-    transition: background .3s ease, color .3s ease, gap .35s cubic-bezier(.2,.7,.2,1);
-  }
-  .cta-pill:hover{ background:var(--oxblood); border-color:var(--oxblood); gap:18px; }
+.module { display: flex; flex-direction: column; gap: 14px; padding: 4px; }
 
-  /* ============================================================
-     VERTICAL TEXT
-     ============================================================ */
-  .vtxt{
-    writing-mode: vertical-rl; transform: rotate(180deg);
-    font-family:'Inter Tight', sans-serif;
-    font-size:11px; font-weight:500;
-    letter-spacing:0.24em; text-transform:uppercase;
-    color: var(--stone);
+.folder-card {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  transform-style: preserve-3d;
+  perspective: 1100px;
+  cursor: pointer;
+  outline: none;
+}
+.folder-card .svg-wrap {
+  position: absolute; inset: 0;
+  transform-origin: 50% 70%;
+  transform: translate3d(0,0,0) rotateX(0deg) rotateY(0deg);
+  transition:
+    transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter   320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, filter;
+}
+/* CSS-only lift fallback (keyboard focus, touch, no-pointer) */
+@media (hover: hover) {
+  .folder-card:hover .svg-wrap:not(:has(*)),
+  .folder-card:focus-visible .svg-wrap {
+    transform: translate3d(0,-8px,0) rotateX(3deg) scale(1.02);
+    filter: drop-shadow(0 18px 24px rgba(15,23,42,0.18)) drop-shadow(0 8px 12px rgba(15,23,42,0.10));
   }
+}
+.folder-card svg.folder { width: 100%; height: 100%; display: block; }
 
-  /* ============================================================
-     QUOTE MARK
-     ============================================================ */
-  .qmark{
-    font-family:'Fraunces', serif; font-style:italic; font-weight:700;
-    color: var(--ochre);
-    font-size: 180px; line-height: 0.6;
-  }
+/* Sheen sweep on hover */
+.folder-card::after {
+  content: "";
+  position: absolute;
+  top: 12%; left: 6%; right: 6%; bottom: 8%;
+  border-radius: 16px;
+  background: linear-gradient(120deg,
+    transparent 30%,
+    rgba(255,255,255,0.55) 50%,
+    transparent 70%);
+  transform: translateX(-110%);
+  pointer-events: none;
+  z-index: 3;
+  mix-blend-mode: screen;
+  transition: transform 900ms var(--ease-fluid);
+}
+.folder-card:hover::after,
+.folder-card:focus-visible::after { transform: translateX(220%); }
 
-  /* ============================================================
-     DROP CAP — book-feel manifesto
-     ============================================================ */
-  .drop-cap::first-letter{
-    font-family:'Fraunces', serif; font-weight:500; font-style:italic;
-    font-size: 5.6rem; line-height: 0.82;
-    float:left; padding: 6px 14px 0 0;
-    color: var(--ink);
-  }
+.folder-card .shadow-disc {
+  position: absolute;
+  left: 8%; right: 8%; bottom: -2%;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(15,23,42,0.22), rgba(15,23,42,0) 70%);
+  filter: blur(8px);
+  opacity: 0.55;
+  transition: opacity 480ms ease, transform 480ms var(--ease-tilt), filter 480ms ease;
+  z-index: 0;
+}
+.folder-card:hover .shadow-disc {
+  opacity: 0.85;
+  transform: translateY(8px) scaleX(1.05);
+  filter: blur(12px);
+}
+.folder-card:hover .module-num { color: #C46415; }
 
-  /* ============================================================
-     SWATCH (palette colophon)
-     ============================================================ */
-  .swatch{ height:96px; width:100%; }
-  .swatch-meta{ padding: 10px 0 0; }
+.module-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  transition: color 240ms ease;
+}
+.module-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.lesson {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 13.5px; line-height: 1.45;
+  color: var(--ink-soft);
+  padding: 5px 0;
+  border-top: 1px solid rgba(15,23,42,0.05);
+}
+.lesson:first-child { border-top: 0; }
+.lesson .ix {
+  flex: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-mute);
+  padding-top: 2px;
+  min-width: 22px;
+  letter-spacing: 0.02em;
+}
+.lesson .tx { color: var(--ink); opacity: 0.78; }
 
-  /* ============================================================
-     METRICS STRIP
-     ============================================================ */
-  .metric-num{
-    font-family:'Fraunces', serif;
-    font-weight:400; font-style:italic;
-    color: var(--ink);
-    font-size: clamp(60px, 7vw, 96px);
-    line-height: 0.95;
-    letter-spacing: -0.025em;
-  }
-  .metric-num sup{ font-size:0.5em; color: var(--stone); top:-0.3em; }
+/* =====================  STORIES  ===================== */
+.story {
+  position: relative;
+  padding: 36px;
+  border-radius: var(--radius-xl);
+  background: rgba(255,255,255,0.72);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+          backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--glass-border-top);
+  border-bottom-color: var(--glass-border-bottom);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.9) inset,
+    var(--shadow-rest);
+  isolation: isolate;
+}
+.story::before {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.1) 40%, transparent 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none;
+}
+.story .pull {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: clamp(22px, 1.9vw, 26px);
+  line-height: 1.28;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+}
+.story .meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.story p { color: var(--ink-soft); font-size: 15px; line-height: 1.6; }
 
-  /* ============================================================
-     STICKY NAV — backdrop blur, micro number rail
-     ============================================================ */
-  .top-nav{
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(253,250,243,0.82);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(25,25,25,0.16);
-  }
+/* =====================  PLANS  ===================== */
+.plan {
+  position: relative;
+  padding: 32px;
+  border-radius: var(--radius-xl);
+  background: rgba(255,255,255,0.72);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+          backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--glass-border-top);
+  border-bottom-color: var(--glass-border-bottom);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.9) inset,
+    var(--shadow-rest);
+  isolation: isolate;
+  transition: transform 500ms var(--ease-spring), box-shadow 500ms var(--ease-spring);
+}
+.plan:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.95) inset, var(--shadow-hover);
+}
+.plan.is-featured {
+  background: rgba(255,255,255,0.86);
+  border: 1px solid rgba(255,138,61,0.35);
+  transform: translateY(-6px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.95) inset,
+    0 0 0 4px rgba(255,138,61,0.06),
+    0 16px 40px -10px rgba(255,138,61,0.18);
+}
+.plan.is-featured:hover { transform: translateY(-10px); }
 
-  /* ============================================================
-     FAQ
-     ============================================================ */
-  details.faq{
-    border-top: 1px solid rgba(25,25,25,0.16);
-    padding: 32px 0;
-    transition: padding-left .4s cubic-bezier(.2,.7,.2,1);
-  }
-  details.faq:last-of-type{ border-bottom: 1px solid rgba(25,25,25,0.16); }
-  details.faq summary{
-    list-style:none; cursor:pointer;
-    display:flex; align-items:baseline; justify-content:space-between;
-    gap: 32px;
-    transition: transform .4s cubic-bezier(.2,.7,.2,1);
-  }
-  details.faq summary::-webkit-details-marker{ display:none; }
-  details.faq summary h4{
-    transition: transform .4s cubic-bezier(.2,.7,.2,1);
-  }
-  details.faq:hover summary h4{ transform: translateX(6px); }
-  details.faq:hover summary .plus{ color: var(--ochre); }
-  details.faq[open] summary .plus{ transform: rotate(45deg); color: var(--oxblood); }
-  details.faq[open] summary h4{ color: var(--oxblood); }
-  details.faq p.faq-body{
-    margin-top: 20px; max-width: 64ch;
-    color: var(--stone);
-    font-size: 17px; line-height: 1.6;
-  }
+.plan .price {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.plan .price small { font-size: 16px; font-weight: 500; color: var(--ink-soft); letter-spacing: 0; }
+.plan ul li {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 7px 0;
+  font-size: 14.5px;
+  color: var(--ink);
+  line-height: 1.45;
+  border-top: 1px solid rgba(15,23,42,0.05);
+}
+.plan ul li:first-child { border-top: 0; }
+.plan ul li .ck {
+  flex: none;
+  width: 16px; height: 16px;
+  border-radius: 999px;
+  background: rgba(255,138,61,0.12);
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-top: 3px;
+  color: #C46415;
+}
 
-  /* ============================================================
-     CASE STORIES — pull-quote feel
-     ============================================================ */
-  .case-row{
-    display:grid; grid-template-columns: 80px 1fr 1fr; gap: 32px;
-    align-items:start;
-    padding: 56px 0;
-    border-top: 1px solid rgba(25,25,25,0.16);
-  }
-  details.case-expand{ display:block; }
-  details.case-expand summary{
-    list-style:none; cursor:pointer;
-    display:flex; align-items:baseline; justify-content:space-between;
-    gap:16px;
-    border-bottom:1px solid rgba(25,25,25,0.16);
-    padding-bottom:10px;
-    transition: color .3s ease, border-color .3s ease;
-  }
-  details.case-expand summary::-webkit-details-marker{ display:none; }
-  details.case-expand summary .plus{
-    transition: transform .5s cubic-bezier(.2,.7,.2,1), color .3s ease;
-    color: var(--ink);
-  }
-  details.case-expand[open] summary .plus{ transform: rotate(45deg); color: var(--oxblood); }
-  details.case-expand[open] summary{ border-color: var(--oxblood); }
-  details.case-expand:hover summary .plus{ color: var(--ochre); }
-  .case-row:last-of-type{ border-bottom: 1px solid rgba(25,25,25,0.16); }
-  .pull-quote{
-    font-family:'Fraunces', serif;
-    font-style:italic; font-weight:400;
-    font-size: clamp(22px, 2.4vw, 32px);
-    line-height: 1.25;
-    color: var(--ink);
-    letter-spacing: -0.01em;
-  }
+.badge-pop {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #FF8A3D;
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px -4px rgba(255,138,61,0.45);
+}
 
-  /* ============================================================
-     LMS / CABINET
-     ============================================================ */
-  body.route-app .landing-root{ display:none; }
-  body:not(.route-app) .cabinet-root{ display:none; }
+/* =====================  FAQ  ===================== */
+.faq-item {
+  display: grid;
+  grid-template-rows: auto 0fr;
+  transition: grid-template-rows 320ms var(--ease-fluid);
+  padding: 18px 22px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.62);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+          backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid var(--glass-border-top);
+  border-bottom-color: var(--glass-border-bottom);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.85) inset, 0 1px 2px rgba(15,23,42,0.03);
+}
+.faq-item[aria-expanded='true'] {
+  grid-template-rows: auto 1fr;
+  background: rgba(255,255,255,0.82);
+}
+.faq-item .faq-q {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  cursor: pointer;
+  width: 100%;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  text-align: left;
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+.faq-item .faq-content {
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 320ms ease 50ms;
+  padding-top: 0;
+}
+.faq-item[aria-expanded='true'] .faq-content {
+  opacity: 1;
+  padding-top: 12px;
+}
+.faq-item .faq-content p {
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.chev {
+  transition: transform 240ms var(--ease-spring);
+  color: var(--ink-soft);
+}
+[aria-expanded='true'] .chev { transform: rotate(45deg); color: #FF8A3D; }
 
-  .cabinet-shell{ min-height: 100vh; display:flex; }
-  .cabinet-sidebar{
-    width: 320px; flex-shrink:0;
-    background: var(--paper-2);
-    border-right: 1px solid rgba(25,25,25,0.16);
-    padding: 32px 28px;
-    display:flex; flex-direction:column;
-    position:sticky; top:0; height:100vh;
-    overflow-y:auto;
-  }
-  .cabinet-main{ flex:1; min-width:0; padding: 48px clamp(28px,4vw,72px) 96px; }
+/* =====================  REVEAL  ===================== */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 700ms var(--ease-out);
+}
+.reveal.in { opacity: 1; transform: translate3d(0,0,0); }
 
-  .nav-item{
-    display:flex; align-items:center; gap:14px;
-    padding: 14px 14px;
-    font-family:'Inter Tight', sans-serif;
-    font-size:13px; font-weight:500;
-    letter-spacing:0.04em;
-    color: var(--stone);
-    cursor:pointer;
-    transition: color .3s ease, background .3s ease, transform .35s cubic-bezier(.2,.7,.2,1);
-    border-left: 1px solid transparent;
-  }
-  .nav-item:hover{ color: var(--ink); transform: translateX(4px); }
-  .nav-item.active{
-    color: var(--oxblood);
-    border-left: 1px solid var(--oxblood);
-    background: rgba(71,36,37,0.05);
-  }
+@keyframes springPop {
+  0%   { opacity: 0; transform: scale(0.94) translateY(10px); }
+  60%  { opacity: 1; transform: scale(1.02) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+.spring-pop { animation: springPop 560ms var(--ease-spring) both; }
 
-  /* Module-row in LMS */
-  .lms-module{
-    border: 1px solid rgba(25,25,25,0.16);
-    background: var(--paper);
-    margin-bottom: 16px;
-    overflow:hidden;
-    transition: border-color .3s ease;
-  }
-  .lms-module:hover{ border-color: rgba(25,25,25,0.32); }
-  .lms-module summary{
-    list-style:none; cursor:pointer;
-    padding: 22px 28px;
-    display:flex; align-items:center; justify-content:space-between; gap:24px;
-  }
-  .lms-module summary::-webkit-details-marker{ display:none; }
-  .lms-module .chev{
-    font-family:'Fraunces', serif; font-style:italic;
-    font-size: 28px; line-height: 0.5;
-    color: var(--ochre);
-    transition: transform .45s cubic-bezier(.2,.7,.2,1);
-  }
-  .lms-module[open] .chev{ transform: rotate(45deg); }
+@keyframes springBounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(0.94); }
+  70%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+.spring-bounce { animation: springBounce 420ms cubic-bezier(0.34, 1.56, 0.64, 1) both; }
 
-  .lesson-row{
-    display:flex; align-items:center; justify-content:space-between;
-    padding: 14px 28px;
-    border-top: 1px solid rgba(25,25,25,0.10);
-    cursor: pointer;
-    transition: background .3s ease, padding-left .35s cubic-bezier(.2,.7,.2,1);
-  }
-  .lesson-row:hover{ background: rgba(154,90,63,0.05); padding-left: 36px; }
-  .lesson-marker{
-    width: 24px; height: 24px;
-    border-radius: 999px;
-    display:inline-flex; align-items:center; justify-content:center;
-    font-size: 11px; font-weight: 500;
-    border: 1px solid rgba(25,25,25,0.32);
-    color: var(--stone);
-    background: var(--paper);
-    transition: background .3s ease, color .3s ease, border-color .3s ease;
-  }
-  .lesson-marker.done{
-    background: var(--oxblood);
-    border-color: var(--oxblood);
-    color: var(--paper);
-  }
+/* Progress ring + bar smooth transitions */
+#prog-ring { transition: stroke-dashoffset 560ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.lms-tile .bar > i { transition: width 560ms cubic-bezier(0.34, 1.56, 0.64, 1); }
 
-  /* Crosshair frame (from variant-2) — for the video player */
-  .crosshair-frame{
-    position:relative;
-    border: 1px solid rgba(25,25,25,0.18);
-    background: #0e0e10;
-    aspect-ratio: 16/9;
-    overflow:hidden;
-  }
-  .crosshair-frame .ch-tl{ position:absolute; top:14px; left:14px; width:14px; height:14px; border-left:1px solid rgba(242,237,222,0.6); border-top:1px solid rgba(242,237,222,0.6); }
-  .crosshair-frame .ch-tr{ position:absolute; top:14px; right:14px; width:14px; height:14px; border-right:1px solid rgba(242,237,222,0.6); border-top:1px solid rgba(242,237,222,0.6); }
-  .crosshair-frame .ch-bl{ position:absolute; bottom:14px; left:14px; width:14px; height:14px; border-left:1px solid rgba(242,237,222,0.6); border-bottom:1px solid rgba(242,237,222,0.6); }
-  .crosshair-frame .ch-br{ position:absolute; bottom:14px; right:14px; width:14px; height:14px; border-right:1px solid rgba(242,237,222,0.6); border-bottom:1px solid rgba(242,237,222,0.6); }
+/* =====================  PORTRAIT  ===================== */
+.portrait {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: linear-gradient(160deg, #FFE2C8 0%, #FFB477 45%, #E58A2C 100%);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.9) inset,
+    0 16px 40px -12px rgba(15,23,42,0.18);
+  border: 1px solid rgba(255,255,255,0.7);
+}
+.portrait svg { width: 100%; height: 100%; display: block; }
 
-  .progressbar{
-    width:100%; height: 1px;
-    background: rgba(25,25,25,0.18);
-    position:relative; overflow:hidden;
-  }
-  .progressbar > i{
-    position:absolute; left:0; top:-3px; bottom:-3px;
-    background: var(--oxblood);
-    height: 7px;
-    transition: width .5s cubic-bezier(.2,.7,.2,1);
-  }
+.portrait-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.portrait-placeholder::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(60% 50% at 35% 25%, rgba(255,255,255,0.45), rgba(255,255,255,0) 70%);
+  pointer-events: none;
+}
+.portrait-placeholder .pp-initials {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: clamp(120px, 14vw, 200px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(140,60,0,0.18);
+  position: relative; z-index: 1;
+}
+.portrait-placeholder .pp-caption {
+  position: absolute;
+  left: 0; right: 0; bottom: 22px;
+  text-align: center;
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.88);
+  z-index: 1;
+}
 
-  /* ============================================================
-     RESPONSIVE
-     ============================================================ */
-  @media (max-width: 900px){
-    .module-row{ grid-template-columns: 48px 1fr 32px; gap:16px; padding:28px 0; }
-    .module-row .module-desc{ display:none; }
-    .tariff-col:not(:last-child){ border-right:none; border-bottom:1px solid rgba(138,126,107,0.55); }
-    .tariff-col{ min-height: auto; padding: 36px 0; }
-    .vtxt{ display:none; }
-    .case-row{ grid-template-columns: 1fr; gap: 20px; padding: 36px 0; }
-    .cabinet-shell{ flex-direction: column; }
-    .cabinet-sidebar{ width:100%; height:auto; position:relative; }
-    .cabinet-main{ padding: 32px 20px 64px; }
+/* =====================  HERO MOCK  ===================== */
+.hero-mock {
+  perspective: 1400px;
+  perspective-origin: 50% 30%;
+}
+.hero-mock-window {
+  transform: rotateY(-6deg) rotateX(2deg) translateZ(0);
+  transform-origin: 60% 40%;
+  animation: heroPop 720ms cubic-bezier(0.34,1.56,0.64,1) both;
+  animation-delay: 220ms;
+}
+@keyframes heroPop {
+  0%   { opacity: 0; transform: rotateY(-6deg) rotateX(2deg) scale(0.94) translateY(14px); }
+  60%  { opacity: 1; transform: rotateY(-6deg) rotateX(2deg) scale(1.02) translateY(-2px); }
+  100% { opacity: 1; transform: rotateY(-6deg) rotateX(2deg) scale(1) translateY(0); }
+}
+.mock-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  padding: 22px 22px 24px;
+}
+.mock-grid .mock-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+.mock-grid .mock-cell svg { width: 100%; max-width: 110px; height: auto; display: block; }
+.mock-grid .mock-cell .mc-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.mock-grid .mock-cell .mc-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.2;
+}
+@media (max-width: 720px) {
+  .hero-mock-window { transform: none; animation: none; opacity: 1; }
+}
+
+/* =====================  CABINET (LMS)  ===================== */
+body.route-app .landing { display: none; }
+body.route-app .cabinet { display: block; }
+.cabinet { display: none; padding: 24px 16px 60px; position: relative; z-index: 10; }
+
+.cab-window {
+  max-width: 1240px;
+  margin: 0 auto;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  background: rgba(255,255,255,0.78);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+          backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid var(--hairline);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.95) inset,
+    0 2px 0 rgba(255,255,255,0.9) inset,
+    0 40px 100px -30px rgba(20,20,30,0.32),
+    0 12px 30px -10px rgba(20,20,30,0.18);
+  position: relative;
+  isolation: isolate;
+}
+.cab-window::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.2) 35%, transparent 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none; z-index: 6;
+}
+
+.cab-topbar {
+  height: 56px;
+  display: flex; align-items: center;
+  padding: 0 18px;
+  border-bottom: 1px solid var(--hairline);
+  background: linear-gradient(180deg, rgba(253,253,254,0.85), rgba(244,244,246,0.85));
+  position: relative; z-index: 4;
+}
+.cab-search {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 30px; padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--hairline);
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.cab-body { display: grid; grid-template-columns: 248px 1fr; min-height: 620px; }
+@media (max-width: 860px) { .cab-body { grid-template-columns: 1fr; } }
+
+.cab-side {
+  border-right: 1px solid var(--hairline);
+  padding: 12px 12px 20px;
+  background: rgba(252,252,254,0.55);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+          backdrop-filter: blur(24px) saturate(180%);
+}
+@media (max-width: 860px) { .cab-side { border-right: 0; border-bottom: 1px solid var(--hairline); } }
+
+.cab-side .section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  padding: 16px 12px 6px;
+}
+.cab-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  color: var(--ink);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 180ms var(--ease-inout);
+}
+.cab-row:hover { background: rgba(0,0,0,0.04); }
+.cab-row.is-active {
+  background: rgba(10,132,255,0.10);
+  color: var(--sky-deep);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--sky);
+}
+.cab-row .ic { width: 16px; height: 16px; flex: none; color: var(--ink-soft); }
+.cab-row.is-active .ic { color: var(--sky); }
+.cab-row .count {
+  margin-left: auto;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.05);
+  font-size: 10.5px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--ink-soft);
+}
+
+.cab-main { padding: 28px 32px 32px; position: relative; }
+.cab-main .breadcrumb {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+.cab-main h2 {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.progress-pill {
+  display: inline-flex; align-items: center; gap: 12px;
+  height: 38px; padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.7);
+  -webkit-backdrop-filter: blur(20px);
+          backdrop-filter: blur(20px);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.85) inset, 0 4px 12px -4px rgba(15,23,42,0.08);
+}
+.progress-pill .label { font-size: 13px; font-weight: 600; color: var(--ink); }
+.progress-pill .pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500; font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--sky-deep);
+}
+
+/* LMS upper cards */
+.lms-card {
+  position: relative;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.72);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+          backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 4px 12px -4px rgba(15,23,42,0.06);
+}
+.lms-card .lc-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.lms-card .lc-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  line-height: 1.25;
+}
+.lms-card .lc-meta {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+.lms-card-live {
+  background: linear-gradient(160deg, rgba(255,222,196,0.65) 0%, rgba(255,255,255,0.72) 65%);
+  border-color: rgba(255,138,61,0.20);
+}
+.lms-card-feedback .lc-quote {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.lms-card-continue .lc-thumb {
+  position: relative;
+  aspect-ratio: 16/9;
+  border-radius: 10px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #1D1D1F 0%, #2C2C2E 100%);
+}
+.lms-card-continue .lc-thumb-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 60% at 50% 40%, rgba(255,138,61,0.18), transparent 60%),
+    radial-gradient(40% 40% at 80% 80%, rgba(10,132,255,0.10), transparent 60%);
+}
+.lms-card-continue .lc-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 36px; height: 36px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.32);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+}
+.lms-card-continue .lc-progress {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: rgba(255,255,255,0.10);
+}
+.lms-card-continue .lc-progress > i {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, #FFB477, #FF8A3D);
+}
+
+.lms-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 22px;
+}
+@media (max-width: 1100px) { .lms-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 720px)  { .lms-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.lms-tile {
+  position: relative;
+  border-radius: 16px;
+  padding: 14px 14px 16px;
+  background: rgba(255,255,255,0.7);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+          backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.85) inset, 0 1px 2px rgba(15,23,42,0.03);
+  cursor: pointer;
+  transition: transform 360ms var(--ease-spring), box-shadow 360ms var(--ease-spring);
+}
+.lms-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 12px 26px -8px rgba(15,23,42,0.14);
+}
+.lms-tile .mini-folder { width: 100%; aspect-ratio: 5/4; }
+.lms-tile .t-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600; font-size: 14px;
+  margin-top: 10px;
+  color: var(--ink);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+.lms-tile .t-status {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 8px;
+  font-size: 11.5px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+.lms-tile .bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.lms-tile .bar > i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #FFB477, #FF8A3D);
+  border-radius: 999px;
+  transition: width 700ms var(--ease-out);
+}
+
+/* Lesson modal pop */
+.lesson-pop {
+  position: absolute;
+  top: 24px; left: 24px; right: 24px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.92);
+  -webkit-backdrop-filter: blur(36px) saturate(200%);
+          backdrop-filter: blur(36px) saturate(200%);
+  border: 1px solid var(--glass-border-top);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.95) inset,
+    0 30px 80px -20px rgba(15,23,42,0.30);
+  padding: 24px 28px 26px;
+  z-index: 8;
+  display: none;
+}
+.lesson-pop.is-open { display: block; animation: springPop 560ms var(--ease-spring) both; }
+.lesson-pop .video-stub {
+  width: 100%; aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  background: linear-gradient(160deg, #1D1D1F 0%, #2C2C2E 100%);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.05) inset, 0 12px 28px -8px rgba(0,0,0,0.30);
+}
+.lesson-pop .video-stub::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 60% at 50% 40%, rgba(10,132,255,0.12), transparent 60%),
+    radial-gradient(40% 40% at 80% 80%, rgba(255,180,119,0.10), transparent 60%);
+}
+.play-circle {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 72px; height: 72px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.16);
+  -webkit-backdrop-filter: blur(16px);
+          backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.32);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: transform 320ms var(--ease-spring), background 240ms ease;
+}
+.play-circle:hover { transform: translate(-50%,-50%) scale(1.06); background: rgba(255,255,255,0.24); }
+.play-circle svg { color: #fff; margin-left: 3px; }
+.crosshair {
+  position: absolute;
+  width: 16px; height: 16px;
+  border: 1.5px solid rgba(255,255,255,0.3);
+}
+.ch-tl { top: 12px; left: 12px; border-right: 0; border-bottom: 0; }
+.ch-tr { top: 12px; right: 12px; border-left: 0; border-bottom: 0; }
+.ch-bl { bottom: 12px; left: 12px; border-right: 0; border-top: 0; }
+.ch-br { bottom: 12px; right: 12px; border-left: 0; border-top: 0; }
+
+.note-peach {
+  position: absolute; top: 90px; right: 32px;
+  max-width: 220px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(255,222,196,0.92) 0%, rgba(255,211,181,0.85) 100%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+          backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.7);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 8px 20px -8px rgba(255,138,61,0.30);
+  z-index: 7;
+}
+.note-peach .note-h {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(133,72,12,0.85);
+}
+.note-peach .note-body {
+  font-size: 13px; line-height: 1.45;
+  color: rgba(80,42,0,0.92);
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+@media (max-width: 860px) {
+  .note-peach { position: static; max-width: none; margin: 16px 0; }
+  .lesson-pop {
+    position: fixed;
+    inset: 12px;
+    top: 12px; left: 12px; right: 12px; bottom: 12px;
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
   }
+}
 
-  /* ============================================================
-     KEYBOARD FOCUS — keep editorial, but a11y
-     ============================================================ */
-  :focus-visible{ outline: 1px dashed var(--oxblood); outline-offset: 4px; }
+/* =====================  FOCUS  ===================== */
+:focus-visible {
+  outline: 2px solid rgba(10,132,255,0.7);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
 
+/* =====================  REDUCED MOTION  ===================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal,
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .blob { display: none; animation: none !important; }
+  .folder-card .svg-wrap { transform: none !important; filter: none !important; }
+  .magnetic,
+  [data-magnetic] { transform: none !important; }
+}
 </style>
 </head>
-<body class="bg-paper ink">
+<body class="antialiased">
 
-<!-- ============================================================
-     STICKY VERTICAL RAIL (editorial reading line)
-     ============================================================ -->
-<div class="progress-rail" id="progressRail"></div>
-<div class="progress-rail-r"></div>
-<div class="progress-rail-label">
-  <span class="micro">N<sup>o</sup> IV · Соколова · 2026</span>
+<!-- ===== AURORA CANVAS ===== -->
+<div class="canvas" aria-hidden="true">
+  <div class="blob blob-warm" id="b-warm"></div>
+  <div class="blob blob-sky" id="b-sky"></div>
+  <div class="blob blob-peach" id="b-peach"></div>
 </div>
 
-<!-- ============================================================
-     ============================================================
-     LANDING (default route)
-     ============================================================
-     ============================================================ -->
-<div class="landing-root">
+<!-- =================================================== -->
+<!-- ================== LANDING ROUTE =================== -->
+<!-- =================================================== -->
+<div class="landing">
 
-<!-- ============================================================
-     STICKY TOP NAV
-============================================================ -->
-<header class="top-nav">
-  <div class="max-shell flex items-center justify-between py-4">
-    <a href="#top" class="flex items-baseline gap-4">
-      <span class="micro">N<sup>o</sup> 04</span>
-      <span class="ff-display italic text-[22px] leading-none">Соколова</span>
-      <span class="label hidden md:inline">— Институт честных продаж, с 2005</span>
+<!-- ============== NAV ============== -->
+<div class="sticky top-3 z-50 px-4 md:px-6">
+  <nav class="nav-glass mx-auto max-w-[1180px] h-14 px-4 md:px-5 flex items-center justify-between" id="nav">
+    <a href="#" class="flex items-center gap-2.5">
+      <span class="inline-block w-7 h-7 rounded-[8px]" style="background: linear-gradient(180deg, #fff 0%, #F0F1F4 100%); border:1px solid rgba(15,23,42,0.10); box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset;">
+        <svg viewBox="0 0 28 28" class="w-full h-full">
+          <path d="M6 9 Q6 7 8 7 L13 7 Q14 7 14.6 7.7 L15.4 8.6 L19.5 8.6 Q21 8.6 21 10.2 L21 19 Q21 20.5 19.5 20.5 L8 20.5 Q6 20.5 6 18.8 Z" fill="#0A84FF"/>
+        </svg>
+      </span>
+      <span class="display font-semibold text-[17px] tracking-tight">Соколова</span>
+      <span class="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--ink-mute)] ml-1 hidden md:inline">/ курс</span>
     </a>
-    <nav class="hidden md:flex items-center gap-8 label">
-      <a class="nav-link" href="#about">О Елене</a>
-      <a class="nav-link" href="#program">Программа</a>
-      <a class="nav-link" href="#cases">Истории</a>
-      <a class="nav-link" href="#tariffs">Участие</a>
-      <a class="nav-link" href="#faq">Вопросы</a>
-    </nav>
-    <button onclick="enterLMS()" class="hidden md:inline-flex items-center gap-2 label ink cta-bare" style="font-size:11px; gap:8px;">
-      Кабинет ученика
-      <svg class="arrow-lnk" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 19L19 5M9 5h10v10"/></svg>
-    </button>
-  </div>
-</header>
+    <div class="hidden md:flex items-center gap-7 text-[14px] font-medium">
+      <a href="#about" class="nav-link" data-link>О Елене</a>
+      <a href="#program" class="nav-link" data-link>Программа</a>
+      <a href="#stories" class="nav-link" data-link>Истории</a>
+      <a href="#plans" class="nav-link" data-link>Тарифы</a>
+      <a href="#faq" class="nav-link" data-link>Вопросы</a>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="#cabinet" class="pill-ghost magnetic hidden sm:inline-flex items-center h-9 px-4 rounded-full text-[13px] font-medium">Кабинет ученика</a>
+      <a href="#enroll" class="pill-sky magnetic inline-flex items-center h-9 px-4 rounded-full text-[13.5px] font-semibold">Записаться</a>
+    </div>
+  </nav>
+</div>
 
-<!-- ============================================================
-     HERO — POSTER
-============================================================ -->
-<section id="top" class="relative grain overflow-hidden">
-  <div class="max-shell pt-10 md:pt-16 pb-20 md:pb-28">
+<!-- ============== HERO ============== -->
+<section id="hero" class="relative z-10 px-4 md:px-6 pt-14 md:pt-20 pb-16">
+  <div class="mx-auto max-w-[1180px]">
 
-    <!-- top metadata strip -->
-    <div class="grid grid-cols-12 gap-6 mb-12 md:mb-16">
-      <div class="col-span-6 md:col-span-3">
-        <div class="label mb-2">Курс № IV</div>
-        <div class="body-sm stone">Поток открывается 14 января 2026.<br/>Шесть недель практики.</div>
-      </div>
-      <div class="col-span-6 md:col-span-3 md:col-start-10 md:text-right">
-        <div class="label mb-2">Для кого</div>
-        <div class="body-sm stone">Эксперты, основатели, руководители<br/>отделов продаж. Без сценариев и скриптов.</div>
-      </div>
+    <div class="flex items-center gap-3 mb-7 reveal">
+      <span class="eyebrow">КУРС № IV · ПОТОК 14 ЯНВАРЯ 2026</span>
+      <span class="hairline flex-1" style="opacity:.6"></span>
+      <span class="mono text-[11px] text-[color:var(--ink-mute)]">5 модулей · 20 уроков</span>
     </div>
 
-    <!-- POSTER H1 with inset portrait -->
-    <div class="relative">
-
-      <!-- Row 1: Продажи, -->
-      <h1 class="poster-h1 ff-display">
-        Продажи<span class="ox-comma" style="color:var(--ochre);">,</span>
-      </h1>
-
-      <!-- middle word — pure typography, no portrait inset -->
-      <h1 class="poster-h1 ff-display">
-        <em>которые</em>
-      </h1>
-
-      <!-- Row 3: не предают -->
-      <h1 class="poster-h1 ff-display">
-        не предают
-      </h1>
-
-      <!-- Row 4: человека. + echo -->
-      <div class="grid grid-cols-12 gap-6 items-end mt-1 md:mt-2">
-        <div class="col-span-12 md:col-span-7">
-          <h1 class="poster-h1 ff-display">
-            <em class="ox">человека</em><span style="color:var(--ink); font-style:normal; font-weight:400;">.</span>
-          </h1>
+    <div class="grid md:grid-cols-12 gap-10 items-start">
+      <div class="md:col-span-6 reveal">
+        <h1 class="h-display">
+          Продажи<br/>
+          без впаривания.<br/>
+          <span class="accent">По‑честному.</span>
+        </h1>
+        <p class="lede mt-7">
+          Курс Елены Соколовой — двадцать лет в продажах, переложенные в пять модулей. Не скрипты и не давление, а спокойный разговор, после которого клиент возвращается сам.
+        </p>
+        <div class="mt-7 flex flex-wrap items-center gap-3">
+          <a href="#enroll" class="pill-sky magnetic inline-flex items-center h-12 px-7 rounded-full text-[15px] font-semibold">Записаться на поток</a>
+          <a href="#program" class="pill-ghost magnetic inline-flex items-center h-12 px-5 rounded-full text-[14px] font-medium">
+            Узнать программу
+            <svg width="14" height="14" viewBox="0 0 14 14" class="ml-2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 4l3 3-3 3"/></svg>
+          </a>
         </div>
-        <div class="col-span-12 md:col-span-4 md:col-start-9 mt-6 md:mt-0">
-          <div class="echo">
-            «Я двадцать лет учусь одной простой вещи —<br/>
-            доходить до сделки так, чтобы вторая встреча<br/>
-            была желанной. Этот курс — мой ответ всем,<br/>
-            кто устал от скриптов.»
+        <div class="mt-6 flex flex-wrap gap-2.5">
+          <span class="chip"><span class="dot"></span>4 недели потока</span>
+          <span class="chip"><span class="dot"></span>живые разборы</span>
+          <span class="chip"><span class="dot"></span>обратная связь Елены</span>
+        </div>
+      </div>
+
+      <!-- HERO MOCK: открытое Finder-окно с папками-модулями -->
+      <div class="md:col-span-6 reveal" style="transition-delay:160ms">
+        <div class="hero-mock">
+          <div class="hero-mock-window finder">
+            <div class="finder-bar">
+              <div class="flex items-center gap-2 mr-3">
+                <span class="tl tl-r"></span><span class="tl tl-y"></span><span class="tl tl-g"></span>
+              </div>
+              <div class="crumb"><b>Курс</b> &nbsp;›&nbsp; <b>Модули</b></div>
+              <div class="ml-auto mono text-[11px]" style="color: var(--ink-mute);">5 элементов</div>
+            </div>
+            <div class="mock-grid" id="hero-mock-grid"></div>
           </div>
-          <div class="label mt-3 ink">— Е.С.</div>
         </div>
       </div>
     </div>
 
-    <!-- bottom rail -->
-    <div class="hl-top mt-16 md:mt-24 pt-8 grid grid-cols-12 gap-6 items-end">
-      <div class="col-span-12 md:col-span-5">
-        <p class="lede max-w-xl">
-          Шестинедельная программа для тех, кто продаёт собственным голосом —
-          без давления, без манипуляций и без чувства, что после звонка
-          нужно вымыть руки.
-        </p>
+    <!-- Metric strip -->
+    <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-3 reveal" style="transition-delay:200ms">
+      <div class="stat-chip">
+        <div class="num">20 лет</div>
+        <div class="label">в продажах</div>
       </div>
-      <div class="col-span-6 md:col-span-3 md:col-start-7">
-        <div class="label mb-2">Формат</div>
-        <div class="body-sm">6 недель · 28 уроков · 4 живые сессии · разбор ваших звонков</div>
+      <div class="stat-chip">
+        <div class="num">412</div>
+        <div class="label">учеников выпущено</div>
       </div>
-      <div class="col-span-6 md:col-span-3 text-right flex md:block items-end justify-end gap-6">
-        <a href="#tariffs" class="cta-bare group-lnk">
-          Прочитать условия
-          <span class="arrow-lnk">→</span>
-        </a>
+      <div class="stat-chip">
+        <div class="num">94%</div>
+        <div class="label">доходят до финала</div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     MANIFESTO — quiet paper, drop-cap, single accent letter
-============================================================ -->
-<section id="manifesto" class="bg-paper relative">
-  <div class="max-shell py-28 md:py-40 relative">
-    <div class="absolute left-4 md:left-8 top-8 vtxt" style="color:rgba(25,25,25,0.55);">
-      I. Манифест — о честности как ремесле
-    </div>
-
-    <div class="grid grid-cols-12 gap-6">
-      <div class="col-span-12 md:col-span-2">
-        <div class="label ink">§ 01</div>
-      </div>
-      <div class="col-span-12 md:col-span-9">
-        <p class="manifesto-h2 ink">
-          Впаривание — это<br/>
-          <em class="oxblood">неуверенность,</em><br/>
-          переодетая<br/>
-          в напор.
-        </p>
-
-        <div class="hl-dashed mt-16 mb-10" style="border-color:rgba(25,25,25,0.18);"></div>
-
-        <div class="grid grid-cols-12 gap-6">
-          <div class="col-span-12 md:col-span-6">
-            <p class="lede ink drop-cap" style="max-width: 56ch;">
-              Большинство тренингов учат давить. Они называют это
-              «закрытием», словно клиент — дверь, которую нужно запереть.
-              Я двадцать лет работаю иначе. Я научилась слышать паузу перед «нет»
-              и понимать, что за ней стоит не отказ, а сомнение, требующее
-              аккуратного слова.
-            </p>
-          </div>
-          <div class="col-span-12 md:col-span-5 md:col-start-8">
-            <p class="lede ink mb-6">
-              Этот курс — про другое. Про продажу как разговор взрослых людей,
-              где у каждой стороны есть право сказать «нет» и сохранить лицо.
-              Про деньги, которые приходят не от давления, а от доверия.
-            </p>
-            <p class="lede ink">
-              Здесь нет ни одного приёма, который я не проверила на себе —
-              на ювелирке, телеком-операторе, на консалтинге и в чате
-              в три часа ночи.
-            </p>
-            <a href="#program" class="cta-bare mt-10 group-lnk" style="color:#191919; border-color:#191919;">
-              Перейти к программе
-              <span class="arrow-lnk">↓</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- 4 принципа -->
-        <div class="hl-dashed mt-20 mb-12" style="border-color:rgba(25,25,25,0.18);"></div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          <div>
-            <div class="ff-display italic text-3xl ink">I.</div>
-            <h4 class="ff-display italic text-2xl ink mt-3 leading-snug">Тишина дороже скрипта.</h4>
-            <p class="body-sm ink mt-3 max-w-[26ch]">Пауза в три секунды продаёт больше, чем три заученных абзаца.</p>
-          </div>
-          <div>
-            <div class="ff-display italic text-3xl ink">II.</div>
-            <h4 class="ff-display italic text-2xl ink mt-3 leading-snug">Вопрос сильнее аргумента.</h4>
-            <p class="body-sm ink mt-3 max-w-[26ch]">Хороший вопрос разворачивает клиента к собственному решению.</p>
-          </div>
-          <div>
-            <div class="ff-display italic text-3xl ink">III.</div>
-            <h4 class="ff-display italic text-2xl ink mt-3 leading-snug">Отказ — не финал.</h4>
-            <p class="body-sm ink mt-3 max-w-[26ch]">«Нет» сегодня часто означает «не сейчас». Этот разговор — долгий.</p>
-          </div>
-          <div>
-            <div class="ff-display italic text-3xl ink">IV.</div>
-            <h4 class="ff-display italic text-2xl ink mt-3 leading-snug">Деньги — за уважение.</h4>
-            <p class="body-sm ink mt-3 max-w-[26ch]">Чек растёт, когда клиент чувствует, что его слышат, а не обрабатывают.</p>
-          </div>
-        </div>
+      <div class="stat-chip">
+        <div class="num">×2.3</div>
+        <div class="label">средний рост конверсии</div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     ABOUT — Lena
-============================================================ -->
-<section id="about" class="bg-paper hl-bot">
-  <div class="max-shell py-28 md:py-40">
-    <div class="grid grid-cols-12 gap-6">
-      <div class="col-span-12 md:col-span-2">
-        <div class="side-num">II. — Об авторе</div>
-      </div>
-
-      <div class="col-span-12 md:col-span-4">
-        <div class="hl-top hl-bot py-10">
-          <div class="label mb-5">Курс ведёт</div>
-          <div class="ff-display text-5xl md:text-6xl leading-[0.95] tracking-tight">
-            Елена<br/>Соколова
-          </div>
-          <div class="label mt-6 stone">Санкт-Петербург · с 2005</div>
-        </div>
-        <p class="body-sm stone mt-8 max-w-xs">
-          Двадцать лет в продажах. Шесть лет преподаёт. Институт честных продаж — авторская программа.
-        </p>
-      </div>
-
-      <div class="col-span-12 md:col-span-5 md:col-start-8">
-        <h2 class="section-h3 mb-10">
-          Двадцать лет — это <em class="oxblood">не</em> о возрасте.
-          Это о количестве сделок, которые я разобрала по косточкам.
-        </h2>
-
-        <p class="lede stone mb-6">
-          Начинала с салона мобильной связи, где первая премия была за то,
-          что клиенты возвращались, а не за то, что я успела продать в первый звонок.
-        </p>
-        <p class="lede stone mb-6">
-          Работала на стороне больших телеком-операторов, ювелирных домов,
-          консалтинговых бутиков. Видела продажи изнутри — и видела,
-          как одна и та же воронка может приносить деньги или ломать репутацию.
-        </p>
-        <p class="lede stone mb-10">
-          Этот курс я собирала шесть лет: из писем, расшифровок звонков,
-          ошибок моих учеников и моих собственных. Здесь нет ни одного приёма,
-          который я не проверила на себе.
-        </p>
-
-        <div class="hl-top pt-8 grid grid-cols-2 gap-6">
-          <div>
-            <div class="ff-display italic text-5xl leading-none oxblood">412</div>
-            <div class="label mt-3">учеников с 2019</div>
-          </div>
-          <div>
-            <div class="ff-display italic text-5xl leading-none oxblood">94<span class="text-2xl">%</span></div>
-            <div class="label mt-3">доходят до конца программы</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     PROGRAM — numbered modules
-============================================================ -->
-<section id="program" class="bg-paper hl-bot">
-  <div class="max-shell py-28 md:py-40">
-
-    <!-- header -->
-    <div class="grid grid-cols-12 gap-6 mb-20 md:mb-28">
-      <div class="col-span-12 md:col-span-2">
-        <div class="side-num">III. — Программа</div>
-      </div>
-      <div class="col-span-12 md:col-span-7">
-        <h2 class="section-h3">
-          Пять модулей. <em class="oxblood">Двадцать восемь</em> уроков.<br/>
-          Один разговор о том, как продают взрослые.
-        </h2>
-      </div>
-      <div class="col-span-12 md:col-span-3 md:text-right">
-        <div class="label mb-2">Длительность</div>
-        <div class="body-sm">6 недель самостоятельно<br/>+ 4 живые сессии по средам</div>
-      </div>
-    </div>
-
-    <!-- module 01 -->
-    <article class="module-row hl-top group cursor-pointer">
-      <div class="ff-display text-4xl md:text-5xl stone leading-none mod-num">01</div>
-      <div>
-        <div class="label mb-3">Модуль первый — пять уроков</div>
-        <h3 class="ff-display italic text-3xl md:text-4xl leading-tight mod-title">
-          Самоощущение продавца.<br/>
-          <em class="oxblood">Почему</em> вы стесняетесь брать деньги.
-        </h3>
-      </div>
-      <div class="module-desc">
-        <p class="body-sm stone mb-3">
-          Разбираем внутренние установки, которые превращают вас в просящего.
-          Учимся слышать собственную цену и не оправдываться за неё.
-        </p>
-        <p class="label">5 уроков · 1 практика · 1 разбор</p>
-      </div>
-      <div class="text-right ff-display italic text-3xl plus">+</div>
-    </article>
-
-    <!-- module 02 -->
-    <article class="module-row hl-top group cursor-pointer">
-      <div class="ff-display text-4xl md:text-5xl stone leading-none mod-num">02</div>
-      <div>
-        <div class="label mb-3">Модуль второй — шесть уроков</div>
-        <h3 class="ff-display italic text-3xl md:text-4xl leading-tight mod-title">
-          Разговор, в котором<br/>
-          <em class="oxblood">слышно</em> клиента.
-        </h3>
-      </div>
-      <div class="module-desc">
-        <p class="body-sm stone mb-3">
-          Глубинное интервью, мягкая квалификация, работа с молчанием.
-          Учимся задавать тот самый вопрос, после которого клиент рассказывает сам.
-        </p>
-        <p class="label">6 уроков · 2 практики · разбор ваших звонков</p>
-      </div>
-      <div class="text-right ff-display italic text-3xl plus">+</div>
-    </article>
-
-    <!-- module 03 -->
-    <article class="module-row hl-top group cursor-pointer">
-      <div class="ff-display text-4xl md:text-5xl stone leading-none mod-num">03</div>
-      <div>
-        <div class="label mb-3">Модуль третий — шесть уроков</div>
-        <h3 class="ff-display italic text-3xl md:text-4xl leading-tight mod-title">
-          Презентация без хвастовства.<br/>
-          <em class="oxblood">Цена</em> как факт, не извинение.
-        </h3>
-      </div>
-      <div class="module-desc">
-        <p class="body-sm stone mb-3">
-          Структура предложения, в которой нет лишних слов. Как называть стоимость
-          интонацией, после которой не задают вопрос «а скидку можно?».
-        </p>
-        <p class="label">6 уроков · 1 шаблон-каркас · 1 разбор</p>
-      </div>
-      <div class="text-right ff-display italic text-3xl plus">+</div>
-    </article>
-
-    <!-- module 04 -->
-    <article class="module-row hl-top group cursor-pointer">
-      <div class="ff-display text-4xl md:text-5xl stone leading-none mod-num">04</div>
-      <div>
-        <div class="label mb-3">Модуль четвёртый — шесть уроков</div>
-        <h3 class="ff-display italic text-3xl md:text-4xl leading-tight mod-title">
-          Возражения<br/>
-          <em class="oxblood">как</em> приглашение к разговору.
-        </h3>
-      </div>
-      <div class="module-desc">
-        <p class="body-sm stone mb-3">
-          «Дорого», «я подумаю», «нужно посоветоваться с супругом». Что за каждой
-          из этих фраз — и как остаться внутри диалога, а не уйти в защиту.
-        </p>
-        <p class="label">6 уроков · карта 12 возражений · 1 разбор</p>
-      </div>
-      <div class="text-right ff-display italic text-3xl plus">+</div>
-    </article>
-
-    <!-- module 05 -->
-    <article class="module-row hl-top hl-bot group cursor-pointer">
-      <div class="ff-display text-4xl md:text-5xl stone leading-none mod-num">05</div>
-      <div>
-        <div class="label mb-3">Модуль пятый — пять уроков</div>
-        <h3 class="ff-display italic text-3xl md:text-4xl leading-tight mod-title">
-          Закрытие<br/>
-          <em class="oxblood">и</em> вторая встреча.
-        </h3>
-      </div>
-      <div class="module-desc">
-        <p class="body-sm stone mb-3">
-          Финал сделки без давления. Договор как продолжение разговора.
-          Как делать повторные продажи, не превращая клиента в актив.
-        </p>
-        <p class="label">5 уроков · 1 чек-лист закрытия · 1 разбор</p>
-      </div>
-      <div class="text-right ff-display italic text-3xl plus">+</div>
-    </article>
 
   </div>
 </section>
 
-<!-- ============================================================
-     CASES — three short stories
-============================================================ -->
-<section id="cases" class="bg-linen hl-bot">
-  <div class="max-shell py-28 md:py-40">
-    <div class="grid grid-cols-12 gap-6 mb-20">
-      <div class="col-span-12 md:col-span-2">
-        <div class="side-num">IV. — Три истории</div>
-      </div>
-      <div class="col-span-12 md:col-span-8">
-        <h2 class="section-h3">
-          Я не люблю слово «<em class="oxblood">кейс</em>».<br/>
-          Поэтому расскажу три коротких истории — без логотипов и цифр в шапке.
-        </h2>
-      </div>
-    </div>
+<!-- ============== ABOUT ============== -->
+<section id="about" class="relative z-10 px-4 md:px-6 py-20">
+  <div class="mx-auto max-w-[1180px]">
+    <div class="grid md:grid-cols-12 gap-10 items-start">
 
-    <!-- case 1 — Tele-2 -->
-    <div class="case-row">
-      <div>
-        <div class="ff-display italic text-3xl stone">i.</div>
-        <div class="label mt-3">Теле-2, 2014</div>
+      <!-- Portrait placeholder (фото после фотосессии) -->
+      <div class="md:col-span-5 reveal">
+        <div class="portrait portrait-placeholder">
+          <div class="pp-initials display">ЕС</div>
+          <div class="pp-caption mono">Фотосессия — январь 2026</div>
+        </div>
       </div>
-      <div>
-        <div class="ff-display italic leading-[0.85] oxblood" style="font-size: clamp(72px, 11vw, 168px); letter-spacing:-0.04em;">+22%</div>
-        <p class="lede mt-4 max-w-md">
-          средний чек колл-центра за квартал. Одна фраза в начале каждого звонка.
-        </p>
-      </div>
-      <div>
-        <details class="case-expand">
-          <summary>
-            <span class="label">Развернуть историю</span>
-            <span class="ff-body text-2xl font-light plus" style="line-height:1;">+</span>
-          </summary>
-          <p class="body-sm mt-4">
-            Девушка из колл-центра двадцать минут уговаривала пенсионерку
-            подключить тариф за двести рублей. Двадцать минут — и отказ.
-            Мы сократили рабочий день колл-центра на полтора часа — и за квартал
-            подняли средний чек на 22%. Не за счёт скриптов, а за счёт одной фразы,
-            с которой начинался каждый разговор.
+
+      <!-- Bio -->
+      <div class="md:col-span-7 reveal" style="transition-delay:120ms">
+        <div class="eyebrow">О ЕЛЕНЕ</div>
+        <h2 class="h2 mt-3">Двадцать лет — от секций<br/>в торговом зале до B2B-сделок.</h2>
+        <div class="mt-6 space-y-4 text-[16px] leading-[1.65]" style="color: var(--ink-soft); max-width: 56ch;">
+          <p>
+            Елена прошла путь от рядового продавца до руководителя коммерческого блока в крупных компаниях. Работала в рознице, телекоме, ювелирке, недвижимости и онлайн-образовании. Видела, как одно и то же возражение клиент произносит в магазине у касс и на переговорах за миллион.
           </p>
-          <p class="label mt-3">Фраза в материалах модуля II.</p>
-        </details>
-      </div>
-    </div>
-
-    <!-- case 2 — Jewelry -->
-    <div class="case-row">
-      <div>
-        <div class="ff-display italic text-3xl stone">ii.</div>
-        <div class="label mt-3">Ювелирный дом, 2019</div>
-      </div>
-      <div>
-        <div class="ff-display italic leading-[0.85] oxblood" style="font-size: clamp(72px, 11vw, 168px); letter-spacing:-0.04em;">1,8&#8239;млн</div>
-        <p class="lede mt-4 max-w-md">
-          колье в чате, без единой скидки. Четыре дня переписки, один абзац ответа.
-        </p>
-      </div>
-      <div>
-        <details class="case-expand">
-          <summary>
-            <span class="label">Развернуть историю</span>
-            <span class="ff-body text-2xl font-light plus" style="line-height:1;">+</span>
-          </summary>
-          <p class="body-sm mt-4">
-            Клиент написал в три часа ночи. Я ответила в восемь утра — одним абзацем.
-            Колье за 1,8 млн, проданное в чате, без единой скидки.
-            Сделка закрылась через четыре дня и одно фото — без переговоров о цене.
-            Этот абзац и тот самый один вопрос мы разберём по словам в модуле III.
+          <p>
+            После двух лет в роли наставника отделов продаж она собрала систему, которая держится на трёх простых вещах: уважение к клиенту, умение слышать и спокойная уверенность. Не на манипуляциях, не на «5 этапах за 5 минут» и не на агрессивных скриптах.
           </p>
-          <p class="label mt-3">Контекст и расшифровка — в материалах курса.</p>
-        </details>
-      </div>
-    </div>
-
-    <!-- case 3 — 14th floor -->
-    <div class="case-row">
-      <div>
-        <div class="ff-display italic text-3xl stone">iii.</div>
-        <div class="label mt-3">Бизнес-завтрак, 14-й этаж</div>
-      </div>
-      <div>
-        <div class="ff-display italic leading-[0.85] oxblood" style="font-size: clamp(72px, 11vw, 168px); letter-spacing:-0.04em;">−10/нед</div>
-        <p class="lede mt-4 max-w-md">
-          клиентов теряли из-за одного раннего вопроса. Заменили — к десерту обсуждали даты.
-        </p>
-      </div>
-      <div>
-        <details class="case-expand">
-          <summary>
-            <span class="label">Развернуть историю</span>
-            <span class="ff-body text-2xl font-light plus" style="line-height:1;">+</span>
-          </summary>
-          <p class="body-sm mt-4">
-            На бизнес-завтраке на четырнадцатом этаже отдел продаж терял
-            по десять клиентов в неделю из-за одного раннего вопроса.
-            Я задала уточняющий вопрос — другой, чем они привыкли.
-            К десерту мы уже договаривались о датах. Это не магия — это четвёртый
-            урок второго модуля.
+          <p>
+            Этот курс — её сжатый двадцатилетний опыт. Никаких «волшебных слов» — только то, что работает каждый день в живых разговорах.
           </p>
-          <p class="label mt-3">Без логотипа по просьбе клиента.</p>
-        </details>
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <div class="stat-chip" style="min-width: 150px"><div class="num">B2B + B2C</div><div class="label">оба контекста</div></div>
+          <div class="stat-chip" style="min-width: 150px"><div class="num">8 отраслей</div><div class="label">в работе</div></div>
+          <div class="stat-chip" style="min-width: 150px"><div class="num">600+</div><div class="label">сделок личных</div></div>
+          <div class="stat-chip" style="min-width: 150px"><div class="num">RU + СНГ</div><div class="label">география учеников</div></div>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     TARIFFS — three formats
-============================================================ -->
-<section id="tariffs" class="bg-paper hl-bot">
-  <div class="max-shell py-28 md:py-40">
+<!-- ============== PROGRAM / FOLDERS ============== -->
+<section id="program" class="relative z-10 px-4 md:px-6 pb-24">
+  <div class="mx-auto max-w-[1180px]">
 
-    <div class="grid grid-cols-12 gap-6 mb-20">
-      <div class="col-span-12 md:col-span-2">
-        <div class="side-num">V. — Участие</div>
+    <!-- Finder window -->
+    <div class="finder reveal">
+
+      <div class="finder-bar">
+        <div class="flex items-center gap-2 mr-4">
+          <span class="tl tl-r"></span><span class="tl tl-y"></span><span class="tl tl-g"></span>
+        </div>
+        <div class="crumb"><b>Курс</b> &nbsp;›&nbsp; Программа &nbsp;›&nbsp; <b>5 модулей</b></div>
+        <div class="ml-auto flex items-center gap-3">
+          <div class="hidden md:flex items-center gap-1.5 mono text-[11px] text-[color:var(--ink-mute)]">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <span>поиск по программе</span>
+          </div>
+          <span class="mono text-[11px] text-[color:var(--ink-mute)] hidden md:inline">⌘K</span>
+        </div>
       </div>
-      <div class="col-span-12 md:col-span-7">
-        <h2 class="section-h3">
-          Три формата.<br/>
-          <em class="oxblood">Один курс</em> внутри.
-        </h2>
+
+      <div class="px-6 md:px-10 pt-8 pb-3 flex items-end justify-between gap-6 flex-wrap">
+        <div>
+          <div class="eyebrow mb-3">ПРОГРАММА КУРСА</div>
+          <h2 class="h2">Пять папок —<br/>пять навыков продавца.</h2>
+        </div>
+        <p class="text-[15px] max-w-[44ch]" style="color: var(--ink-soft);">
+          Каждый модуль — папка с тремя ключевыми уроками. Открывается в кабинете последовательно, по мере прохождения предыдущего.
+        </p>
       </div>
-      <div class="col-span-12 md:col-span-3 md:text-right">
-        <div class="label mb-2">Цены — рубли</div>
-        <div class="body-sm stone">Оплата картой или счётом для ИП/ООО.<br/>Рассрочка — по согласованию.</div>
+
+      <div class="hairline mx-6 md:mx-10 my-6"></div>
+
+      <!-- Folders grid -->
+      <div class="px-6 md:px-10 pb-10 relative">
+        <div class="folder-grid" id="program-grid">
+          <!-- Folders injected by JS -->
+        </div>
+
+        <!-- Footer row -->
+        <div class="hairline mt-10 mb-5"></div>
+        <div class="flex flex-wrap items-center justify-between gap-4 px-1">
+          <div class="mono text-[12px] text-[color:var(--ink-mute)]">5 элементов · 20 уроков · ~6 часов видео</div>
+          <a href="#enroll" class="pill-sky magnetic inline-flex items-center h-10 px-5 rounded-full text-[13.5px] font-semibold">
+            Записаться на ближайший поток
+            <svg width="14" height="14" viewBox="0 0 14 14" class="ml-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M8 4l3 3-3 3"/></svg>
+          </a>
+        </div>
       </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== STORIES ============== -->
+<section id="stories" class="relative z-10 px-4 md:px-6 py-20">
+  <div class="mx-auto max-w-[1180px]">
+
+    <div class="flex items-end justify-between gap-8 flex-wrap mb-12 reveal">
+      <div>
+        <div class="eyebrow mb-3">ИСТОРИИ ИЗ ПРАКТИКИ</div>
+        <h2 class="h2">Три случая,<br/>после которых меняется<br/>отношение к продажам.</h2>
+      </div>
+      <p class="text-[15px] max-w-[42ch]" style="color: var(--ink-soft);">
+        Не пересказы тренингов, а живые ситуации Елены — из розницы, ювелирки и B2B. Каждая — про то, как один вопрос или одна пауза меняют исход разговора.
+      </p>
     </div>
 
-    <!-- tariff grid -->
-    <div class="hl-top hl-bot">
-      <div class="grid md:grid-cols-3">
+    <div class="grid md:grid-cols-3 gap-5">
 
-        <!-- Базовый -->
-        <div class="tariff-col">
-          <div>
-            <div class="label mb-6">Формат — Базовый</div>
-            <h3 class="ff-display italic text-4xl mb-4 leading-tight">Курс<br/>самостоятельно.</h3>
-            <p class="body-sm stone mb-8 max-w-[32ch]">
-              Полный доступ к 28 урокам и материалам.
-              Темп — ваш. Без живых сессий и разборов.
-            </p>
-            <ul class="space-y-3 body-sm">
-              <li class="hl-top pt-3">— 28 видео-уроков</li>
-              <li class="hl-top pt-3">— Рабочая тетрадь PDF</li>
-              <li class="hl-top pt-3">— Карта 12 возражений</li>
-              <li class="hl-top pt-3">— Доступ 12 месяцев</li>
-            </ul>
-          </div>
-          <div class="mt-10">
-            <div class="label mb-1">стоимость</div>
-            <div class="ff-mono text-4xl tracking-tight">14 990 ₽</div>
-            <a href="#cta-final" class="cta-bare mt-6 group-lnk">
-              Записаться на базовый
-              <span class="arrow-lnk">→</span>
-            </a>
-          </div>
-          <span class="ox-line"></span>
-        </div>
+      <article class="story reveal">
+        <div class="meta">Теле‑2 · розница</div>
+        <p class="pull mt-4">«Я тогда стояла у касс и считала: двадцать минут, пять подходов сотрудников, ни одного вопроса покупателю. Сделка ушла из-за невидимости.»</p>
+        <p class="mt-5">
+          Магазин был полон, продавцы заняты. Покупатель с готовыми деньгами в руке. Никто не подошёл, никто не спросил «вам помочь». Сделка размером в двести рублей сорвалась не из-за цены — из-за того, что человека не заметили.
+        </p>
+        <p class="mt-3">
+          Тогда стало ясно: первая продажа — это не презентация, а сам факт того, что клиента увидели.
+        </p>
+        <p class="mt-6 mono text-[10.5px] tracking-[0.14em] uppercase" style="color: var(--ink-mute);">модуль 1 · позиция</p>
+      </article>
 
-        <!-- Интенсив+ — featured -->
-        <div class="tariff-col featured">
-          <span class="top-rule"></span>
-          <div>
-            <div class="label mb-6 oxblood">Формат — Интенсив + <span class="ink">·</span> выбирают чаще</div>
-            <h3 class="ff-display italic text-4xl mb-4 leading-tight">С группой<br/>и обратной связью.</h3>
-            <p class="body-sm stone mb-8 max-w-[32ch]">
-              Шесть недель в потоке. Живые сессии,
-              разбор ваших звонков, доступ к чату.
-            </p>
-            <ul class="space-y-3 body-sm">
-              <li class="hl-top pt-3">— Всё из «Базового»</li>
-              <li class="hl-top pt-3">— 4 живые сессии в Zoom</li>
-              <li class="hl-top pt-3">— Разбор 2 ваших звонков</li>
-              <li class="hl-top pt-3">— Закрытый чат потока</li>
-              <li class="hl-top pt-3">— Сертификат об окончании</li>
-            </ul>
-          </div>
-          <div class="mt-10">
-            <div class="label mb-1 oxblood">стоимость потока</div>
-            <div class="ff-mono text-4xl tracking-tight oxblood">24 990 ₽</div>
-            <a href="#cta-final" class="cta-bare mt-6 group-lnk" style="color:var(--oxblood); border-color:var(--oxblood);">
-              Записаться в поток IV
-              <span class="arrow-lnk">→</span>
-            </a>
-          </div>
-          <span class="ox-line"></span>
-        </div>
+      <article class="story reveal" style="transition-delay:120ms">
+        <div class="meta">Ювелирка · салон премиум</div>
+        <p class="pull mt-4">«Один правильный вопрос — восемьдесят тысяч за пятнадцать минут.»</p>
+        <p class="mt-5">
+          Пара зашла «просто посмотреть» к витрине обручальных колец. Продавец не стал перечислять граммы и пробу. Спросил один тихий вопрос: «На какую дату вы планируете?» — и слушал.
+        </p>
+        <p class="mt-3">
+          Через четверть часа покупка состоялась. Не потому что давили, а потому что вели разговор по делу, а не по скрипту.
+        </p>
+        <p class="mt-6 mono text-[10.5px] tracking-[0.14em] uppercase" style="color: var(--ink-mute);">модуль 2 · слушать</p>
+      </article>
 
-        <!-- VIP -->
-        <div class="tariff-col">
-          <div>
-            <div class="label mb-6">Формат — VIP, личная работа</div>
-            <h3 class="ff-display italic text-4xl mb-4 leading-tight">Со мной,<br/>один на один.</h3>
-            <p class="body-sm stone mb-8 max-w-[32ch]">
-              Восемь встреч tet-a-tet. Я разбираю
-              вашу воронку и веду до первой сделки.
-            </p>
-            <ul class="space-y-3 body-sm">
-              <li class="hl-top pt-3">— Всё из «Интенсива+»</li>
-              <li class="hl-top pt-3">— 8 личных встреч по 60 минут</li>
-              <li class="hl-top pt-3">— Разбор всей вашей воронки</li>
-              <li class="hl-top pt-3">— Доступ ко мне в Telegram</li>
-              <li class="hl-top pt-3">— Сопровождение до сделки</li>
-            </ul>
-          </div>
-          <div class="mt-10">
-            <div class="label mb-1">от</div>
-            <div class="ff-mono text-4xl tracking-tight">90 000 ₽</div>
-            <a href="#cta-final" class="cta-bare mt-6 group-lnk">
-              Запросить интервью
-              <span class="arrow-lnk">→</span>
-            </a>
-          </div>
-          <span class="ox-line"></span>
-        </div>
+      <article class="story reveal" style="transition-delay:240ms">
+        <div class="meta">14 этаж · B2B</div>
+        <p class="pull mt-4">«Десять клиентов потеряны из-за одного незаданного вопроса.»</p>
+        <p class="mt-5">
+          Большой контракт, длинная воронка, всё шло хорошо. На финальной встрече менеджер не спросил, кто принимает решение со стороны клиента. Через неделю сделка ушла к конкуренту — финальный «да» зависел от человека, который ни разу не был на переговорах.
+        </p>
+        <p class="mt-3">
+          После этого случая Елена встроила тот самый вопрос в первый разговор. И больше его не теряла.
+        </p>
+        <p class="mt-6 mono text-[10.5px] tracking-[0.14em] uppercase" style="color: var(--ink-mute);">модуль 4 · возражения</p>
+      </article>
 
-      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PLANS ============== -->
+<section id="plans" class="relative z-10 px-4 md:px-6 py-20">
+  <div class="mx-auto max-w-[1180px]">
+
+    <div class="text-center mb-14 reveal">
+      <div class="eyebrow mb-3">ТАРИФЫ</div>
+      <h2 class="h2">Три формата участия.<br/>Один общий результат.</h2>
+      <p class="mt-5 text-[16px] mx-auto max-w-[56ch]" style="color: var(--ink-soft);">
+        Выбираете глубину и темп. Сам курс одинаковый. Разница — в количестве живой работы с Еленой и личной обратной связи.
+      </p>
     </div>
 
-    <p class="label mt-10 stone">
-      Все три формата дают одинаковый доступ к материалам. Различия — только в глубине обратной связи.
+    <div class="grid md:grid-cols-3 gap-5 items-stretch">
+
+      <!-- Базовый -->
+      <div class="plan reveal">
+        <div class="eyebrow">БАЗОВЫЙ</div>
+        <div class="mt-3 price">14 990 <small>₽</small></div>
+        <p class="mt-3 text-[14px]" style="color: var(--ink-soft);">Самостоятельный темп. Все материалы курса в кабинете.</p>
+        <ul class="mt-6">
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>5 модулей курса, 20 видеоуроков</li>
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>Рабочая тетрадь и шаблоны разговоров</li>
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>Доступ к материалам на 6 месяцев</li>
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>Чат потока с поддержкой кураторов</li>
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>Свидетельство о прохождении</li>
+        </ul>
+        <a href="#enroll" class="pill-ghost magnetic mt-8 inline-flex items-center justify-center h-11 w-full rounded-full text-[14px] font-medium">Выбрать базовый</a>
+      </div>
+
+      <!-- Интенсив+ (featured) -->
+      <div class="plan is-featured reveal" style="transition-delay:100ms">
+        <span class="badge-pop">Чаще всего</span>
+        <div class="eyebrow" style="color: #C46415;">ИНТЕНСИВ+</div>
+        <div class="mt-3 price">24 990 <small>₽</small></div>
+        <p class="mt-3 text-[14px]" style="color: var(--ink-soft);">Поток с живыми разборами и обратной связью по вашим сделкам.</p>
+        <ul class="mt-6">
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>Всё, что в Базовом</li>
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>4 живых разбора с Еленой по Zoom</li>
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>Письменная обратная связь по 3 вашим разговорам</li>
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>Доступ к материалам на 12 месяцев</li>
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>Закрытый чат потока на 6 месяцев</li>
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>Свидетельство и рекомендация Елены</li>
+        </ul>
+        <a href="#enroll" class="pill-sky magnetic mt-8 inline-flex items-center justify-center h-11 w-full rounded-full text-[14px] font-semibold">Выбрать интенсив</a>
+      </div>
+
+      <!-- VIP -->
+      <div class="plan reveal" style="transition-delay:200ms">
+        <div class="eyebrow">VIP · ИНДИВИДУАЛЬНО</div>
+        <div class="mt-3 price">90 000 <small>₽</small></div>
+        <p class="mt-3 text-[14px]" style="color: var(--ink-soft);">Личный наставник на четыре недели. Курс под вашу нишу и команду.</p>
+        <ul class="mt-6">
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>Всё, что в Интенсиве+</li>
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>8 индивидуальных встреч 1:1 с Еленой</li>
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>Аудит вашей текущей воронки и скриптов</li>
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>Разбор записей ваших живых разговоров</li>
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>Доступ к материалам бессрочно</li>
+          <li><span class="ck"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 5l2 2 4-4"/></svg></span>Поддержка Елены 30 дней после курса</li>
+        </ul>
+        <a href="#enroll" class="pill-ghost magnetic mt-8 inline-flex items-center justify-center h-11 w-full rounded-full text-[14px] font-medium">Обсудить VIP</a>
+      </div>
+
+    </div>
+
+    <p class="text-center mt-10 mono text-[11px] tracking-[0.14em] uppercase" style="color: var(--ink-mute);">
+      Оплата картой РФ, USDT, безналом для юр. лиц · возможна рассрочка на 4 платежа без процентов
     </p>
+
   </div>
 </section>
 
-<!-- ============================================================
-     PULL QUOTE
-============================================================ -->
-<section class="bg-linen hl-bot">
-  <div class="max-shell py-28 md:py-40">
-    <div class="grid grid-cols-12 gap-6">
-      <div class="col-span-12 md:col-span-2">
-        <div class="qmark">“</div>
+<!-- ============== FAQ ============== -->
+<section id="faq" class="relative z-10 px-4 md:px-6 py-20">
+  <div class="mx-auto max-w-[820px]">
+
+    <div class="text-center mb-12 reveal">
+      <div class="eyebrow mb-3">ВОПРОСЫ</div>
+      <h2 class="h2">Часто спрашивают</h2>
+    </div>
+
+    <div class="space-y-3" id="faq-list">
+
+      <div class="faq-item reveal" aria-expanded="false">
+        <button class="faq-q" aria-controls="faq-1">
+          <span>Подойдёт ли курс, если у меня нет опыта в продажах?</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-content" id="faq-1"><p>
+          Да. Курс строится с фундамента — не с техник «дожима», а с позиции продавца. Если вы только начинаете или продаёте свои услуги как эксперт без отдела продаж, программа подходит особенно хорошо: вы сразу учитесь без вредных привычек скриптов.
+        </p></div>
       </div>
-      <div class="col-span-12 md:col-span-9">
-        <p class="manifesto-h2 ink">
-          Хороший продавец после разговора<br/>
-          оставляет человеку <em class="oxblood">тишину</em>,<br/>
-          а не желание закрыть вкладку.
-        </p>
-        <div class="hl-top mt-12 pt-6 flex justify-between items-baseline">
-          <div class="label">— Елена Соколова, заметки 2023</div>
-          <div class="label">XVII</div>
+
+      <div class="faq-item reveal" aria-expanded="false">
+        <button class="faq-q" aria-controls="faq-2">
+          <span>Сколько времени в день занимает обучение?</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-content" id="faq-2"><p>
+          В среднем 30–40 минут в день. Урок длится 15–20 минут, плюс короткое практическое задание. Можно проходить в удобном темпе — материалы остаются в кабинете на полгода (Базовый) или год (Интенсив+).
+        </p></div>
+      </div>
+
+      <div class="faq-item reveal" aria-expanded="false">
+        <button class="faq-q" aria-controls="faq-3">
+          <span>Что если я работаю в специфичной нише — недвижимость, юридические услуги, B2B?</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-content" id="faq-3"><p>
+          Принципы курса универсальны для любой ниши, где есть живой разговор с клиентом. На живых разборах в Интенсиве+ Елена разбирает кейсы участников из 8+ отраслей. На VIP-тарифе мы целенаправленно адаптируем материалы под вашу специфику.
+        </p></div>
+      </div>
+
+      <div class="faq-item reveal" aria-expanded="false">
+        <button class="faq-q" aria-controls="faq-4">
+          <span>Можно ли вернуть деньги, если курс не подойдёт?</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-content" id="faq-4"><p>
+          Да. В течение первых 14 дней потока — полный возврат без вопросов. Если за это время вы прошли два модуля и поняли, что подход вам не близок, мы возвращаем стоимость на счёт оплаты.
+        </p></div>
+      </div>
+
+      <div class="faq-item reveal" aria-expanded="false">
+        <button class="faq-q" aria-controls="faq-5">
+          <span>Как организованы живые разборы и обратная связь?</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-content" id="faq-5"><p>
+          Разборы проходят раз в неделю по Zoom, длятся 60–90 минут, записи сразу попадают в кабинет. Письменная обратная связь — по вашим разговорам в текстовом виде или по записи звонка, в течение трёх рабочих дней после отправки.
+        </p></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== CTA STRIP ============== -->
+<section id="enroll" class="relative z-10 px-4 md:px-6 py-20">
+  <div class="mx-auto max-w-[1080px]">
+    <div class="glass-strong p-10 md:p-14 reveal" style="border-radius: 28px;">
+      <div class="grid md:grid-cols-12 gap-8 items-center">
+        <div class="md:col-span-8">
+          <div class="eyebrow mb-3">БЛИЖАЙШИЙ ПОТОК · 14 ЯНВАРЯ 2026</div>
+          <h2 class="h2">Записаться<br/>на ближайший поток.</h2>
+          <p class="mt-4 text-[16px] leading-[1.55] max-w-[58ch]" style="color: var(--ink-soft);">
+            Места ограничены тридцатью учениками — Елена работает с потоком лично. После заявки мы свяжемся в течение рабочего дня и подберём тариф.
+          </p>
+        </div>
+        <div class="md:col-span-4 flex flex-col gap-3">
+          <a href="#" class="pill-sky magnetic inline-flex items-center justify-center h-14 px-7 rounded-full text-[16px] font-semibold w-full">Оставить заявку</a>
+          <a href="#cabinet" class="pill-ghost magnetic inline-flex items-center justify-center h-14 px-7 rounded-full text-[15px] font-medium w-full">Открыть кабинет ученика</a>
+          <p class="text-center mt-1 mono text-[10.5px] tracking-[0.14em] uppercase" style="color: var(--ink-mute);">на потоке 12 учеников из 30</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     FAQ — clean italic Fraunces, no № bullets
-============================================================ -->
-<section id="faq" class="bg-paper hl-bot">
-  <div class="max-shell py-28 md:py-40">
-    <div class="grid grid-cols-12 gap-6 mb-20">
-      <div class="col-span-12 md:col-span-2">
-        <div class="side-num">VII. — Вопросы</div>
-      </div>
-      <div class="col-span-12 md:col-span-7">
-        <h2 class="section-h3">
-          Пять вопросов,<br/>
-          которые мне <em class="oxblood">задают</em> чаще всего.
-        </h2>
-      </div>
-    </div>
-
-    <div class="hl-top">
-      <details class="faq">
-        <summary>
-          <h4 class="ff-display italic text-xl md:text-2xl leading-[1.1]">Подойдёт ли курс, если у меня нет отдела продаж и я продаю сам?</h4>
-          <span class="ff-body text-2xl font-light plus" style="line-height:1;">+</span>
-        </summary>
-        <p class="faq-body">
-          Курс изначально собирался для экспертов и основателей, которые продают сами.
-          У вас не появится отдел и скрипты — но появится язык, на котором сделка
-          закрывается без чувства, что вы кого-то уговорили.
-        </p>
-      </details>
-
-      <details class="faq">
-        <summary>
-          <h4 class="ff-display italic text-xl md:text-2xl leading-[1.1]">Сколько времени нужно закладывать в неделю?</h4>
-          <span class="ff-body text-2xl font-light plus" style="line-height:1;">+</span>
-        </summary>
-        <p class="faq-body">
-          Три-четыре часа на материалы и одна живая сессия по средам — для тарифа
-          «Интенсив+». Если идёте в «Базовом» темпе, то столько, сколько комфортно.
-          Доступ к материалам остаётся на 12 месяцев.
-        </p>
-      </details>
-
-      <details class="faq">
-        <summary>
-          <h4 class="ff-display italic text-xl md:text-2xl leading-[1.1]">Можно ли оплатить от ИП или ООО?</h4>
-          <span class="ff-body text-2xl font-light plus" style="line-height:1;">+</span>
-        </summary>
-        <p class="faq-body">
-          Да, я выставлю счёт и пришлю акт. Для юридических лиц также возможна
-          рассрочка двумя платежами — об этом мы договариваемся отдельно.
-          Для физлиц — оплата картой одним платежом или рассрочка на 3 месяца.
-        </p>
-      </details>
-
-      <details class="faq">
-        <summary>
-          <h4 class="ff-display italic text-xl md:text-2xl leading-[1.1]">Что если я не пройду курс до конца?</h4>
-          <span class="ff-body text-2xl font-light plus" style="line-height:1;">+</span>
-        </summary>
-        <p class="faq-body">
-          Доступ к материалам остаётся на 12 месяцев — вы возвращаетесь к ним,
-          когда у вас будет свободное окно. Из живых сессий вы получите записи.
-          За три потока ни один ученик не остался без возможности вернуться.
-        </p>
-      </details>
-
-      <details class="faq">
-        <summary>
-          <h4 class="ff-display italic text-xl md:text-2xl leading-[1.1]">Чем VIP отличается от «Интенсива+»?</h4>
-          <span class="ff-body text-2xl font-light plus" style="line-height:1;">+</span>
-        </summary>
-        <p class="faq-body">
-          В VIP-формате мы работаем один на один. Я смотрю вашу воронку, слушаю
-          ваши звонки и веду вас до первой сделки в новом для вас формате.
-          Это не курс, это сопровождение — и я беру не более четырёх таких клиентов в квартал.
-        </p>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     CLOSING CTA — bare typography
-============================================================ -->
-<section id="cta-final" class="bg-paper hl-bot">
-  <div class="max-shell py-28 md:py-40">
-    <div class="grid grid-cols-12 gap-6 items-end">
-      <div class="col-span-12 md:col-span-8">
-        <div class="label mb-6">VIII. — Следующий поток</div>
-        <h2 class="poster-h1 ff-display" style="font-size: clamp(56px, 9vw, 140px);">
-          Записаться<br/>
-          <em class="ox">до</em> 14 января.
-        </h2>
-      </div>
-      <div class="col-span-12 md:col-span-4">
-        <p class="lede mb-8">
-          Если вы дочитали до этой строки — у вас уже есть тот самый вопрос,
-          ради которого стоит прийти. Напишите мне коротко, я отвечу лично.
-        </p>
-        <a href="https://t.me/elena_sokolova_sales" target="_blank" rel="noopener" class="cta-bare group-lnk">
-          Написать Елене лично
-          <span class="arrow-lnk">→</span>
-        </a>
-        <div class="label mt-6 stone">Ответ — в течение 24 часов, кроме воскресенья.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     FOOTER — linen marquee + colophon
-============================================================ -->
-<footer class="bg-linen relative grain">
-
-  <div class="max-shell py-16">
-    <div class="grid grid-cols-12 gap-6">
-      <div class="col-span-12 md:col-span-4">
-        <div class="ff-display italic text-3xl mb-3">Соколова</div>
-        <div class="label">Институт честных продаж</div>
-        <p class="body-sm stone mt-6 max-w-sm">
-          Курсы и личное сопровождение для тех, кто продаёт собственным голосом.
-          Санкт-Петербург — с 2005 года.
+<!-- ============== FOOTER ============== -->
+<footer class="relative z-10 px-4 md:px-6 pt-14 pb-10">
+  <div class="mx-auto max-w-[1180px]">
+    <div class="hairline mb-10"></div>
+    <div class="grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-5">
+        <div class="flex items-center gap-2.5">
+          <span class="inline-block w-7 h-7 rounded-[8px]" style="background: linear-gradient(180deg, #fff 0%, #F0F1F4 100%); border:1px solid rgba(15,23,42,0.10);">
+            <svg viewBox="0 0 28 28" class="w-full h-full"><path d="M6 9 Q6 7 8 7 L13 7 Q14 7 14.6 7.7 L15.4 8.6 L19.5 8.6 Q21 8.6 21 10.2 L21 19 Q21 20.5 19.5 20.5 L8 20.5 Q6 20.5 6 18.8 Z" fill="#0A84FF"/></svg>
+          </span>
+          <span class="display font-semibold text-[17px]">Соколова</span>
+          <span class="mono text-[11px] uppercase tracking-[0.14em]" style="color: var(--ink-mute);">/ курс</span>
+        </div>
+        <p class="mt-5 text-[14.5px] leading-[1.6] max-w-[40ch]" style="color: var(--ink-soft);">
+          Авторский курс Елены Соколовой о продажах без давления и манипуляций. Поток четырнадцатого января две тысячи двадцать шестого года.
         </p>
       </div>
-      <div class="col-span-6 md:col-span-2">
-        <div class="label mb-4">Курс</div>
-        <ul class="space-y-2 body-sm">
-          <li><a class="lnk" href="#manifesto">Манифест</a></li>
-          <li><a class="lnk" href="#program">Программа</a></li>
-          <li><a class="lnk" href="#cases">Истории</a></li>
-          <li><a class="lnk" href="#tariffs">Тарифы</a></li>
-          <li><a class="lnk" href="#faq">Вопросы</a></li>
+      <div class="md:col-span-3">
+        <div class="eyebrow mb-4">РАЗДЕЛЫ</div>
+        <ul class="space-y-2.5 text-[14px]" style="color: var(--ink);">
+          <li><a href="#about" class="nav-link">О Елене</a></li>
+          <li><a href="#program" class="nav-link">Программа</a></li>
+          <li><a href="#stories" class="nav-link">Истории</a></li>
+          <li><a href="#plans" class="nav-link">Тарифы</a></li>
+          <li><a href="#faq" class="nav-link">Вопросы</a></li>
         </ul>
       </div>
-      <div class="col-span-6 md:col-span-2">
-        <div class="label mb-4">Контакты</div>
-        <ul class="space-y-2 body-sm">
-          <li><a class="lnk" href="#">Telegram</a></li>
-          <li><a class="lnk" href="#">Почта</a></li>
-          <li><a class="lnk" href="#">Записаться</a></li>
-          <li><a class="lnk" href="javascript:enterLMS()">Кабинет ученика</a></li>
+      <div class="md:col-span-4">
+        <div class="eyebrow mb-4">КОНТАКТЫ</div>
+        <ul class="space-y-2.5 text-[14px]" style="color: var(--ink);">
+          <li><a href="mailto:hello@sokolova.school" class="nav-link">hello@sokolova.school</a></li>
+          <li><a href="#" class="nav-link">Telegram · @sokolova_sales</a></li>
+          <li><a href="#" class="nav-link">VK · sokolova.school</a></li>
+          <li><a href="#cabinet" class="nav-link">Кабинет ученика</a></li>
         </ul>
-      </div>
-      <div class="col-span-12 md:col-span-4">
-        <div class="label mb-4">Колофон</div>
-        <p class="body-sm stone">Fraunces · Inter Tight · JetBrains Mono.</p>
       </div>
     </div>
 
-    <div class="hl-top mt-16 pt-6 flex flex-wrap justify-between items-baseline gap-4">
-      <div class="label">© 2026 Е. Соколова · ИП Соколова Е. В.</div>
-      <div class="label">Продажи без впаривания · поток IV</div>
+    <div class="hairline mt-12 mb-6"></div>
+    <div class="flex flex-wrap items-center justify-between gap-3 mono text-[11px] tracking-[0.04em]" style="color: var(--ink-mute);">
+      <div>© 2026 Елена Соколова. ИП Соколова Е.А. ОГРНИП 322547600123456</div>
+      <div>Очный поток. Каждый ученик — лично от Елены.</div>
     </div>
   </div>
 </footer>
 
-</div> <!-- /landing-root -->
+</div><!-- /landing -->
 
+<!-- =================================================== -->
+<!-- ================= CABINET (LMS) ==================== -->
+<!-- =================================================== -->
+<section class="cabinet">
+  <div class="cab-window">
 
-<!-- ============================================================
-     ============================================================
-     CABINET / LMS — same typographic language
-     ============================================================
-     ============================================================ -->
-<div class="cabinet-root">
-
-  <div class="cabinet-shell">
-
-    <!-- ============================================================
-         SIDEBAR
-    ============================================================ -->
-    <aside class="cabinet-sidebar">
-      <div class="mb-12">
-        <div class="micro mb-1">N<sup>o</sup> IV · Кабинет</div>
-        <div class="ff-display italic text-3xl leading-none mt-2">Соколова</div>
-        <div class="label mt-2">Институт честных продаж</div>
+    <!-- TOPBAR -->
+    <div class="cab-topbar">
+      <div class="flex items-center gap-2 mr-5">
+        <span class="tl tl-r" id="cab-close" style="cursor:pointer" title="Вернуться на сайт"></span>
+        <span class="tl tl-y"></span>
+        <span class="tl tl-g"></span>
       </div>
-
-      <div class="mb-10">
-        <div class="label mb-3">Сейчас обучается</div>
-        <div class="ff-display italic text-2xl">Елена · ваш куратор</div>
-        <div class="body-sm stone mt-1">Поток IV · с 14 января</div>
+      <div class="crumb hidden sm:block"><b>Курс Соколовой</b> · Продажи без впаривания</div>
+      <div class="ml-auto cab-search hidden md:inline-flex">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <span>поиск по урокам</span>
+        <span class="ml-3 opacity-60">⌘K</span>
       </div>
+      <a href="#" class="ml-3 pill-ghost inline-flex items-center h-8 px-3 rounded-full text-[12px] font-medium" id="cab-exit">Выйти</a>
+    </div>
 
-      <nav class="space-y-1 mb-auto">
-        <div class="nav-item active" data-section="home" onclick="showSection('home')">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 12L12 4l9 8M5 10v10h14V10"/></svg>
+    <!-- BODY -->
+    <div class="cab-body">
+
+      <!-- SIDEBAR -->
+      <aside class="cab-side">
+        <div class="section-title">ИЗБРАННОЕ</div>
+        <div class="cab-row is-active" data-view="home">
+          <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5l6-4.5 6 4.5V13a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z"/></svg>
           <span>Главная</span>
         </div>
-        <div class="nav-item" data-section="materials" onclick="showSection('materials')">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4h12l4 4v12H4z M16 4v4h4"/></svg>
-          <span>Материалы</span>
+        <div class="cab-row">
+          <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12l3-3 3 3 6-6"/><path d="M10 3h4v4"/></svg>
+          <span>Прогресс</span>
+          <span class="count">3/20</span>
         </div>
-        <div class="nav-item" data-section="sessions" onclick="showSection('sessions')">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
-          <span>Живые сессии</span>
-        </div>
-        <div class="nav-item" data-section="recordings" onclick="showSection('recordings')">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 1v22M5 8a7 7 0 0014 0M8 21h8"/></svg>
-          <span>Записи звонков</span>
-        </div>
-        <div class="nav-item" data-section="support" onclick="showSection('support')">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9 9h.01M15 9h.01M8 15s1.5 2 4 2 4-2 4-2"/></svg>
+        <div class="cab-row">
+          <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h10v8H6l-3 2V4z"/></svg>
           <span>Поддержка</span>
         </div>
-        <div class="nav-item" onclick="exitLMS()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M15 17l5-5-5-5M20 12H9M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/></svg>
-          <span>Выйти на сайт</span>
+
+        <div class="section-title">МОДУЛИ</div>
+        <div class="cab-row" data-mod="1">
+          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#FFE2C8"/></svg></span>
+          <span>01 · Фундамент</span>
+          <span class="count">3</span>
         </div>
-      </nav>
-
-      <div class="hl-top pt-6 mt-10">
-        <div class="label">Версия 1.0 · Linen & Ochre</div>
-        <div class="body-sm stone mt-2">При вопросах — Telegram @elena_help</div>
-      </div>
-    </aside>
-
-    <!-- ============================================================
-         MAIN
-    ============================================================ -->
-    <main class="cabinet-main">
-
-      <!-- ============== HOME ============== -->
-      <section data-section-content="home" class="lms-section">
-
-        <!-- Top header strip -->
-        <div class="flex items-center justify-between mb-10">
-          <div class="micro">01 — Cabinet · Главная</div>
-          <div class="micro hidden md:block">14 января 2026 · Поток IV</div>
+        <div class="cab-row" data-mod="2">
+          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#FFD2A8"/></svg></span>
+          <span>02 · Слушать</span>
+          <span class="count">3</span>
         </div>
-
-        <!-- Greeting + progress -->
-        <div class="grid grid-cols-12 gap-6 mb-16">
-          <div class="col-span-12 md:col-span-7">
-            <div class="label mb-3">Добро пожаловать</div>
-            <h1 class="section-h3 mb-6">
-              <em>Здравствуйте.</em><br/>
-              Сейчас вы пройдёте<br/>
-              <em class="oxblood">Урок 1.2 —</em> «Обоснование».
-            </h1>
-            <p class="lede stone max-w-xl">
-              Не торопитесь. Курс работает не от количества пройденных уроков,
-              а от количества разговоров, в которых вы попробуете новое.
-              Один настоящий разговор лучше пяти просмотренных лекций.
-            </p>
-            <div class="label mt-6 ink">— Елена, ваш куратор</div>
-          </div>
-
-          <div class="col-span-12 md:col-span-5">
-            <div class="hl-top hl-bot py-8">
-              <div class="label mb-3">Ваш прогресс</div>
-              <div class="ff-display italic text-6xl leading-none">
-                <span id="progress-text">3</span><span class="stone"> / 28</span>
-              </div>
-              <div class="label mt-2">уроков пройдено</div>
-              <div class="progressbar mt-6"><i id="progress-bar" style="width: 10.7%"></i></div>
-              <div class="flex justify-between items-baseline mt-4">
-                <div class="label">Модуль 1 · Базовая психология</div>
-                <div class="label oxblood" id="progress-pct">10.7%</div>
-              </div>
-            </div>
-          </div>
+        <div class="cab-row" data-mod="3">
+          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#FFC691"/></svg></span>
+          <span>03 · Диалог</span>
+          <span class="count">3</span>
+        </div>
+        <div class="cab-row" data-mod="4">
+          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#FFB377"/></svg></span>
+          <span>04 · Возражения</span>
+          <span class="count">3</span>
+        </div>
+        <div class="cab-row" data-mod="5">
+          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#F49D54"/></svg></span>
+          <span>05 · Система</span>
+          <span class="count">3</span>
         </div>
 
-        <!-- Modules section header -->
-        <div class="grid grid-cols-12 gap-6 mb-10">
-          <div class="col-span-12 md:col-span-2">
-            <div class="side-num">II. — Модули</div>
-          </div>
-          <div class="col-span-12 md:col-span-7">
-            <h2 class="ff-display italic text-3xl md:text-4xl leading-tight">
-              Пять модулей. <em class="oxblood">Двадцать восемь</em> уроков.
-            </h2>
-          </div>
+        <div class="section-title">УЧЁТКА</div>
+        <div class="cab-row">
+          <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5.5" r="3"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5"/></svg>
+          <span>Профиль</span>
+        </div>
+        <div class="cab-row">
+          <svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3H4a1 1 0 00-1 1v8a1 1 0 001 1h6"/><path d="M8 8h6m0 0l-2-2m2 2l-2 2"/></svg>
+          <span>Выйти</span>
         </div>
 
-        <!-- Modules list -->
-        <div id="modules-list"></div>
-      </section>
+      </aside>
 
-      <!-- ============== LESSON ============== -->
-      <section data-section-content="lesson" class="lms-section" style="display:none">
-
-        <button onclick="showSection('home')" class="label flex items-center gap-2 mb-8 hover:text-ink transition">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M15 18l-6-6 6-6"/></svg>
-          Вернуться к курсу
-        </button>
-
-        <div class="grid grid-cols-12 gap-6 mb-10">
-          <div class="col-span-12 md:col-span-8">
-            <div class="label mb-3" id="lesson-module-label">Модуль 1 · Урок 1</div>
-            <h1 class="section-h3 mb-4" id="lesson-title">
-              Импульс: почему клиент захотел сейчас
-            </h1>
-            <p class="lede stone max-w-2xl" id="lesson-description">
-              Разбираем первую из трёх опор покупки — импульс. Что запускает желание, как его распознать.
-            </p>
-          </div>
-          <div class="col-span-12 md:col-span-4 md:text-right">
-            <div class="label mb-2">Длительность</div>
-            <div class="ff-display italic text-3xl" id="lesson-time">14 мин 22 сек</div>
-          </div>
-        </div>
-
-        <!-- VIDEO PLAYER STUB with crosshair frame -->
-        <div class="crosshair-frame mb-8">
-          <span class="ch-tl"></span><span class="ch-tr"></span><span class="ch-bl"></span><span class="ch-br"></span>
-
-          <!-- centred play -->
-          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
-            <svg width="88" height="88" viewBox="0 0 88 88" fill="none">
-              <circle cx="44" cy="44" r="43" stroke="rgba(242,237,222,0.6)"/>
-              <path d="M36 30 L60 44 L36 58 Z" fill="rgba(242,237,222,0.9)"/>
+      <!-- MAIN -->
+      <main class="cab-main">
+        <div class="breadcrumb"><b style="color:var(--ink)">Курс</b> &nbsp;›&nbsp; <span id="bc-section">Главная</span></div>
+        <div class="flex items-end justify-between gap-6 flex-wrap mt-1">
+          <h2 id="cab-title">Добрый день, Анна.</h2>
+          <div class="progress-pill">
+            <svg width="22" height="22" viewBox="0 0 22 22">
+              <circle cx="11" cy="11" r="8" fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="2"/>
+              <circle id="prog-ring" cx="11" cy="11" r="8" fill="none" stroke="#0A84FF" stroke-width="2"
+                stroke-linecap="round" stroke-dasharray="50.27" stroke-dashoffset="42.7"
+                transform="rotate(-90 11 11)"/>
             </svg>
-          </div>
-
-          <!-- bottom HUD -->
-          <div style="position:absolute; left:24px; right:24px; bottom:24px; display:flex; align-items:center; gap:18px;">
-            <span class="micro" style="color: rgba(242,237,222,0.8);" id="lesson-hud-label">01.02 · В работе</span>
-            <div style="flex:1; height:1px; background:rgba(242,237,222,0.3); position:relative;">
-              <div style="position:absolute; left:0; top:0; height:1px; width:34%; background:#9a5a3f;"></div>
-            </div>
-            <span class="ff-mono" style="font-size:11px; color:rgba(242,237,222,0.7);">04:12 / <span id="lesson-hud-time">14:22</span></span>
+            <span class="label" id="prog-label">3 из 20 уроков</span>
+            <span class="pct" id="prog-pct">15%</span>
           </div>
         </div>
+        <p class="mt-2 text-[14px]" style="color: var(--ink-soft);">
+          Продолжаем с того места, где остановились. Сегодня — два урока из второго модуля.
+        </p>
 
-        <!-- Lesson note -->
-        <div class="grid grid-cols-12 gap-6 mt-12">
-          <div class="col-span-12 md:col-span-2">
-            <div class="side-num">III. — Что важно вынести</div>
+        <!-- Three priority blocks -->
+        <div class="cab-rows mt-6 grid md:grid-cols-3 gap-4">
+
+          <!-- 1. Live session countdown -->
+          <div class="lms-card lms-card-live">
+            <div class="lc-eyebrow mono">БЛИЖАЙШИЙ ЖИВОЙ РАЗБОР</div>
+            <div class="lc-title mt-2">22 января · четверг · 19:00 МСК</div>
+            <div class="lc-meta mt-2 mono">через 4 дня 12 часов · Zoom</div>
+            <button class="pill-ghost mt-4 inline-flex items-center h-9 px-4 rounded-full text-[12.5px] font-medium">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 6h12M5 1.5v3M11 1.5v3"/></svg>
+              Добавить в календарь
+            </button>
           </div>
-          <div class="col-span-12 md:col-span-7">
-            <ul class="space-y-5">
-              <li class="flex gap-4">
-                <span class="ff-display italic text-2xl stone shrink-0">i.</span>
-                <span class="lede">Импульс — это не настроение клиента. Это конкретное событие, после которого «хочу» стало громче «потом».</span>
-              </li>
-              <li class="flex gap-4">
-                <span class="ff-display italic text-2xl stone shrink-0">ii.</span>
-                <span class="lede">Любые попытки «подогреть» искусственно работают против вас. Клиент чувствует давление и закрывается.</span>
-              </li>
-              <li class="flex gap-4">
-                <span class="ff-display italic text-2xl stone shrink-0">iii.</span>
-                <span class="lede">Самый сильный импульс — отражённый: вернуть клиенту его собственный мотив, услышанный в начале разговора.</span>
-              </li>
-              <li class="flex gap-4">
-                <span class="ff-display italic text-2xl stone shrink-0">iv.</span>
-                <span class="lede">Если клиент сам не назвал событие — спрашивайте. Без события покупка превращается в «когда-нибудь».</span>
-              </li>
-            </ul>
 
-            <div class="hl-top mt-12 pt-8 flex flex-wrap items-center gap-6">
-              <button id="mark-btn" onclick="markComplete()" class="cta-pill">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-                <span id="mark-btn-text">Отметить пройденным</span>
+          <!-- 2. Last feedback from Elena -->
+          <div class="lms-card lms-card-feedback">
+            <div class="lc-eyebrow mono">ОБРАТНАЯ СВЯЗЬ ЕЛЕНЫ · 3 ЧАСА НАЗАД</div>
+            <p class="lc-quote mt-2">«Анна, ваш диалог по уроку 2.1 — очень аккуратный. Одно: после вопроса о бюджете подержите паузу хотя бы 4 секунды. Клиент сам её закроет.»</p>
+            <div class="mt-3 flex items-center gap-2 mono text-[10.5px]" style="color: var(--ink-mute); letter-spacing:0.12em; text-transform:uppercase;">
+              <span>диалог 12.01.26</span><span>·</span><a href="#" style="color: var(--ink-soft);">открыть разбор</a>
+            </div>
+          </div>
+
+          <!-- 3. Continue watching -->
+          <div class="lms-card lms-card-continue" id="continue-watching">
+            <div class="lc-eyebrow mono">ПРОДОЛЖИТЬ ПРОСМОТР</div>
+            <div class="lc-thumb mt-3">
+              <div class="lc-thumb-bg"></div>
+              <div class="lc-play">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M5 3l8 5-8 5V3z"/></svg>
+              </div>
+              <div class="lc-progress"><i style="width: 24%"></i></div>
+            </div>
+            <div class="lc-title mt-3" style="font-size:14px;">Урок 2.1 · Активное слушание</div>
+            <div class="lc-meta mt-1 mono">4:32 / 18:42 · модуль 02</div>
+          </div>
+
+        </div>
+
+        <!-- LMS module grid -->
+        <div class="lms-grid" id="lms-grid"></div>
+
+        <!-- Note from Elena -->
+        <div class="note-peach spring-pop">
+          <div class="note-h">Заметка от Елены</div>
+          <div class="note-body">Сейчас вы пройдёте Урок 1.2 — про позицию, в которой не стыдно продавать. Запишите одну фразу, которую обычно говорите клиенту в начале.</div>
+        </div>
+
+        <!-- Lesson modal -->
+        <div class="lesson-pop" id="lesson-pop">
+          <div class="flex items-center justify-between mb-4 gap-4">
+            <div>
+              <div class="breadcrumb"><b style="color:var(--ink)">Модули</b> &nbsp;›&nbsp; <span id="pop-bc">01 · Фундамент</span></div>
+              <h3 class="h3 mt-1" id="pop-title">Урок 1.1 · Позиция, в которой не стыдно продавать</h3>
+            </div>
+            <button class="pill-ghost inline-flex items-center h-9 px-3 rounded-full text-[12px] font-medium" id="pop-close">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg>
+              <span class="ml-1.5">Закрыть</span>
+            </button>
+          </div>
+
+          <div class="grid md:grid-cols-12 gap-6">
+            <div class="md:col-span-7">
+              <div class="video-stub">
+                <span class="crosshair ch-tl"></span>
+                <span class="crosshair ch-tr"></span>
+                <span class="crosshair ch-bl"></span>
+                <span class="crosshair ch-br"></span>
+                <div class="play-circle" aria-label="Воспроизвести">
+                  <svg width="22" height="22" viewBox="0 0 22 22" fill="currentColor"><path d="M6 4l12 7-12 7V4z"/></svg>
+                </div>
+              </div>
+              <div class="mt-4 flex items-center justify-between gap-4 mono text-[11px] tracking-[0.04em]" style="color: var(--ink-soft);">
+                <span>18 МИН 42 СЕК · ВИДЕО + КОНСПЕКТ</span>
+                <span>УРОК 1 ИЗ 3</span>
+              </div>
+            </div>
+            <div class="md:col-span-5">
+              <div class="eyebrow mb-3">ЧТО ВАЖНО ВЫНЕСТИ</div>
+              <ul class="space-y-3 text-[14px]" style="color: var(--ink);">
+                <li class="flex gap-3"><span class="mono text-[11px] mt-0.5" style="color: var(--ink-mute)">01</span><span>Продажа — это помощь, а не уговор.</span></li>
+                <li class="flex gap-3"><span class="mono text-[11px] mt-0.5" style="color: var(--ink-mute)">02</span><span>Цена звучит спокойно только когда вы сами в ней уверены.</span></li>
+                <li class="flex gap-3"><span class="mono text-[11px] mt-0.5" style="color: var(--ink-mute)">03</span><span>Если клиент «не ваш» — отпускайте без сожаления.</span></li>
+                <li class="flex gap-3"><span class="mono text-[11px] mt-0.5" style="color: var(--ink-mute)">04</span><span>Пауза — это аргумент. Учимся её держать.</span></li>
+              </ul>
+
+              <button class="pill-sky magnetic mt-6 inline-flex items-center justify-center h-11 px-5 rounded-full text-[14px] font-semibold w-full" id="mark-done">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M2 7l3 3 7-7"/></svg>
+                Отметить пройденным
               </button>
-              <span class="label stone" id="mark-status">Урок не отмечен пройденным</span>
+              <p class="text-center mt-2 mono text-[10.5px] tracking-[0.14em] uppercase" style="color: var(--ink-mute);">прогресс пересчитается автоматически</p>
             </div>
           </div>
         </div>
-      </section>
 
-      <!-- ============== MATERIALS ============== -->
-      <section data-section-content="materials" class="lms-section" style="display:none">
-        <div class="micro mb-10">04 — Cabinet · Материалы</div>
-        <h1 class="section-h3 mb-6">
-          Рабочие <em class="oxblood">материалы</em> курса.
-        </h1>
-        <p class="lede stone max-w-2xl mb-12">
-          Скачайте перед первой живой сессией. Распечатайте рабочую тетрадь —
-          с экрана она работает хуже, чем на полях.
-        </p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
-          <a href="#" class="block hl-top hl-bot py-8 group-lnk transition" style="border-color: rgba(25,25,25,0.2);">
-            <div class="label mb-3">PDF · 72 страницы</div>
-            <div class="ff-display italic text-3xl leading-tight">Рабочая тетрадь курса</div>
-            <div class="cta-bare mt-6 group-lnk">
-              Скачать
-              <span class="arrow-lnk">→</span>
-            </div>
-          </a>
-          <a href="#" class="block hl-top hl-bot py-8 group-lnk transition" style="border-color: rgba(25,25,25,0.2);">
-            <div class="label mb-3">PDF · A3 разворот</div>
-            <div class="ff-display italic text-3xl leading-tight">Карта 12 возражений</div>
-            <div class="cta-bare mt-6 group-lnk">
-              Скачать
-              <span class="arrow-lnk">→</span>
-            </div>
-          </a>
-          <a href="#" class="block hl-top hl-bot py-8 group-lnk transition" style="border-color: rgba(25,25,25,0.2);">
-            <div class="label mb-3">PDF · чек-лист</div>
-            <div class="ff-display italic text-3xl leading-tight">Самопроверка перед звонком</div>
-            <div class="cta-bare mt-6 group-lnk">
-              Скачать
-              <span class="arrow-lnk">→</span>
-            </div>
-          </a>
-          <a href="#" class="block hl-top hl-bot py-8 group-lnk transition" style="border-color: rgba(25,25,25,0.2);">
-            <div class="label mb-3">XLSX · шаблон</div>
-            <div class="ff-display italic text-3xl leading-tight">Воронка на одну неделю</div>
-            <div class="cta-bare mt-6 group-lnk">
-              Скачать
-              <span class="arrow-lnk">→</span>
-            </div>
-          </a>
-        </div>
-      </section>
-
-      <!-- ============== SESSIONS ============== -->
-      <section data-section-content="sessions" class="lms-section" style="display:none">
-        <div class="micro mb-10">05 — Cabinet · Живые сессии</div>
-        <h1 class="section-h3 mb-6">
-          Расписание <em class="oxblood">сессий</em> в Zoom.
-        </h1>
-        <p class="lede stone max-w-2xl mb-12">
-          Среда, 19:30 по Москве. Запись остаётся в кабинете на 12 месяцев.
-          За 24 часа до сессии вы получаете ссылку на почту и в Telegram.
-        </p>
-
-        <div class="hl-top">
-          <div class="hl-bot py-8 grid grid-cols-12 gap-6 items-baseline">
-            <div class="col-span-3 md:col-span-2"><div class="ff-mono text-2xl">22.01</div><div class="label mt-1 stone">среда · 19:30</div></div>
-            <div class="col-span-9 md:col-span-7">
-              <div class="ff-display italic text-2xl leading-tight">Сессия I — самоощущение продавца</div>
-              <p class="body-sm stone mt-2">Разбор страха «брать деньги». Принесите один свой звонок.</p>
-            </div>
-            <div class="col-span-12 md:col-span-3 md:text-right">
-              <span class="label oxblood">Скоро · ссылка придёт 21.01</span>
-            </div>
-          </div>
-          <div class="hl-bot py-8 grid grid-cols-12 gap-6 items-baseline">
-            <div class="col-span-3 md:col-span-2"><div class="ff-mono text-2xl">05.02</div><div class="label mt-1 stone">среда · 19:30</div></div>
-            <div class="col-span-9 md:col-span-7">
-              <div class="ff-display italic text-2xl leading-tight">Сессия II — карта возражений на практике</div>
-              <p class="body-sm stone mt-2">Прорабатываем 12 типовых возражений на ваших примерах.</p>
-            </div>
-            <div class="col-span-12 md:col-span-3 md:text-right">
-              <span class="label stone">Запланировано</span>
-            </div>
-          </div>
-          <div class="hl-bot py-8 grid grid-cols-12 gap-6 items-baseline">
-            <div class="col-span-3 md:col-span-2"><div class="ff-mono text-2xl">19.02</div><div class="label mt-1 stone">среда · 19:30</div></div>
-            <div class="col-span-9 md:col-span-7">
-              <div class="ff-display italic text-2xl leading-tight">Сессия III — деньги и цена без оправдания</div>
-              <p class="body-sm stone mt-2">Как называть цену так, чтобы не извиняться.</p>
-            </div>
-            <div class="col-span-12 md:col-span-3 md:text-right">
-              <span class="label stone">Запланировано</span>
-            </div>
-          </div>
-          <div class="hl-bot py-8 grid grid-cols-12 gap-6 items-baseline">
-            <div class="col-span-3 md:col-span-2"><div class="ff-mono text-2xl">05.03</div><div class="label mt-1 stone">среда · 19:30</div></div>
-            <div class="col-span-9 md:col-span-7">
-              <div class="ff-display italic text-2xl leading-tight">Сессия IV — финальный разбор и итоги</div>
-              <p class="body-sm stone mt-2">Каждый участник приносит одну закрытую сделку.</p>
-            </div>
-            <div class="col-span-12 md:col-span-3 md:text-right">
-              <span class="label stone">Запланировано</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============== RECORDINGS ============== -->
-      <section data-section-content="recordings" class="lms-section" style="display:none">
-        <div class="micro mb-10">06 — Cabinet · Записи звонков</div>
-        <h1 class="section-h3 mb-6">
-          Разбор <em class="oxblood">ваших</em> звонков.
-        </h1>
-        <p class="lede stone max-w-2xl mb-12">
-          Загрузите запись разговора (mp3, до 25 МБ) — я разберу её к следующей среде.
-          Тариф «Интенсив+» — две записи за поток, VIP — без ограничений.
-        </p>
-
-        <div class="hl-top hl-bot py-10 max-w-2xl text-center">
-          <div class="label mb-3 stone">Раздел в работе</div>
-          <div class="ff-display italic text-2xl">Загрузка появится после старта потока IV — 14 января.</div>
-          <p class="body-sm stone mt-4">До этого момента вы можете прислать запись в Telegram куратору.</p>
-        </div>
-      </section>
-
-      <!-- ============== SUPPORT ============== -->
-      <section data-section-content="support" class="lms-section" style="display:none">
-        <div class="micro mb-10">03 — Cabinet · Поддержка</div>
-
-        <h1 class="section-h3 mb-6">
-          Если нужен живой <em class="oxblood">человек</em>.
-        </h1>
-        <p class="lede stone max-w-2xl mb-12">
-          Я отвечаю в кураторском чате обычно в течение дня.
-          Если вопрос срочный или личный — напишите напрямую.
-        </p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
-          <a href="https://t.me/elena_help" target="_blank" rel="noopener" class="block hl-top hl-bot py-8 group-lnk transition" style="border-color: rgba(25,25,25,0.2);">
-            <div class="label mb-3">Telegram</div>
-            <div class="ff-display italic text-3xl leading-tight">Написать Елене напрямую</div>
-            <div class="cta-bare mt-6 group-lnk">
-              @elena_help
-              <span class="arrow-lnk">→</span>
-            </div>
-          </a>
-          <a href="mailto:hello@elena-sales.ru" class="block hl-top hl-bot py-8 group-lnk transition" style="border-color: rgba(25,25,25,0.2);">
-            <div class="label mb-3">Почта</div>
-            <div class="ff-display italic text-3xl leading-tight">hello@elena-sales.ru</div>
-            <div class="cta-bare mt-6 group-lnk">
-              Открыть письмо
-              <span class="arrow-lnk">→</span>
-            </div>
-          </a>
-        </div>
-
-        <div class="hl-top mt-16 pt-10 max-w-2xl">
-          <div class="label mb-3">Расписание ответов</div>
-          <p class="lede stone">
-            Будни — до 18:00. Суббота — до полудня. Воскресенье — без ответа,
-            это правило, которое я держу для себя и для вас.
-            Если вопрос горит, отметьте письмо как «срочно» — отвечу в день.
-          </p>
-        </div>
-      </section>
-
-    </main>
+      </main>
+    </div>
   </div>
+</section>
 
-</div> <!-- /cabinet-root -->
-
-
-<!-- ============================================================
-     ============================================================
-     SCRIPTS
-     ============================================================
-     ============================================================ -->
+<!-- =================================================== -->
+<!-- ======================= JS ======================== -->
+<!-- =================================================== -->
 <script>
-  /* ============================================================
-     COURSE DATA — 28 lessons across 5 modules
-  ============================================================ */
+(() => {
+  // ============ DATA ============
+  // Monochrome warm scale by module depth (M1 светлый → M5 насыщенный)
+  const FOLDER_COLORS = [
+    { tint: '#FFE2C8', acc: '#F0B07A' }, // M1
+    { tint: '#FFD2A8', acc: '#EE9B5B' }, // M2
+    { tint: '#FFC691', acc: '#E58A2C' }, // M3
+    { tint: '#FFB377', acc: '#DF7A1F' }, // M4
+    { tint: '#F49D54', acc: '#C66C18' }  // M5
+  ];
+
   const MODULES = [
     {
-      id: 1, title: "Базовая психология покупателя",
-      summary: "Три кита покупки: импульс, обоснование, безопасность.",
+      num: '01 · ФУНДАМЕНТ',
+      title: 'Кто такой продавец без впаривания',
+      time: '3 урока · 60 мин',
       lessons: [
-        { t: "Импульс: почему клиент захотел сейчас", time: "14 мин 22 сек", done: true,
-          d: "Разбираем первую из трёх опор покупки — импульс. Что запускает желание, как его распознать и почему попытка «подогреть» искусственно почти всегда отталкивает." },
-        { t: "Обоснование: как клиент объяснит покупку себе", time: "11 мин 40 сек", done: true,
-          d: "Любая покупка проходит через внутреннего критика. Учим давать клиенту материал, которым он защитит решение перед собой и близкими." },
-        { t: "Безопасность: за что вы отвечаете", time: "13 мин 10 сек", done: true,
-          d: "Третья опора — гарантия, что клиент не останется один на один с продуктом после оплаты. Не про скрипт «возврат за 14 дней», а про присутствие." },
-        { t: "Карта мотивов: упражнение на свою нишу", time: "9 мин 55 сек", done: false,
-          d: "Практическое упражнение: разложить свой продукт на три опоры и понять, какую вы недокачиваете." },
-        { t: "Когда клиент покупает не у вас", time: "12 мин 03 сек", done: false,
-          d: "Главная причина потерь — не цена и не сайт. А то, что одна из трёх опор отсутствует в разговоре." }
-      ]
+        { id: '1.1', t: 'Позиция, в которой не стыдно продавать' },
+        { id: '1.2', t: 'Этика, доверие и личная граница' },
+        { id: '1.3', t: 'Как звучать спокойно и уверенно' }
+      ],
+      progress: 100
     },
     {
-      id: 2, title: "Слышать клиента",
-      summary: "Техника эхо, активное слушание, пауза.",
+      num: '02 · СЛУШАТЬ',
+      title: 'Понять клиента раньше, чем заговорил',
+      time: '3 урока · 70 мин',
       lessons: [
-        { t: "Что клиент говорит и что подразумевает", time: "12 мин 30 сек", done: false,
-          d: "Учимся разделять буквальный текст и подтекст. Где у клиента боль, а где социально приемлемая формулировка." },
-        { t: "Эхо-приём: возврат смысла без давления", time: "10 мин 15 сек", done: false,
-          d: "Главный навык курса. Как вернуть клиенту его же слова так, чтобы он почувствовал — его услышали." },
-        { t: "Пауза как инструмент", time: "8 мин 45 сек", done: false,
-          d: "Самая недооценённая часть продаж. Три секунды тишины часто работают лучше пяти аргументов." },
-        { t: "Тон голоса и невербалика", time: "11 мин 20 сек", done: false,
-          d: "Что считывает клиент, кроме слов. Как звучать спокойно даже когда вы нервничаете." },
-        { t: "Практика: разбор реального диалога", time: "16 мин 40 сек", done: false,
-          d: "Разбираем запись реального разговора с клиентом, отмечаем точки, где продавец перестал слышать." },
-        { t: "Тот самый вопрос — кейс Теле-2", time: "13 мин 05 сек", done: false,
-          d: "Разбираем фразу, с которой колл-центр Теле-2 поднял средний чек на 22%. По словам." }
-      ]
+        { id: '2.1', t: 'Активное слушание и вопросы по делу' },
+        { id: '2.2', t: 'Карта боли: где у клиента болит на самом деле' },
+        { id: '2.3', t: 'Что нельзя пропускать в первом разговоре' }
+      ],
+      progress: 33
     },
     {
-      id: 3, title: "Воронка вопросов и презентация",
-      summary: "SPIN, адаптированный под современный рынок. Цена без оправданий.",
+      num: '03 · ДИАЛОГ',
+      title: 'Презентация, которая ведёт к «да»',
+      time: '3 урока · 80 мин',
       lessons: [
-        { t: "Зачем продавцу пять вопросов вместо двадцати", time: "9 мин 50 сек", done: false,
-          d: "Перестаём «выпытывать» и начинаем разговаривать. Принцип минимальной достаточности в диалоге." },
-        { t: "SPIN без агрессии: ситуация и проблема", time: "13 мин 10 сек", done: false,
-          d: "Первые две буквы SPIN в мягком исполнении. Как спрашивать о боли, не превращаясь в следователя." },
-        { t: "Импликация и нужда-результат", time: "12 мин 25 сек", done: false,
-          d: "Третья и четвёртая буквы. Как помочь клиенту самому увидеть последствия и сформулировать желаемое." },
-        { t: "Один вопрос, который меняет диалог", time: "8 мин 30 сек", done: false,
-          d: "Тот самый вопрос из истории про ювелирный. Когда и кому его задавать." },
-        { t: "Цена как факт. Интонация без извинений", time: "10 мин 00 сек", done: false,
-          d: "Как называть стоимость так, чтобы после неё не возникало вопроса «а скидку можно?»." },
-        { t: "Карта вопросов под свою услугу", time: "14 мин 15 сек", done: false,
-          d: "Практическое задание: собрать свою личную воронку из пяти вопросов под свой продукт." }
-      ]
+        { id: '3.1', t: 'Как говорить о цене и не извиняться' },
+        { id: '3.2', t: 'Структура продающего разговора 1:1' },
+        { id: '3.3', t: 'Сторителлинг через клиентские кейсы' }
+      ],
+      progress: 0
     },
     {
-      id: 4, title: "Работа с возражениями без давления",
-      summary: "Возражение как точка диалога, а не препятствие.",
+      num: '04 · ВОЗРАЖЕНИЯ',
+      title: 'Когда клиент говорит «дорого» и «я подумаю»',
+      time: '3 урока · 75 мин',
       lessons: [
-        { t: "«Дорого» — это не про цену", time: "11 мин 45 сек", done: false,
-          d: "Что на самом деле говорит клиент, когда говорит «дорого». Восемь скрытых смыслов и как их различить." },
-        { t: "«Я подумаю» — где клиент застрял", time: "10 мин 20 сек", done: false,
-          d: "Самая частая фраза в продажах. Учимся слышать, в какой из трёх опор у клиента провал." },
-        { t: "«Не сейчас» и работа с временем", time: "9 мин 35 сек", done: false,
-          d: "Когда «не сейчас» — настоящее, а когда вежливый отказ. И как разговаривать в обоих случаях." },
-        { t: "Возражение через эхо", time: "12 мин 05 сек", done: false,
-          d: "Применяем технику эхо из второго модуля к работе с возражениями. Возврат смысла без споров." },
-        { t: "Когда отпустить", time: "8 мин 15 сек", done: false,
-          d: "Самый важный навык. Признак, что клиент сейчас не ваш — и почему это нормально." },
-        { t: "Скрипт возврата: что делать после «нет»", time: "13 мин 30 сек", done: false,
-          d: "Письмо, звонок, тишина — что выбрать после отказа, чтобы клиент вернулся через три месяца сам." }
-      ]
+        { id: '4.1', t: 'Шесть базовых возражений и спокойные ответы' },
+        { id: '4.2', t: 'Как отличать сомнение от вежливого «нет»' },
+        { id: '4.3', t: 'Возврат клиента, который сказал «дорого»' }
+      ],
+      progress: 0
     },
     {
-      id: 5, title: "Закрытие и длинные отношения",
-      summary: "Финал сделки без давления. Тёплая база как актив.",
+      num: '05 · СИСТЕМА',
+      title: 'Регулярные продажи без выгорания',
+      time: '3 урока · 70 мин',
       lessons: [
-        { t: "Письмо после сделки, которое не раздражает", time: "10 мин 50 сек", done: false,
-          d: "Что писать клиенту через день, через неделю и через месяц. Без фальшивой заботы." },
-        { t: "Тёплая база как актив", time: "12 мин 15 сек", done: false,
-          d: "Как считать и растить базу клиентов, которые возвращаются. Четыре уровня тепла." },
-        { t: "Рекомендации без просьб", time: "9 мин 45 сек", done: false,
-          d: "Почему «попросите рекомендацию» — устаревшая схема. Как сделать так, чтобы клиент сам приводил знакомых." },
-        { t: "Возврат «спящих» клиентов", time: "11 мин 30 сек", done: false,
-          d: "Что писать тем, кто молчит полгода. Один шаблон, который вытаскивает четверть базы." },
-        { t: "Когда клиент перестаёт быть клиентом", time: "14 мин 20 сек", done: false,
-          d: "Финал курса. Как красиво заканчивать отношения с клиентом — и почему это важнее, чем красиво их начинать." }
-      ]
+        { id: '5.1', t: 'Воронка эксперта на одном листе' },
+        { id: '5.2', t: 'CRM и заметки, чтобы клиенты не терялись' },
+        { id: '5.3', t: 'Ритм недели: продажи без 24/7' }
+      ],
+      progress: 0
     }
   ];
 
-  /* ============================================================
-     LMS ROUTING — body class + hash
-  ============================================================ */
-  function enterLMS() {
-    document.body.classList.add('route-app');
-    window.scrollTo(0, 0);
-    history.replaceState(null, '', '#cabinet');
-    renderModules();
-    updateProgress();
-  }
-  function exitLMS() {
-    document.body.classList.remove('route-app');
-    history.replaceState(null, '', '#top');
-    window.scrollTo(0, 0);
-  }
-  if (location.hash === '#cabinet') {
-    document.body.classList.add('route-app');
-  }
+  // ============ FOLDER SVG (macOS Big Sur+ Finder style) ============
+  // tab outshoots body upward by ~8px; back-face slightly darker behind body; no plastic sheen
+  const darken = (hex, amt = 0.04) => {
+    const m = hex.replace('#','');
+    const r = Math.max(0, Math.round(parseInt(m.slice(0,2),16) * (1 - amt)));
+    const g = Math.max(0, Math.round(parseInt(m.slice(2,4),16) * (1 - amt)));
+    const b = Math.max(0, Math.round(parseInt(m.slice(4,6),16) * (1 - amt)));
+    return `rgb(${r},${g},${b})`;
+  };
+  const folderSVG = (idx, tint, acc) => {
+    const uid = 'f' + idx + '-' + Math.random().toString(36).slice(2,7);
+    const back = darken(acc, 0.04);
+    return `
+    <svg class="folder" viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="tab-${uid}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="${tint}" stop-opacity="1"/>
+          <stop offset="100%" stop-color="${tint}" stop-opacity="0.88"/>
+        </linearGradient>
+        <linearGradient id="body-${uid}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="${tint}" stop-opacity="1"/>
+          <stop offset="55%"  stop-color="${acc}"  stop-opacity="0.96"/>
+          <stop offset="100%" stop-color="${acc}"  stop-opacity="1"/>
+        </linearGradient>
+        <filter id="fs-${uid}" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+          <feOffset dx="0" dy="6" result="off"/>
+          <feComponentTransfer><feFuncA type="linear" slope="0.20"/></feComponentTransfer>
+          <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <g filter="url(#fs-${uid})">
+        <!-- back-face peeking behind body (slightly offset+darker) -->
+        <rect x="18" y="44" width="248" height="164" rx="18" ry="18" fill="${back}" opacity="0.92"/>
+        <!-- tab outshoots body upward (top y=34, body y=42) -->
+        <path d="M 22 48 Q 22 34 36 34 L 104 34 Q 114 34 120 42 L 128 52 L 36 52 Q 22 52 22 48 Z" fill="url(#tab-${uid})"/>
+        <!-- front body -->
+        <rect x="16" y="42" width="248" height="164" rx="18" ry="18" fill="url(#body-${uid})"/>
+        <!-- thin 1px highlight along front top edge only -->
+        <path d="M 18 43.5 L 262 43.5" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+        <!-- subtle outer border for definition -->
+        <rect x="16.5" y="42.5" width="247" height="163" rx="17.5" ry="17.5" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
+      </g>
+    </svg>`;
+  };
 
-  /* ============================================================
-     SECTION TOGGLE
-  ============================================================ */
-  function showSection(name) {
-    document.querySelectorAll('.lms-section').forEach(s => s.style.display = 'none');
-    const target = document.querySelector('[data-section-content="' + name + '"]');
-    if (target) target.style.display = 'block';
-    document.querySelectorAll('.nav-item').forEach(n => {
-      if (n.dataset.section === name) n.classList.add('active');
-      else n.classList.remove('active');
-    });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  const miniFolderSVG = (tint, acc) => {
+    const uid = 'm' + Math.random().toString(36).slice(2,7);
+    const back = darken(acc, 0.04);
+    return `
+    <svg class="mini-folder" viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="mtab-${uid}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${tint}" stop-opacity="1"/>
+          <stop offset="100%" stop-color="${tint}" stop-opacity="0.88"/>
+        </linearGradient>
+        <linearGradient id="mbody-${uid}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${tint}" stop-opacity="1"/>
+          <stop offset="55%" stop-color="${acc}" stop-opacity="0.96"/>
+          <stop offset="100%" stop-color="${acc}" stop-opacity="1"/>
+        </linearGradient>
+      </defs>
+      <rect x="18" y="44" width="248" height="164" rx="18" ry="18" fill="${back}" opacity="0.92"/>
+      <path d="M 22 48 Q 22 34 36 34 L 104 34 Q 114 34 120 42 L 128 52 L 36 52 Q 22 52 22 48 Z" fill="url(#mtab-${uid})"/>
+      <rect x="16" y="42" width="248" height="164" rx="18" ry="18" fill="url(#mbody-${uid})"/>
+      <path d="M 18 43.5 L 262 43.5" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+      <rect x="16.5" y="42.5" width="247" height="163" rx="17.5" ry="17.5" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
+    </svg>`;
+  };
 
-  /* ============================================================
-     RENDER MODULES + LESSONS
-  ============================================================ */
-  function renderModules() {
-    const root = document.getElementById('modules-list');
-    if (!root) return;
-    root.innerHTML = MODULES.map((m, mi) => {
-      const total = m.lessons.length;
-      const done  = m.lessons.filter(l => l.done).length;
-      const pct   = Math.round(done / total * 100);
-      const lessonsHTML = m.lessons.map((l, li) => `
-        <div class="lesson-row" onclick="openLesson(${mi}, ${li})">
-          <div style="display:flex; align-items:center; gap:18px; min-width:0;">
-            <span class="lesson-marker ${l.done ? 'done' : ''}">
-              ${l.done
-                ? '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>'
-                : (li+1)}
-            </span>
-            <span class="ff-display italic text-lg leading-tight" style="color: var(--ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${l.t}</span>
-          </div>
-          <span class="label stone shrink-0">${l.time}</span>
-        </div>
-      `).join('');
-      return `
-        <details class="lms-module" ${mi === 0 ? 'open' : ''}>
-          <summary>
-            <div style="display:flex; align-items:baseline; gap:24px; min-width:0;">
-              <span class="ff-display text-4xl leading-none stone shrink-0">0${m.id}</span>
-              <div style="min-width:0;">
-                <div class="ff-display italic text-2xl leading-tight" style="color: var(--ink);">${m.title}</div>
-                <div class="body-sm stone mt-1">${m.summary}</div>
-              </div>
-            </div>
-            <div style="display:flex; align-items:center; gap:24px; flex-shrink:0;">
-              <div style="text-align:right;" class="hidden md:block">
-                <div class="label stone">${done} / ${total}</div>
-                <div class="progressbar mt-2" style="width:140px;"><i style="width:${pct}%"></i></div>
-              </div>
-              <span class="chev">+</span>
-            </div>
-          </summary>
-          <div>${lessonsHTML}</div>
-        </details>
-      `;
-    }).join('');
-  }
+  // ============ RENDER PROGRAM FOLDERS ============
+  const grid = document.getElementById('program-grid');
+  MODULES.forEach((m, i) => {
+    const col = FOLDER_COLORS[i];
+    const lessonsHTML = m.lessons.map(l => `
+      <div class="lesson"><span class="ix">${l.id}</span><span class="tx">${l.t}</span></div>`).join('');
 
-  /* ============================================================
-     OPEN LESSON
-  ============================================================ */
-  let CURRENT = { m: 0, l: 0 };
-  function openLesson(mi, li) {
-    CURRENT = { m: mi, l: li };
-    const m = MODULES[mi];
-    const l = m.lessons[li];
-    document.getElementById('lesson-module-label').textContent = `Модуль ${m.id} · Урок ${li+1} из ${m.lessons.length}`;
-    document.getElementById('lesson-title').textContent = l.t;
-    document.getElementById('lesson-description').textContent = l.d;
-    document.getElementById('lesson-time').textContent = l.time;
-    document.getElementById('lesson-hud-label').textContent = `0${m.id}.0${li+1} · ${l.done ? 'Пройден' : 'В работе'}`;
-    document.getElementById('lesson-hud-time').textContent = l.time.replace(/[^\d]/g, '').slice(0,4).replace(/(\d\d)(\d\d)/, '$1:$2') || '14:22';
-    updateMarkBtn(l.done);
-    showSection('lesson');
-  }
-
-  function updateMarkBtn(done) {
-    const txt = document.getElementById('mark-btn-text');
-    const status = document.getElementById('mark-status');
-    const btn = document.getElementById('mark-btn');
-    if (done) {
-      txt.textContent = 'Пройдено';
-      const total = MODULES.reduce((s, m) => s + m.lessons.length, 0);
-      const doneN = MODULES.reduce((s, m) => s + m.lessons.filter(l => l.done).length, 0);
-      status.textContent = `Урок отмечен как пройденный · ${doneN}/${total}`;
-      btn.style.background = 'var(--oxblood)';
-      btn.style.borderColor = 'var(--oxblood)';
-    } else {
-      txt.textContent = 'Отметить пройденным';
-      status.textContent = 'Урок не отмечен пройденным';
-      btn.style.background = 'var(--ink)';
-      btn.style.borderColor = 'var(--ink)';
-    }
-  }
-
-  function markComplete() {
-    const l = MODULES[CURRENT.m].lessons[CURRENT.l];
-    l.done = !l.done;
-    updateMarkBtn(l.done);
-    updateProgress();
-    renderModules();
-  }
-
-  /* ============================================================
-     PROGRESS COUNTER
-  ============================================================ */
-  function updateProgress() {
-    const total = MODULES.reduce((s, m) => s + m.lessons.length, 0);
-    const done = MODULES.reduce((s, m) => s + m.lessons.filter(l => l.done).length, 0);
-    const pct = Math.round(done / total * 1000) / 10;
-    const text = document.getElementById('progress-text');
-    const bar = document.getElementById('progress-bar');
-    const pctEl = document.getElementById('progress-pct');
-    if (text) text.textContent = done;
-    if (bar) bar.style.width = pct + '%';
-    if (pctEl) pctEl.textContent = pct.toFixed(1) + '%';
-  }
-
-  /* ============================================================
-     SCROLL PROGRESS RAIL — left fill
-  ============================================================ */
-  function updateScrollRail() {
-    const rail = document.getElementById('progressRail');
-    if (!rail) return;
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-    const usableH = window.innerHeight - 192; // minus 96px top + bottom
-    rail.style.setProperty('--scroll-h', (usableH * ratio) + 'px');
-    rail.style.cssText += `;`;
-    // direct manipulation of the ::after via custom prop is messy; use a sibling span instead next time
-    // for now adjust via inline style on a child
-    const after = rail.querySelector('span');
-    if (after) after.style.height = (usableH * ratio) + 'px';
-  }
-
-  // Inject inner span for fill (since ::after height transition didn't work cross-browser)
-  document.addEventListener('DOMContentLoaded', () => {
-    const rail = document.getElementById('progressRail');
-    if (rail && !rail.querySelector('span')) {
-      const fill = document.createElement('span');
-      fill.style.cssText = 'position:absolute; left:-2px; top:96px; width:5px; height:0; background:var(--oxblood); transition: height .12s linear;';
-      rail.appendChild(fill);
-    }
-    updateScrollRail();
-    renderModules();
-    updateProgress();
+    const cell = document.createElement('div');
+    cell.className = 'module reveal';
+    cell.style.transitionDelay = (i * 80) + 'ms';
+    cell.innerHTML = `
+      <div class="folder-card" tabindex="0" aria-label="Модуль ${i+1}: ${m.title}">
+        <div class="svg-wrap">${folderSVG(i, col.tint, col.acc)}</div>
+        <div class="shadow-disc"></div>
+      </div>
+      <div>
+        <div class="module-num">${m.num}</div>
+        <div class="module-title mt-1">${m.title}</div>
+        <div class="mt-3">${lessonsHTML}</div>
+        <div class="mt-3"><span class="tag">${m.time}</span></div>
+      </div>
+    `;
+    grid.appendChild(cell);
   });
-  window.addEventListener('scroll', updateScrollRail, { passive: true });
-  window.addEventListener('resize', updateScrollRail);
 
+  // ============ RENDER HERO MINI-FINDER ============
+  const heroGrid = document.getElementById('hero-mock-grid');
+  if (heroGrid) {
+    const shortTitles = ['Фундамент', 'Слушать', 'Диалог', 'Возражения', 'Система'];
+    MODULES.forEach((m, i) => {
+      const col = FOLDER_COLORS[i];
+      const cell = document.createElement('div');
+      cell.className = 'mock-cell';
+      cell.innerHTML = `
+        ${miniFolderSVG(col.tint, col.acc)}
+        <div class="mc-num">0${i+1}</div>
+        <div class="mc-title">${shortTitles[i]}</div>
+      `;
+      heroGrid.appendChild(cell);
+    });
+  }
+
+  // ============ RENDER LMS GRID ============
+  const lmsGrid = document.getElementById('lms-grid');
+  MODULES.forEach((m, i) => {
+    const col = FOLDER_COLORS[i];
+    let statusHTML;
+    if (m.progress === 100) {
+      statusHTML = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#0A84FF" stroke-width="2" stroke-linecap="round"><path d="M2 6l3 3 5-6"/></svg> <span style="color:var(--sky-deep)">пройден</span>`;
+    } else if (m.progress > 0) {
+      statusHTML = `<div class="bar"><i style="width:${m.progress}%"></i></div> <span>${m.progress}%</span>`;
+    } else {
+      statusHTML = `<svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 5V3.5a2.5 2.5 0 015 0V5"/><rect x="2" y="5" width="7" height="5" rx="1"/></svg> <span>закрыт</span>`;
+    }
+
+    const tile = document.createElement('div');
+    tile.className = 'lms-tile';
+    tile.dataset.mod = i;
+    tile.innerHTML = `
+      ${miniFolderSVG(col.tint, col.acc)}
+      <div class="t-title">${(i+1).toString().padStart(2,'0')} · ${m.title}</div>
+      <div class="t-status">${statusHTML}</div>
+    `;
+    lmsGrid.appendChild(tile);
+  });
+
+  // ============ SCROLL REVEAL ============
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal, [data-reveal]').forEach(el => io.observe(el));
+
+  // ============ NAV SCROLL STATE ============
+  const nav = document.getElementById('nav');
+  const links = document.querySelectorAll('[data-link]');
+  const onScroll = () => {
+    const y = window.scrollY;
+    if (nav) nav.classList.toggle('is-scrolled', y > 40);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  links.forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (href.startsWith('#')) {
+        const tgt = document.querySelector(href);
+        if (tgt) {
+          e.preventDefault();
+          tgt.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          links.forEach(l => l.classList.remove('is-active'));
+          a.classList.add('is-active');
+        }
+      }
+    });
+  });
+
+  // ============ PARALLAX BLOBS (rAF + lerp) ============
+  const blobs = [
+    { el: document.getElementById('b-warm'),  speed: 0.12, y: 0, ty: 0 },
+    { el: document.getElementById('b-sky'),   speed: -0.10, y: 0, ty: 0 },
+    { el: document.getElementById('b-peach'), speed: 0.06, y: 0, ty: 0 }
+  ];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion) {
+    let scrollY = 0;
+    window.addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
+    function tick() {
+      blobs.forEach(b => {
+        if (!b.el) return;
+        b.ty = scrollY * b.speed;
+        b.y += (b.ty - b.y) * 0.08;
+        b.el.style.transform = `translate3d(0, ${b.y.toFixed(2)}px, 0)`;
+      });
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // ============ MAGNETIC CTA ============
+  const magnets = document.querySelectorAll('.magnetic, [data-magnetic]');
+  if (reduceMotion) magnets.forEach(el => { el.style.transform = ''; });
+  if (!reduceMotion) magnets.forEach(el => {
+    let raf, tx=0, ty=0, x=0, y=0, active=false;
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      const cx = e.clientX - (r.left + r.width / 2);
+      const cy = e.clientY - (r.top + r.height / 2);
+      tx = Math.max(-10, Math.min(10, cx * 0.12));
+      ty = Math.max(-10, Math.min(10, cy * 0.12));
+      active = true;
+      if (!raf) raf = requestAnimationFrame(loop);
+    };
+    const loop = () => {
+      x += (tx - x) * 0.15;
+      y += (ty - y) * 0.15;
+      el.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
+      if (active || Math.abs(tx - x) > 0.05 || Math.abs(ty - y) > 0.05) {
+        raf = requestAnimationFrame(loop);
+      } else {
+        raf = null;
+      }
+    };
+    const reset = () => {
+      tx = 0; ty = 0; active = false;
+      if (!raf) raf = requestAnimationFrame(loop);
+    };
+    el.addEventListener('pointermove', onMove);
+    el.addEventListener('pointerleave', reset);
+    el.addEventListener('pointerdown', reset);
+  });
+
+  // ============ FOLDER SPRING TILT (mouse-driven, magnetic) ============
+  const folders = document.querySelectorAll('.folder-card');
+  folders.forEach(card => {
+    const wrap = card.querySelector('.svg-wrap');
+    if (!wrap) return;
+    let raf, rx=0, ry=0, ty=0, sc=1;
+    const onMove = (e) => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;   // -0.5 .. 0.5
+      const py = (e.clientY - r.top)  / r.height - 0.5;
+      ry = px * 6;           // rotateY
+      rx = -py * 5 + 2;      // rotateX (+ lift)
+      ty = -8;
+      sc = 1.02;
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+    const apply = () => {
+      wrap.style.transform =
+        `translate3d(0, ${ty.toFixed(2)}px, 0) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale(${sc})`;
+      wrap.style.filter = 'drop-shadow(0 18px 24px rgba(15,23,42,0.18)) drop-shadow(0 8px 12px rgba(15,23,42,0.10))';
+      raf = null;
+    };
+    const leave = () => {
+      rx = 0; ry = 0; ty = 0; sc = 1;
+      wrap.style.transform = 'translate3d(0,0,0) rotateX(0deg) rotateY(0deg) scale(1)';
+      wrap.style.filter = '';
+    };
+    card.addEventListener('pointermove', onMove);
+    card.addEventListener('pointerleave', leave);
+    card.addEventListener('pointerdown', () => {
+      sc = 0.98;
+      if (!raf) raf = requestAnimationFrame(apply);
+    });
+  });
+
+  // ============ FAQ ============
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    btn.addEventListener('click', () => {
+      const open = item.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.faq-item').forEach(other => {
+        other.setAttribute('aria-expanded', 'false');
+      });
+      item.setAttribute('aria-expanded', open ? 'false' : 'true');
+    });
+  });
+
+  // ============ CABINET ROUTER ============
+  const body = document.body;
+  const lessonPop = document.getElementById('lesson-pop');
+  const popClose  = document.getElementById('pop-close');
+  const popTitle  = document.getElementById('pop-title');
+  const popBc     = document.getElementById('pop-bc');
+  const cabClose  = document.getElementById('cab-close');
+  const cabExit   = document.getElementById('cab-exit');
+  const progLabel = document.getElementById('prog-label');
+  const progPct   = document.getElementById('prog-pct');
+  const progRing  = document.getElementById('prog-ring');
+  const CIRC = 2 * Math.PI * 8; // 50.27
+
+  let completedLessons = 3;
+  const TOTAL = 20;
+
+  function updateProgress() {
+    const pct = Math.round((completedLessons / TOTAL) * 100);
+    if (progLabel) progLabel.textContent = `${completedLessons} из ${TOTAL} уроков`;
+    if (progPct)   progPct.textContent = `${pct}%`;
+    if (progRing)  progRing.setAttribute('stroke-dashoffset', String(CIRC - (CIRC * pct / 100)));
+  }
+  updateProgress();
+
+  function applyRoute() {
+    if (location.hash.startsWith('#cabinet')) {
+      body.classList.add('route-app');
+      window.scrollTo(0, 0);
+    } else {
+      body.classList.remove('route-app');
+      lessonPop.classList.remove('is-open');
+    }
+  }
+  window.addEventListener('hashchange', applyRoute);
+  applyRoute();
+
+  if (cabClose) cabClose.addEventListener('click', () => { location.hash = ''; });
+  if (cabExit)  cabExit.addEventListener('click',  (e) => { e.preventDefault(); location.hash = ''; });
+
+  // LMS tile click → open lesson modal
+  document.querySelectorAll('.lms-tile').forEach(tile => {
+    tile.addEventListener('click', () => {
+      const idx = parseInt(tile.dataset.mod, 10);
+      const m = MODULES[idx];
+      const first = m.lessons[0];
+      popBc.textContent = m.num;
+      popTitle.textContent = `Урок ${first.id} · ${first.t}`;
+      lessonPop.classList.remove('is-open');
+      void lessonPop.offsetWidth;
+      lessonPop.classList.add('is-open');
+      lessonPop.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+  // Sidebar module rows
+  document.querySelectorAll('[data-mod]').forEach(row => {
+    row.addEventListener('click', () => {
+      const idx = parseInt(row.dataset.mod, 10) - 1;
+      const m = MODULES[idx];
+      const first = m.lessons[0];
+      popBc.textContent = m.num;
+      popTitle.textContent = `Урок ${first.id} · ${first.t}`;
+      lessonPop.classList.remove('is-open');
+      void lessonPop.offsetWidth;
+      lessonPop.classList.add('is-open');
+    });
+  });
+
+  if (popClose) popClose.addEventListener('click', () => { lessonPop.classList.remove('is-open'); });
+
+  // Mark lesson done
+  const markBtn = document.getElementById('mark-done');
+  if (markBtn) {
+    markBtn.addEventListener('click', () => {
+      if (completedLessons < TOTAL) completedLessons++;
+      updateProgress();
+      markBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M2 7l3 3 7-7"/></svg> Отмечено как пройденный`;
+      markBtn.style.background = 'linear-gradient(180deg, #34D399 0%, #10B981 100%)';
+      // spring-bounce micro-interaction
+      markBtn.classList.remove('spring-bounce');
+      void markBtn.offsetWidth;
+      markBtn.classList.add('spring-bounce');
+      setTimeout(() => { lessonPop.classList.remove('is-open'); }, 700);
+    });
+  }
+
+  // Sidebar row active state
+  document.querySelectorAll('.cab-row').forEach(row => {
+    row.addEventListener('click', () => {
+      document.querySelectorAll('.cab-row').forEach(r => r.classList.remove('is-active'));
+      row.classList.add('is-active');
+    });
+  });
+
+})();
 </script>
 
 </body>
