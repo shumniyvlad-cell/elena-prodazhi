@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Елена — Продажи без впаривания</title>
+<meta name="description" content="Авторский курс Елены: продажи без давления, через умение слышать клиента. 20 лет опыта в продажах, 5 модулей, живая практика." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Tailwind Play CDN (MVP-only; for prod build locally and pin with SRI) -->
+<script src="https://cdn.tailwindcss.com" referrerpolicy="no-referrer"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          linen: '#f7f1e6',
+          linenSoft: '#fbf6ec',
+          umber: '#3c261c',
+          umberSoft: '#5b3f33',
+          terracotta: '#c1593a',
+          terracottaSoft: '#d97a5a',
+          ochre: '#e8c87a',
+          parchment: '#eadfcf',
+          peach: '#f4e3d3',
+          frost: '#e3dccd',
+          muted: '#8a7a6a',
+        },
+        fontFamily: {
+          serif: ['"Cormorant Garamond"', 'serif'],
+          sans: ['Inter', 'system-ui', 'sans-serif'],
+        },
+        boxShadow: {
+          soft: '0 1px 2px rgba(60, 38, 28, 0.04), 0 8px 24px rgba(60, 38, 28, 0.06)',
+        },
+      }
+    }
+  }
+</script>
+<style>
+  html, body { background: #f7f1e6; color: #3c261c; }
+  body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .serif { font-family: 'Cormorant Garamond', serif; letter-spacing: -0.01em; }
+  .tracking-display { letter-spacing: 0.04em; }
+  .underline-soft { background-image: linear-gradient(transparent 62%, rgba(193, 89, 58, 0.22) 62%); background-repeat: no-repeat; }
+  .grain {
+    background-image:
+      radial-gradient(rgba(60,38,28,0.04) 1px, transparent 1px),
+      radial-gradient(rgba(60,38,28,0.03) 1px, transparent 1px);
+    background-size: 32px 32px, 17px 17px;
+    background-position: 0 0, 8px 8px;
+  }
+  .hairline { border-color: #d6cdb9; }
+  details[open] summary .chev { transform: rotate(45deg); }
+  .chev { transition: transform .2s ease; }
+  .lesson-row:hover { background: #f7f1e6; }
+  .progress-bar { background: linear-gradient(90deg, #c1593a 0%, #d97a5a 100%); }
+  /* Hide LMS by default, route via #app */
+  #lms { display: none; }
+  .route-app #site { display: none; }
+  .route-app #lms { display: block; }
+  .lesson-active { background: #f4e3d3 !important; }
+</style>
+</head>
+<body class="bg-linen text-umber min-h-screen">
+
+<!-- ============================== SITE ============================== -->
+<div id="site">
+
+<!-- NAV -->
+<header class="sticky top-0 z-40 backdrop-blur bg-linen/85 border-b hairline">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2 group">
+      <span class="w-8 h-8 rounded-full bg-umber text-linen flex items-center justify-center serif text-lg leading-none">E</span>
+      <span class="serif text-xl">Елена</span>
+    </a>
+    <nav class="hidden sm:flex items-center gap-7 text-sm text-umberSoft">
+      <a href="#about" class="hover:text-umber">О Елене</a>
+      <a href="#program" class="hover:text-umber">Программа</a>
+      <a href="#cases" class="hover:text-umber">Истории</a>
+      <a href="#pricing" class="hover:text-umber">Тарифы</a>
+      <a href="#faq" class="hover:text-umber">Вопросы</a>
+    </nav>
+    <div class="flex items-center gap-2 sm:gap-3">
+      <button onclick="enterLMS()" class="text-sm px-3 sm:px-4 py-2 border border-umber/30 rounded-sm hover:bg-umber/5 transition">
+        Войти в кабинет
+      </button>
+      <a href="#pricing" class="hidden sm:inline-block text-sm px-4 py-2 bg-umber text-linen rounded-sm hover:bg-umberSoft transition">
+        На курс
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="relative overflow-hidden">
+  <div class="absolute inset-0 grain opacity-50 pointer-events-none"></div>
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-20 sm:pb-32 grid sm:grid-cols-12 gap-10 sm:gap-16 items-center relative">
+    <div class="sm:col-span-7">
+      <div class="inline-flex items-center gap-2 text-xs uppercase tracking-display text-umberSoft mb-7">
+        <span class="w-8 h-px bg-umber/40"></span>
+        <span>Авторский курс</span>
+      </div>
+      <h1 class="serif text-5xl sm:text-7xl leading-[0.95] text-umber mb-7">
+        Продажи<br/>
+        <span class="italic font-light">без впаривания</span>
+      </h1>
+      <p class="text-lg sm:text-xl text-umberSoft leading-relaxed max-w-xl mb-3">
+        Меня зовут Елена. Двадцать лет я учу людей продавать так, чтобы клиент возвращался сам — без давления, без приёмов «закрытия» и без сценариев, от которых стыдно.
+      </p>
+      <p class="text-lg sm:text-xl text-umberSoft leading-relaxed max-w-xl mb-10">
+        Продают не характеристики. Продаёт <span class="underline-soft">умение слышать клиента</span>.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <a href="#pricing" class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-terracotta text-linen rounded-sm hover:bg-terracottaSoft transition group">
+          Записаться на курс
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#program" class="inline-flex items-center justify-center gap-2 px-7 py-4 border border-umber/30 rounded-sm hover:bg-umber/5 transition">
+          Узнать о курсе
+        </a>
+      </div>
+      <div class="mt-12 flex items-center gap-6 text-sm text-muted">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-terracotta"></span>
+          <span>5 модулей, 28 уроков</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-umber"></span>
+          <span>Живая практика</span>
+        </div>
+      </div>
+    </div>
+    <div class="sm:col-span-5">
+      <div class="relative">
+        <div class="aspect-[3/4] bg-gradient-to-br from-peach via-parchment to-frost border hairline relative overflow-hidden">
+          <div class="absolute inset-0 grain opacity-40"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="text-center px-8">
+              <div class="serif text-[180px] leading-none text-umber/15 select-none">E</div>
+              <div class="mt-2 text-xs uppercase tracking-display text-umberSoft">Елена · ваш проводник в продажах</div>
+            </div>
+          </div>
+        </div>
+        <div class="absolute -bottom-6 -left-6 sm:-left-10 bg-linen border hairline shadow-soft p-5 max-w-[220px]">
+          <div class="serif text-2xl text-terracotta leading-none">20</div>
+          <div class="text-xs uppercase tracking-display text-muted mt-1">лет в продажах</div>
+          <div class="text-sm text-umberSoft mt-3 leading-snug">Ювелирка, мобильная связь, франшизы, коучинг.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="border-t hairline bg-linenSoft">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-20 sm:py-28 grid sm:grid-cols-12 gap-10 sm:gap-16">
+    <div class="sm:col-span-4">
+      <div class="text-xs uppercase tracking-display text-umberSoft mb-4">О Елене</div>
+      <h2 class="serif text-4xl sm:text-5xl text-umber leading-tight">Я тоже не люблю,<br/> когда мне продают.</h2>
+    </div>
+    <div class="sm:col-span-8 space-y-6 text-umberSoft text-lg leading-relaxed">
+      <p>
+        Поэтому за двадцать лет я выстроила свой подход. Без скриптов, которые заставляют клиента чувствовать себя жертвой. Без «давайте оформим прямо сейчас». Без манипуляций «закрытием».
+      </p>
+      <p>
+        Я работала в рознице — продавала украшения и мобильную связь. Потом перешла в b2b и франшизы. Последние годы помогаю экспертам и коучам продавать свои услуги без неловкости и срыва голоса.
+      </p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-6">
+        <div class="border-l border-umber/20 pl-4">
+          <div class="serif text-3xl text-umber">12+</div>
+          <div class="text-xs uppercase tracking-display text-muted mt-1">ниш</div>
+        </div>
+        <div class="border-l border-umber/20 pl-4">
+          <div class="serif text-3xl text-umber">600+</div>
+          <div class="text-xs uppercase tracking-display text-muted mt-1">учеников</div>
+        </div>
+        <div class="border-l border-umber/20 pl-4">
+          <div class="serif text-3xl text-umber">100%</div>
+          <div class="text-xs uppercase tracking-display text-muted mt-1">без скриптов</div>
+        </div>
+        <div class="border-l border-umber/20 pl-4">
+          <div class="serif text-3xl text-umber">∞</div>
+          <div class="text-xs uppercase tracking-display text-muted mt-1">тёплых клиентов</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLE PULL-QUOTE -->
+<section class="border-t hairline">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 py-20 sm:py-28 text-center">
+    <div class="text-xs uppercase tracking-display text-umberSoft mb-7">Главный принцип</div>
+    <p class="serif text-4xl sm:text-6xl leading-tight text-umber">
+      «Продают не характеристики.<br/>
+      Продаёт <span class="italic">умение слышать</span> клиента.»
+    </p>
+    <div class="mt-10 inline-flex items-center gap-3 text-sm text-muted">
+      <span class="w-10 h-px bg-umber/30"></span>
+      <span class="serif italic">Елена</span>
+      <span class="w-10 h-px bg-umber/30"></span>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM -->
+<section id="program" class="border-t hairline bg-linenSoft">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-20 sm:py-28">
+    <div class="grid sm:grid-cols-12 gap-10 sm:gap-16 mb-14">
+      <div class="sm:col-span-5">
+        <div class="text-xs uppercase tracking-display text-umberSoft mb-4">Программа</div>
+        <h2 class="serif text-4xl sm:text-5xl text-umber leading-tight">Пять модулей.<br/> Один путь.</h2>
+      </div>
+      <div class="sm:col-span-7 text-umberSoft text-lg leading-relaxed">
+        От базовой психологии покупателя до длинных отношений с клиентами. Каждый модуль — рабочая практика, а не теория ради теории. После каждого блока — задание на ваш реальный кейс.
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-5 sm:gap-7">
+      <!-- Module 1 -->
+      <article class="bg-linen border hairline p-7 sm:p-9 hover:shadow-soft transition">
+        <div class="flex items-start justify-between mb-5">
+          <span class="serif text-5xl text-terracotta leading-none">01</span>
+          <span class="text-xs uppercase tracking-display text-muted">6 уроков · 2 недели</span>
+        </div>
+        <h3 class="serif text-2xl text-umber mb-3">Базовая психология покупателя</h3>
+        <p class="text-umberSoft leading-relaxed mb-5">
+          Три кита любой покупки: импульс, обоснование, безопасность. Как они работают и в какой момент клиент решает не у вас.
+        </p>
+        <ul class="text-sm text-umberSoft space-y-2">
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>Импульс: почему клиент захотел сейчас</span></li>
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>Обоснование: как он будет объяснять покупку себе</span></li>
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>Безопасность: за что вы отвечаете</span></li>
+        </ul>
+      </article>
+
+      <!-- Module 2 -->
+      <article class="bg-linen border hairline p-7 sm:p-9 hover:shadow-soft transition">
+        <div class="flex items-start justify-between mb-5">
+          <span class="serif text-5xl text-terracotta leading-none">02</span>
+          <span class="text-xs uppercase tracking-display text-muted">5 уроков · 2 недели</span>
+        </div>
+        <h3 class="serif text-2xl text-umber mb-3">Слышать клиента</h3>
+        <p class="text-umberSoft leading-relaxed mb-5">
+          Техника эхо, активное слушание и пауза, которая делает больше, чем любой скрипт. Главный навык курса.
+        </p>
+        <ul class="text-sm text-umberSoft space-y-2">
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>Что клиент сказал, а что подразумевал</span></li>
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>Эхо-приём: возврат смысла без давления</span></li>
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>Пауза как инструмент</span></li>
+        </ul>
+      </article>
+
+      <!-- Module 3 -->
+      <article class="bg-linen border hairline p-7 sm:p-9 hover:shadow-soft transition">
+        <div class="flex items-start justify-between mb-5">
+          <span class="serif text-5xl text-terracotta leading-none">03</span>
+          <span class="text-xs uppercase tracking-display text-muted">6 уроков · 2 недели</span>
+        </div>
+        <h3 class="serif text-2xl text-umber mb-3">Воронка вопросов</h3>
+        <p class="text-umberSoft leading-relaxed mb-5">
+          Адаптированный SPIN под современный рынок и тёплые продажи. Как задать пять правильных вопросов вместо двадцати неправильных.
+        </p>
+        <ul class="text-sm text-umberSoft space-y-2">
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>SPIN без агрессии</span></li>
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>Один вопрос, который меняет диалог</span></li>
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>Когда замолчать и слушать</span></li>
+        </ul>
+      </article>
+
+      <!-- Module 4 -->
+      <article class="bg-linen border hairline p-7 sm:p-9 hover:shadow-soft transition">
+        <div class="flex items-start justify-between mb-5">
+          <span class="serif text-5xl text-terracotta leading-none">04</span>
+          <span class="text-xs uppercase tracking-display text-muted">6 уроков · 2 недели</span>
+        </div>
+        <h3 class="serif text-2xl text-umber mb-3">Работа с возражениями без давления</h3>
+        <p class="text-umberSoft leading-relaxed mb-5">
+          «Дорого», «я подумаю», «не сейчас» — без приёмов «преодоления». Возражение как точка диалога, а не препятствие.
+        </p>
+        <ul class="text-sm text-umberSoft space-y-2">
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>«Дорого» — это не про цену</span></li>
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>«Я подумаю» — где клиент застрял</span></li>
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>Когда отпустить</span></li>
+        </ul>
+      </article>
+
+      <!-- Module 5 -->
+      <article class="bg-linen border hairline p-7 sm:p-9 hover:shadow-soft transition sm:col-span-2">
+        <div class="flex items-start justify-between mb-5">
+          <span class="serif text-5xl text-terracotta leading-none">05</span>
+          <span class="text-xs uppercase tracking-display text-muted">5 уроков · 2 недели</span>
+        </div>
+        <h3 class="serif text-2xl text-umber mb-3">Длинные отношения с клиентами</h3>
+        <p class="text-umberSoft leading-relaxed mb-5">
+          Самая недооценённая глава. Как сделать так, чтобы клиент возвращался годами и приводил своих. Без программ лояльности и спам-рассылок.
+        </p>
+        <ul class="text-sm text-umberSoft space-y-2 grid sm:grid-cols-2 sm:gap-x-8">
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>Письмо после сделки, которое не раздражает</span></li>
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>Тёплая база как актив</span></li>
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>Рекомендации без просьб</span></li>
+          <li class="flex gap-2"><span class="text-terracotta mt-1.5">·</span><span>Когда клиент перестаёт быть клиентом</span></li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section id="cases" class="border-t hairline">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-20 sm:py-28">
+    <div class="text-center max-w-2xl mx-auto mb-14 sm:mb-20">
+      <div class="text-xs uppercase tracking-display text-umberSoft mb-4">Истории</div>
+      <h2 class="serif text-4xl sm:text-5xl text-umber leading-tight">Три случая, которые<br/> объясняют курс лучше, чем программа.</h2>
+    </div>
+
+    <div class="space-y-16 sm:space-y-24">
+      <!-- Case 1 -->
+      <article class="grid sm:grid-cols-12 gap-8 sm:gap-12 items-start">
+        <div class="sm:col-span-4">
+          <div class="text-xs uppercase tracking-display text-terracotta mb-3">Случай первый</div>
+          <h3 class="serif text-3xl text-umber leading-tight">Теле-2</h3>
+          <div class="serif italic text-umberSoft text-xl mt-2">Двадцать минут за двести рублей.</div>
+        </div>
+        <div class="sm:col-span-8 text-umberSoft text-lg leading-relaxed space-y-4">
+          <p>
+            Я зашла купить красивый номер за двести рублей. Молодая девушка-продавец двадцать минут читала мне инструкцию по тарифам. С мобильной связью я работала десять лет — но дослушала.
+          </p>
+          <p>
+            Она ни разу не спросила, зачем мне номер, какой я хочу, какой у меня бюджет. В итоге я ушла без покупки. Не потому что мне не нужен был номер. А потому что меня не услышали.
+          </p>
+          <p class="serif italic text-umber text-xl mt-6 border-l-2 border-terracotta pl-5">
+            «Я ушла из магазина с мыслью: вот за это я и учу людей продавать.»
+          </p>
+        </div>
+      </article>
+
+      <!-- Case 2 -->
+      <article class="grid sm:grid-cols-12 gap-8 sm:gap-12 items-start">
+        <div class="sm:col-span-4">
+          <div class="text-xs uppercase tracking-display text-terracotta mb-3">Случай второй</div>
+          <h3 class="serif text-3xl text-umber leading-tight">Ювелирный</h3>
+          <div class="serif italic text-umberSoft text-xl mt-2">Один вопрос. Восемьдесят тысяч. Пятнадцать минут.</div>
+        </div>
+        <div class="sm:col-span-8 text-umberSoft text-lg leading-relaxed space-y-4">
+          <p>
+            Мужчина зашёл «просто посмотреть». Молчаливый, в дорогом пальто, без явного запроса. Продавец показала ему витрину и спросила одну вещь — не «что вам нравится», не «бюджет», а другое.
+          </p>
+          <p>
+            Через пятнадцать минут он ушёл с покупкой на восемьдесят тысяч. И вернулся через две недели за следующей. Какой это был вопрос — мы разбираем в Модуле 2.
+          </p>
+        </div>
+      </article>
+
+      <!-- Case 3 -->
+      <article class="grid sm:grid-cols-12 gap-8 sm:gap-12 items-start">
+        <div class="sm:col-span-4">
+          <div class="text-xs uppercase tracking-display text-terracotta mb-3">Случай третий</div>
+          <h3 class="serif text-3xl text-umber leading-tight">Четырнадцатый этаж</h3>
+          <div class="serif italic text-umberSoft text-xl mt-2">Один незаданный вопрос — десять потерянных клиентов.</div>
+        </div>
+        <div class="sm:col-span-8 text-umberSoft text-lg leading-relaxed space-y-4">
+          <p>
+            Бизнес-завтрак в Москва-Сити, четырнадцатый этаж, четырнадцать предпринимателей. Я наблюдала, как организатор презентовал свою услугу — гладко, по слайдам, уверенно.
+          </p>
+          <p>
+            И ни разу не спросил, какая боль привела этих людей в зал. После завтрака купили двое. Остальные двенадцать могли бы — если бы он задал один вопрос в начале.
+          </p>
+          <p class="serif italic text-umber text-xl mt-6 border-l-2 border-terracotta pl-5">
+            «Один незаданный вопрос. Десять клиентов. Цена тишины слишком высока.»
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="border-t hairline bg-umber text-linen">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-20 sm:py-28">
+    <div class="text-center max-w-2xl mx-auto mb-14 sm:mb-20">
+      <div class="text-xs uppercase tracking-display text-ochre mb-4">Тарифы</div>
+      <h2 class="serif text-4xl sm:text-5xl text-linen leading-tight">Три способа пройти курс.</h2>
+      <p class="text-linen/70 mt-5 text-lg">Выбирайте по тому, сколько вам нужно живой обратной связи.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-5 sm:gap-7">
+      <!-- Basic -->
+      <article class="bg-linen text-umber p-7 sm:p-9 flex flex-col">
+        <div class="serif text-2xl mb-1">Базовый</div>
+        <div class="text-sm text-muted mb-7">Для самостоятельной работы</div>
+        <div class="mb-7">
+          <div class="serif text-5xl text-umber">14 990 ₽</div>
+        </div>
+        <ul class="space-y-3 text-sm text-umberSoft flex-1 mb-7">
+          <li class="flex gap-3"><span class="text-terracotta">—</span><span>5 модулей, 28 уроков</span></li>
+          <li class="flex gap-3"><span class="text-terracotta">—</span><span>Чат с кураторами на 30 дней</span></li>
+          <li class="flex gap-3"><span class="text-terracotta">—</span><span>Задания по каждому модулю</span></li>
+          <li class="flex gap-3"><span class="text-terracotta">—</span><span>Доступ к материалам — год</span></li>
+        </ul>
+        <button onclick="enterLMS()" class="w-full py-3 border border-umber/30 rounded-sm hover:bg-umber hover:text-linen transition">
+          Записаться
+        </button>
+      </article>
+
+      <!-- Intensive+ -->
+      <article class="bg-peach text-umber p-7 sm:p-9 flex flex-col relative">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-terracotta text-linen text-xs uppercase tracking-display px-3 py-1 rounded-sm">Выбирают чаще</div>
+        <div class="serif text-2xl mb-1">Интенсив+</div>
+        <div class="text-sm text-muted mb-7">С разбором вашего звонка</div>
+        <div class="mb-7">
+          <div class="serif text-5xl text-umber">24 990 ₽</div>
+        </div>
+        <ul class="space-y-3 text-sm text-umberSoft flex-1 mb-7">
+          <li class="flex gap-3"><span class="text-terracotta">—</span><span>Всё, что в Базовом</span></li>
+          <li class="flex gap-3"><span class="text-terracotta">—</span><span>1 личный разбор вашего звонка</span></li>
+          <li class="flex gap-3"><span class="text-terracotta">—</span><span>Живая встреча с Еленой (60 мин)</span></li>
+          <li class="flex gap-3"><span class="text-terracotta">—</span><span>Чат с кураторами на 60 дней</span></li>
+        </ul>
+        <button onclick="enterLMS()" class="w-full py-3 bg-terracotta text-linen rounded-sm hover:bg-terracottaSoft transition">
+          Записаться
+        </button>
+      </article>
+
+      <!-- VIP -->
+      <article class="bg-linen text-umber p-7 sm:p-9 flex flex-col">
+        <div class="serif text-2xl mb-1">VIP-наставничество</div>
+        <div class="text-sm text-muted mb-7">Восемь недель один-на-один</div>
+        <div class="mb-7">
+          <div class="serif text-5xl text-umber">от 90 000 ₽</div>
+        </div>
+        <ul class="space-y-3 text-sm text-umberSoft flex-1 mb-7">
+          <li class="flex gap-3"><span class="text-terracotta">—</span><span>8 недель работы один-на-один</span></li>
+          <li class="flex gap-3"><span class="text-terracotta">—</span><span>Адаптация под вашу нишу</span></li>
+          <li class="flex gap-3"><span class="text-terracotta">—</span><span>Разбор всех ваших переговоров</span></li>
+          <li class="flex gap-3"><span class="text-terracotta">—</span><span>Связь с Еленой в любое время</span></li>
+        </ul>
+        <button onclick="enterLMS()" class="w-full py-3 border border-umber/30 rounded-sm hover:bg-umber hover:text-linen transition">
+          Поговорить с Еленой
+        </button>
+      </article>
+    </div>
+
+    <p class="text-center mt-10 text-sm text-linen/60">
+      Гарантия возврата в течение первой недели — без вопросов и без неловкости.
+    </p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="border-t hairline">
+  <div class="max-w-4xl mx-auto px-5 sm:px-8 py-20 sm:py-28">
+    <div class="text-center mb-14">
+      <div class="text-xs uppercase tracking-display text-umberSoft mb-4">Вопросы</div>
+      <h2 class="serif text-4xl sm:text-5xl text-umber leading-tight">Часто спрашивают.</h2>
+    </div>
+    <div class="space-y-3">
+      <details class="border hairline bg-linenSoft p-6 sm:p-7 group">
+        <summary class="cursor-pointer flex items-center justify-between list-none">
+          <span class="serif text-xl text-umber">«Я не продавец, я эксперт. Подойдёт?»</span>
+          <span class="chev text-terracotta text-2xl leading-none">+</span>
+        </summary>
+        <div class="mt-5 text-umberSoft leading-relaxed">
+          Особенно подойдёт. Эксперты — психологи, юристы, коучи, фотографы — чаще всего и стесняются продавать. Курс именно про то, как делать это без чувства, что вы клянчите. Через разговор о клиенте, а не о себе.
+        </div>
+      </details>
+      <details class="border hairline bg-linenSoft p-6 sm:p-7 group">
+        <summary class="cursor-pointer flex items-center justify-between list-none">
+          <span class="serif text-xl text-umber">«У меня нет команды. Это для одиночек?»</span>
+          <span class="chev text-terracotta text-2xl leading-none">+</span>
+        </summary>
+        <div class="mt-5 text-umberSoft leading-relaxed">
+          Да. Курс одинаково работает для соло-практики и для команды. Большинство учеников — один человек, который продаёт свои услуги или маленький продукт. Если появится команда — те же принципы передаются дальше.
+        </div>
+      </details>
+      <details class="border hairline bg-linenSoft p-6 sm:p-7 group">
+        <summary class="cursor-pointer flex items-center justify-between list-none">
+          <span class="serif text-xl text-umber">«Это дорого.»</span>
+          <span class="chev text-terracotta text-2xl leading-none">+</span>
+        </summary>
+        <div class="mt-5 text-umberSoft leading-relaxed">
+          Понимаю. Базовый тариф окупается одной средней сделкой, которую вы бы упустили без него. Если сейчас не время — у меня есть Telegram-канал, где я делюсь бесплатно. Возвращайтесь, когда будете готовы.
+        </div>
+      </details>
+      <details class="border hairline bg-linenSoft p-6 sm:p-7 group">
+        <summary class="cursor-pointer flex items-center justify-between list-none">
+          <span class="serif text-xl text-umber">«Чем отличаетесь от Гранта Кардона и других школ?»</span>
+          <span class="chev text-terracotta text-2xl leading-none">+</span>
+        </summary>
+        <div class="mt-5 text-umberSoft leading-relaxed">
+          Громкие школы продаж учат давить — крик, агрессия, «закрытие любой ценой». Это работает на холодных b2c-продажах в большой воронке. Я работаю иначе: на длинных отношениях, на тёплой базе, на возврате клиентов. Для эксперта и небольшого бизнеса это другая математика.
+        </div>
+      </details>
+      <details class="border hairline bg-linenSoft p-6 sm:p-7 group">
+        <summary class="cursor-pointer flex items-center justify-between list-none">
+          <span class="serif text-xl text-umber">«А если не подойдёт?»</span>
+          <span class="chev text-terracotta text-2xl leading-none">+</span>
+        </summary>
+        <div class="mt-5 text-umberSoft leading-relaxed">
+          Первая неделя — гарантия возврата без объяснений. Напишете мне в чат «не моё» — деньги вернутся в течение трёх дней. Я не держу людей, которым со мной не по пути.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="border-t hairline bg-parchment">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 py-16 sm:py-20 text-center">
+    <p class="serif text-3xl sm:text-4xl text-umber leading-tight max-w-2xl mx-auto">
+      Если вы дочитали досюда — у нас уже есть, о чём поговорить.
+    </p>
+    <div class="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+      <a href="#pricing" class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-umber text-linen rounded-sm hover:bg-umberSoft transition">
+        Записаться на курс
+      </a>
+      <button onclick="enterLMS()" class="inline-flex items-center justify-center gap-2 px-7 py-4 border border-umber/40 rounded-sm hover:bg-umber/5 transition">
+        Заглянуть в кабинет
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t hairline bg-linen">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-14 grid sm:grid-cols-12 gap-10">
+    <div class="sm:col-span-5">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="w-8 h-8 rounded-full bg-umber text-linen flex items-center justify-center serif text-lg leading-none">E</span>
+        <span class="serif text-xl text-umber">Елена</span>
+      </div>
+      <p class="text-umberSoft leading-relaxed max-w-sm">
+        Авторский курс «Продажи без впаривания». Двадцать лет практики, упакованные в пять модулей.
+      </p>
+    </div>
+    <div class="sm:col-span-3">
+      <div class="text-xs uppercase tracking-display text-muted mb-4">Связь</div>
+      <ul class="space-y-2 text-umberSoft text-sm">
+        <li><a href="mailto:hello@elena-sales.ru" class="hover:text-umber">hello@elena-sales.ru</a></li>
+        <li><a href="https://t.me/elena_prodazhi" class="hover:text-umber" target="_blank" rel="noopener">Telegram-канал</a></li>
+        <li><a href="https://t.me/elena_help" class="hover:text-umber" target="_blank" rel="noopener">Написать Елене</a></li>
+      </ul>
+    </div>
+    <div class="sm:col-span-4">
+      <div class="text-xs uppercase tracking-display text-muted mb-4">Разделы</div>
+      <ul class="space-y-2 text-umberSoft text-sm grid grid-cols-2 gap-x-4">
+        <li><a href="#about" class="hover:text-umber">О Елене</a></li>
+        <li><a href="#program" class="hover:text-umber">Программа</a></li>
+        <li><a href="#cases" class="hover:text-umber">Истории</a></li>
+        <li><a href="#pricing" class="hover:text-umber">Тарифы</a></li>
+        <li><a href="#faq" class="hover:text-umber">Вопросы</a></li>
+        <li><a href="#" onclick="enterLMS();return false;" class="hover:text-umber">Кабинет</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t hairline">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-5 text-xs text-muted flex flex-col sm:flex-row justify-between gap-2">
+      <div>© 2026 Елена. Авторский курс по продажам.</div>
+      <div class="serif italic">Продают не характеристики. Продаёт умение слышать.</div>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+<!-- ============================== LMS ============================== -->
+<div id="lms" class="min-h-screen bg-linenSoft">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 sm:w-72 bg-umber text-linen border-r hairline hidden sm:flex flex-col fixed left-0 top-0 bottom-0">
+      <div class="px-6 py-6 border-b border-linen/10 flex items-center gap-3">
+        <span class="w-9 h-9 rounded-full bg-linen text-umber flex items-center justify-center serif text-lg leading-none">E</span>
+        <div>
+          <div class="serif text-lg leading-none">Елена</div>
+          <div class="text-xs text-linen/50 mt-1">Кабинет ученика</div>
+        </div>
+      </div>
+      <nav class="p-3 flex-1">
+        <a href="#" onclick="showSection('home');return false;" class="nav-item flex items-center gap-3 px-4 py-3 rounded-sm text-linen hover:bg-linen/10 transition" data-section="home">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l9-8 9 8M5 9.5V21h14V9.5"/></svg>
+          <span class="text-sm">Главная</span>
+        </a>
+        <a href="#" onclick="showSection('support');return false;" class="nav-item flex items-center gap-3 px-4 py-3 rounded-sm text-linen/70 hover:bg-linen/10 transition" data-section="support">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9 8.5 8.5 0 0 1 8.5 8.5z"/></svg>
+          <span class="text-sm">Поддержка</span>
+        </a>
+        <button onclick="exitLMS()" class="w-full mt-2 flex items-center gap-3 px-4 py-3 rounded-sm text-linen/70 hover:bg-linen/10 transition">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          <span class="text-sm">Выйти на сайт</span>
+        </button>
+      </nav>
+      <div class="p-5 border-t border-linen/10">
+        <div class="text-xs uppercase tracking-display text-linen/50 mb-3">Куратор</div>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-terracotta flex items-center justify-center serif text-linen">Е</div>
+          <div>
+            <div class="text-sm text-linen">Елена</div>
+            <div class="text-xs text-linen/50">отвечает в течение дня</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Mobile top bar -->
+    <div class="sm:hidden fixed top-0 left-0 right-0 z-30 bg-umber text-linen px-5 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="w-7 h-7 rounded-full bg-linen text-umber flex items-center justify-center serif text-sm leading-none">E</span>
+        <span class="serif">Кабинет</span>
+      </div>
+      <button onclick="exitLMS()" class="text-xs underline text-linen/70">Выйти</button>
+    </div>
+
+    <!-- Main content -->
+    <main class="flex-1 sm:ml-72 pt-14 sm:pt-0">
+
+      <!-- HOME SECTION -->
+      <section data-section-content="home" class="lms-section p-5 sm:p-12 max-w-5xl">
+        <div class="mb-10">
+          <div class="text-xs uppercase tracking-display text-muted mb-2">Доброе утро</div>
+          <h1 class="serif text-4xl sm:text-5xl text-umber leading-tight mb-3">Добро пожаловать.</h1>
+          <p class="text-umberSoft text-lg">Елена · ваш куратор. Двигайтесь в своём темпе.</p>
+        </div>
+
+        <!-- Progress -->
+        <div class="bg-linen border hairline p-6 sm:p-8 mb-10">
+          <div class="flex items-end justify-between mb-4 flex-wrap gap-3">
+            <div>
+              <div class="text-xs uppercase tracking-display text-muted mb-1">Прогресс по курсу</div>
+              <div class="serif text-3xl text-umber"><span id="progress-text">3 из 28</span> уроков</div>
+            </div>
+            <div class="serif text-3xl text-terracotta"><span id="progress-percent">11</span>%</div>
+          </div>
+          <div class="h-1.5 bg-frost rounded-full overflow-hidden">
+            <div id="progress-fill" class="h-full progress-bar transition-all" style="width: 11%"></div>
+          </div>
+          <div class="mt-5 text-sm text-umberSoft">
+            Сейчас вы в <span class="text-umber font-medium">Модуле 1 · Базовая психология покупателя</span>. Следующий урок — «Безопасность: за что вы отвечаете».
+          </div>
+        </div>
+
+        <!-- Modules -->
+        <div class="text-xs uppercase tracking-display text-muted mb-4">Модули курса</div>
+        <div class="space-y-3" id="modules-list"></div>
+
+        <!-- Note from Elena -->
+        <div class="mt-10 bg-peach p-7 sm:p-9 border hairline">
+          <div class="text-xs uppercase tracking-display text-terracotta mb-3">Записка от Елены</div>
+          <p class="serif text-xl text-umber leading-relaxed">
+            Не торопитесь. Курс работает не от количества пройденных уроков, а от количества разговоров, в которых вы попробуете новое. Один настоящий разговор лучше пяти просмотренных лекций.
+          </p>
+        </div>
+      </section>
+
+      <!-- LESSON SECTION -->
+      <section data-section-content="lesson" class="lms-section p-5 sm:p-12 max-w-5xl" style="display:none">
+        <button onclick="showSection('home')" class="text-sm text-umberSoft hover:text-umber mb-6 inline-flex items-center gap-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+          К списку модулей
+        </button>
+
+        <div class="text-xs uppercase tracking-display text-terracotta mb-3" id="lesson-module-label">Модуль 1 · Урок 1</div>
+        <h1 class="serif text-3xl sm:text-5xl text-umber leading-tight mb-5" id="lesson-title">Импульс: почему клиент захотел сейчас</h1>
+        <p class="text-umberSoft text-lg leading-relaxed mb-8 max-w-3xl" id="lesson-description">
+          Разбираем первую из трёх опор покупки — импульс. Что запускает желание, как его распознать и почему попытка «подогреть» искусственно почти всегда отталкивает.
+        </p>
+
+        <!-- Video stub -->
+        <div class="relative bg-umber aspect-video rounded-sm overflow-hidden mb-7">
+          <div class="absolute inset-0 grain opacity-20"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <button class="w-20 h-20 rounded-full bg-linen/95 flex items-center justify-center hover:bg-linen transition group">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="#c1593a" class="ml-1">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 px-5 sm:px-7 py-4 flex items-center justify-between text-linen/80 text-sm bg-gradient-to-t from-umber/80 to-transparent">
+            <span id="lesson-time">14 мин 22 сек</span>
+            <span class="text-xs uppercase tracking-display text-linen/60">Глава курса</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:items-center sm:justify-between mb-12">
+          <button onclick="markComplete()" id="mark-btn" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-terracotta text-linen rounded-sm hover:bg-terracottaSoft transition">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            Отметить пройденным
+          </button>
+          <div class="flex items-center gap-2 text-sm text-muted">
+            <span>Урок не отмечен пройденным</span>
+          </div>
+        </div>
+
+        <!-- Lesson notes -->
+        <div class="bg-linen border hairline p-7 sm:p-9">
+          <div class="text-xs uppercase tracking-display text-muted mb-4">Что важно вынести</div>
+          <ul class="space-y-3 text-umberSoft leading-relaxed">
+            <li class="flex gap-3"><span class="text-terracotta mt-2 w-2 h-px bg-terracotta"></span><span>Импульс рождается до слов. Если клиент пришёл — он уже импульсивно «за». Ваша задача не разжечь, а не загасить.</span></li>
+            <li class="flex gap-3"><span class="text-terracotta mt-2 w-2 h-px bg-terracotta"></span><span>Любые попытки «подогреть» искусственно работают против вас. Клиент чувствует давление и закрывается.</span></li>
+            <li class="flex gap-3"><span class="text-terracotta mt-2 w-2 h-px bg-terracotta"></span><span>Самый сильный импульс — отражённый: вернуть клиенту его собственный мотив, услышанный в начале разговора.</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- SUPPORT SECTION -->
+      <section data-section-content="support" class="lms-section p-5 sm:p-12 max-w-3xl" style="display:none">
+        <h1 class="serif text-4xl sm:text-5xl text-umber leading-tight mb-5">Поддержка</h1>
+        <p class="text-umberSoft text-lg leading-relaxed mb-8">
+          Я отвечаю в кураторском чате обычно в течение дня. Если вопрос срочный или личный — напишите напрямую.
+        </p>
+        <div class="space-y-3">
+          <a href="https://t.me/elena_help" target="_blank" rel="noopener" class="block bg-linen border hairline p-6 hover:shadow-soft transition">
+            <div class="text-xs uppercase tracking-display text-muted mb-1">Telegram</div>
+            <div class="serif text-xl text-umber">Написать Елене напрямую</div>
+          </a>
+          <a href="mailto:hello@elena-sales.ru" class="block bg-linen border hairline p-6 hover:shadow-soft transition">
+            <div class="text-xs uppercase tracking-display text-muted mb-1">Почта</div>
+            <div class="serif text-xl text-umber">hello@elena-sales.ru</div>
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ============================== SCRIPT ============================== -->
+<script>
+  // ---- DATA ----
+  const MODULES = [
+    {
+      id: 1, title: "Базовая психология покупателя",
+      summary: "Три кита покупки: импульс, обоснование, безопасность.",
+      lessons: [
+        { t: "Импульс: почему клиент захотел сейчас", time: "14 мин 22 сек", done: true,
+          d: "Разбираем первую из трёх опор покупки — импульс. Что запускает желание, как его распознать и почему попытка «подогреть» искусственно почти всегда отталкивает." },
+        { t: "Обоснование: как клиент объяснит покупку себе", time: "11 мин 40 сек", done: true,
+          d: "Любая покупка проходит через внутреннего критика. Учим давать клиенту материал, которым он защитит решение перед собой и близкими." },
+        { t: "Безопасность: за что вы отвечаете", time: "13 мин 10 сек", done: true,
+          d: "Третья опора — гарантия, что клиент не останется один на один с продуктом после оплаты. Не про скрипт «возврат за 14 дней», а про присутствие." },
+        { t: "Карта мотивов: упражнение на свою нишу", time: "9 мин 55 сек", done: false,
+          d: "Практическое упражнение: разложить свой продукт на три опоры и понять, какую вы недокачиваете." },
+        { t: "Когда клиент покупает не у вас", time: "12 мин 03 сек", done: false,
+          d: "Главная причина потерь — не цена и не сайт. А то, что одна из трёх опор отсутствует в разговоре." },
+        { t: "Итог модуля и задание", time: "6 мин 18 сек", done: false,
+          d: "Подводим итог и формулируем задание на ближайшие две недели — три реальных разговора с использованием трёх опор." }
+      ]
+    },
+    {
+      id: 2, title: "Слышать клиента",
+      summary: "Техника эхо, активное слушание, пауза.",
+      lessons: [
+        { t: "Что клиент говорит и что подразумевает", time: "12 мин 30 сек", done: false,
+          d: "Учимся разделять буквальный текст и подтекст. Где у клиента боль, а где социально приемлемая формулировка." },
+        { t: "Эхо-приём: возврат смысла без давления", time: "10 мин 15 сек", done: false,
+          d: "Главный навык курса. Как вернуть клиенту его же слова так, чтобы он почувствовал — его услышали." },
+        { t: "Пауза как инструмент", time: "8 мин 45 сек", done: false,
+          d: "Самая недооценённая часть продаж. Три секунды тишины часто работают лучше пяти аргументов." },
+        { t: "Тон голоса и невербалика", time: "11 мин 20 сек", done: false,
+          d: "Что считывает клиент, кроме слов. Как звучать спокойно даже когда вы нервничаете." },
+        { t: "Практика: разбор реального диалога", time: "16 мин 40 сек", done: false,
+          d: "Разбираем запись реального разговора с клиентом, отмечаем точки, где продавец перестал слышать." }
+      ]
+    },
+    {
+      id: 3, title: "Воронка вопросов",
+      summary: "SPIN, адаптированный под современный рынок.",
+      lessons: [
+        { t: "Зачем продавцу пять вопросов вместо двадцати", time: "9 мин 50 сек", done: false,
+          d: "Перестаём «выпытывать» и начинаем разговаривать. Принцип минимальной достаточности в диалоге." },
+        { t: "SPIN без агрессии: ситуация и проблема", time: "13 мин 10 сек", done: false,
+          d: "Первые две буквы SPIN в мягком исполнении. Как спрашивать о боли, не превращаясь в следователя." },
+        { t: "Импликация и нужда-результат", time: "12 мин 25 сек", done: false,
+          d: "Третья и четвёртая буквы. Как помочь клиенту самому увидеть последствия и сформулировать желаемое." },
+        { t: "Один вопрос, который меняет диалог", time: "8 мин 30 сек", done: false,
+          d: "Тот самый вопрос из истории про ювелирный. Когда и кому его задавать." },
+        { t: "Когда замолчать и слушать", time: "10 мин 00 сек", done: false,
+          d: "Точка, в которой вопросы заканчиваются и начинается слушание. Самый тонкий момент воронки." },
+        { t: "Карта вопросов под свою услугу", time: "14 мин 15 сек", done: false,
+          d: "Практическое задание: собрать свою личную воронку из пяти вопросов под свой продукт." }
+      ]
+    },
+    {
+      id: 4, title: "Работа с возражениями без давления",
+      summary: "Возражение как точка диалога, а не препятствие.",
+      lessons: [
+        { t: "«Дорого» — это не про цену", time: "11 мин 45 сек", done: false,
+          d: "Что на самом деле говорит клиент, когда говорит «дорого». Восемь скрытых смыслов и как их различить." },
+        { t: "«Я подумаю» — где клиент застрял", time: "10 мин 20 сек", done: false,
+          d: "Самая частая фраза в продажах. Учимся слышать, в какой из трёх опор у клиента провал." },
+        { t: "«Не сейчас» и работа с временем", time: "9 мин 35 сек", done: false,
+          d: "Когда «не сейчас» — настоящее, а когда вежливый отказ. И как разговаривать в обоих случаях." },
+        { t: "Возражение через эхо", time: "12 мин 05 сек", done: false,
+          d: "Применяем технику эхо из второго модуля к работе с возражениями. Возврат смысла без споров." },
+        { t: "Когда отпустить", time: "8 мин 15 сек", done: false,
+          d: "Самый важный навык. Признак, что клиент сейчас не ваш — и почему это нормально. Длинная игра вместо короткой." },
+        { t: "Скрипт возврата: что делать после «нет»", time: "13 мин 30 сек", done: false,
+          d: "Письмо, звонок, тишина — что выбрать после отказа, чтобы клиент вернулся через три месяца сам." }
+      ]
+    },
+    {
+      id: 5, title: "Длинные отношения с клиентами",
+      summary: "Тёплая база как актив, рекомендации без просьб.",
+      lessons: [
+        { t: "Письмо после сделки, которое не раздражает", time: "10 мин 50 сек", done: false,
+          d: "Что писать клиенту через день, через неделю и через месяц. Без фальшивой заботы и без «нам важно ваше мнение»." },
+        { t: "Тёплая база как актив", time: "12 мин 15 сек", done: false,
+          d: "Как считать и растить базу клиентов, которые возвращаются. Четыре уровня тепла и что с каждым делать." },
+        { t: "Рекомендации без просьб", time: "9 мин 45 сек", done: false,
+          d: "Почему «попросите рекомендацию» — устаревшая схема. Как сделать так, чтобы клиент сам приводил знакомых." },
+        { t: "Возврат «спящих» клиентов", time: "11 мин 30 сек", done: false,
+          d: "Что писать тем, кто молчит полгода. Один шаблон, который вытаскивает четверть базы обратно в диалог." },
+        { t: "Когда клиент перестаёт быть клиентом", time: "14 мин 20 сек", done: false,
+          d: "Финал курса. Как красиво заканчивать отношения с клиентом — и почему это важнее, чем красиво их начинать." }
+      ]
+    }
+  ];
+
+  // ---- LMS ROUTING ----
+  function enterLMS() {
+    document.body.classList.add('route-app');
+    window.scrollTo(0, 0);
+    history.replaceState(null, '', '#cabinet');
+  }
+  function exitLMS() {
+    document.body.classList.remove('route-app');
+    history.replaceState(null, '', '#top');
+    window.scrollTo(0, 0);
+  }
+  // Re-enter on reload if hash matches
+  if (location.hash === '#cabinet') {
+    document.body.classList.add('route-app');
+  }
+
+  // ---- LMS SECTIONS ----
+  function showSection(name) {
+    document.querySelectorAll('.lms-section').forEach(s => s.style.display = 'none');
+    const target = document.querySelector('[data-section-content="' + name + '"]');
+    if (target) target.style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(n => {
+      if (n.dataset.section === name) {
+        n.classList.remove('text-linen/70');
+        n.classList.add('text-linen', 'bg-linen/10');
+      } else {
+        n.classList.add('text-linen/70');
+        n.classList.remove('text-linen', 'bg-linen/10');
+      }
+    });
+    window.scrollTo(0, 0);
+  }
+
+  // ---- MODULES RENDER ----
+  function renderModules() {
+    const root = document.getElementById('modules-list');
+    if (!root) return;
+    root.innerHTML = MODULES.map((m, mi) => {
+      const total = m.lessons.length;
+      const done = m.lessons.filter(l => l.done).length;
+      const pct = Math.round(done / total * 100);
+      const lessonsHTML = m.lessons.map((l, li) => `
+        <li class="lesson-row flex items-center justify-between px-5 py-4 border-t hairline cursor-pointer transition" onclick="openLesson(${mi}, ${li})">
+          <div class="flex items-center gap-4 min-w-0">
+            <span class="w-6 h-6 flex items-center justify-center rounded-full ${l.done ? 'bg-terracotta text-linen' : 'border hairline text-muted'}">
+              ${l.done ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>' : `<span class="text-xs">${li+1}</span>`}
+            </span>
+            <span class="text-umber text-sm sm:text-base truncate">${l.t}</span>
+          </div>
+          <span class="text-xs text-muted shrink-0 ml-3">${l.time}</span>
+        </li>
+      `).join('');
+      return `
+        <details class="bg-linen border hairline overflow-hidden">
+          <summary class="cursor-pointer list-none px-5 sm:px-7 py-5 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-5 min-w-0">
+              <span class="serif text-3xl text-terracotta leading-none shrink-0">0${m.id}</span>
+              <div class="min-w-0">
+                <div class="serif text-xl text-umber truncate">${m.title}</div>
+                <div class="text-sm text-muted truncate">${m.summary}</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-5 shrink-0">
+              <div class="text-right hidden sm:block">
+                <div class="text-xs text-muted">${done} из ${total}</div>
+                <div class="w-32 h-1 bg-frost rounded-full mt-1 overflow-hidden">
+                  <div class="h-full progress-bar" style="width: ${pct}%"></div>
+                </div>
+              </div>
+              <span class="chev text-terracotta text-2xl leading-none">+</span>
+            </div>
+          </summary>
+          <ul>${lessonsHTML}</ul>
+        </details>
+      `;
+    }).join('');
+  }
+
+  let CURRENT = { m: 0, l: 0 };
+  function openLesson(mi, li) {
+    CURRENT = { m: mi, l: li };
+    const m = MODULES[mi];
+    const l = m.lessons[li];
+    document.getElementById('lesson-module-label').textContent = `Модуль ${m.id} · Урок ${li+1}`;
+    document.getElementById('lesson-title').textContent = l.t;
+    document.getElementById('lesson-description').textContent = l.d;
+    document.getElementById('lesson-time').textContent = l.time;
+    updateMarkBtn(l.done);
+    showSection('lesson');
+  }
+  function updateMarkBtn(done) {
+    const btn = document.getElementById('mark-btn');
+    const sibling = btn.parentElement.querySelector('.text-muted');
+    if (done) {
+      btn.classList.remove('bg-terracotta', 'text-linen', 'hover:bg-terracottaSoft');
+      btn.classList.add('bg-parchment', 'text-umber', 'hover:bg-peach');
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Пройдено';
+      if (sibling) sibling.textContent = 'Урок отмечен пройденным';
+    } else {
+      btn.classList.add('bg-terracotta', 'text-linen', 'hover:bg-terracottaSoft');
+      btn.classList.remove('bg-parchment', 'text-umber', 'hover:bg-peach');
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Отметить пройденным';
+      if (sibling) sibling.textContent = 'Урок не отмечен пройденным';
+    }
+  }
+  function markComplete() {
+    const l = MODULES[CURRENT.m].lessons[CURRENT.l];
+    l.done = !l.done;
+    updateMarkBtn(l.done);
+    updateProgress();
+    renderModules();
+  }
+  function updateProgress() {
+    const all = MODULES.flatMap(m => m.lessons);
+    const done = all.filter(l => l.done).length;
+    const pct = Math.round(done / all.length * 100);
+    document.getElementById('progress-text').textContent = `${done} из ${all.length}`;
+    document.getElementById('progress-percent').textContent = pct;
+    document.getElementById('progress-fill').style.width = pct + '%';
+  }
+
+  // Init
+  renderModules();
+  showSection('home');
+
+  // Smooth scroll for in-page anchors only (when on site)
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if (href === '#cabinet' || href === '#') return;
+      if (document.body.classList.contains('route-app')) return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
