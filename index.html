@@ -8,7 +8,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- SF Pro via system font stack — no Google Fonts needed on Apple devices -->
 <style>
 /* ============================================================
    ELENA SOKOLOVA — Big Sur / Finder edition
@@ -80,16 +80,23 @@
   --ease-inout:  cubic-bezier(0.65,0,0.35,1);
   --ease-fluid:  cubic-bezier(0.22,1,0.36,1);
   --ease-tilt:   cubic-bezier(0.2,0.8,0.2,1);
+
+  /* Typography — SF Pro on Apple devices, native fallback on others */
+  --ff-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  --ff-body:    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  --ff-mono:    ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
 }
 
 * { -webkit-tap-highlight-color: transparent; }
 
 html, body { background: var(--base); color: var(--ink); }
 body {
-  font-family: 'Inter', -apple-system, 'SF Pro Text', BlinkMacSystemFont, system-ui, sans-serif;
+  font-family: var(--ff-body);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  letter-spacing: -0.003em;
+  letter-spacing: -0.011em;
+  font-feature-settings: "cv11","ss01","ss03";
   overflow-x: hidden;
 }
 
@@ -160,18 +167,18 @@ body {
 }
 
 /* =====================  TYPOGRAPHY  ===================== */
-.display { font-family: 'Inter Tight', 'Inter', -apple-system, system-ui, sans-serif; }
-.mono    { font-family: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace; }
+.display { font-family: var(--ff-display); letter-spacing: -0.022em; }
+.mono    { font-family: var(--ff-mono); }
 
 .eyebrow {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-soft);
 }
 .h-display {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: var(--ff-display);
   font-weight: 600;
   font-size: clamp(40px, 4.4vw, 56px);
   line-height: 1.08;
@@ -182,7 +189,7 @@ body {
   color: #FF8A3D;
 }
 .h2 {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: var(--ff-display);
   font-weight: 700;
   font-size: clamp(30px, 3.4vw, 44px);
   line-height: 1.06;
@@ -190,7 +197,7 @@ body {
   color: var(--ink);
 }
 .h3 {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: var(--ff-display);
   font-weight: 600;
   font-size: clamp(20px, 1.8vw, 24px);
   line-height: 1.2;
@@ -406,7 +413,7 @@ body {
     0 8px 20px -8px rgba(15,23,42,0.10);
 }
 .stat-chip .num {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: var(--ff-display);
   font-weight: 700;
   font-size: 30px;
   line-height: 1;
@@ -414,7 +421,7 @@ body {
   color: var(--ink);
 }
 .stat-chip .label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
   font-size: 10.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -476,7 +483,7 @@ body {
 .tl-g { background: #28C840; }
 .crumb {
   color: var(--ink-soft);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
   font-size: 12px;
   letter-spacing: 0.02em;
 }
@@ -558,7 +565,7 @@ body {
 .folder-card:hover .module-num { color: #C46415; }
 
 .module-num {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -566,7 +573,7 @@ body {
   transition: color 240ms ease;
 }
 .module-title {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: var(--ff-display);
   font-weight: 600;
   font-size: 17px;
   line-height: 1.22;
@@ -583,7 +590,7 @@ body {
 .lesson:first-child { border-top: 0; }
 .lesson .ix {
   flex: none;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
   font-size: 11px;
   color: var(--ink-mute);
   padding-top: 2px;
@@ -618,7 +625,7 @@ body {
   pointer-events: none;
 }
 .story .pull {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: var(--ff-display);
   font-weight: 600;
   font-size: clamp(22px, 1.9vw, 26px);
   line-height: 1.28;
@@ -626,7 +633,7 @@ body {
   color: var(--ink);
 }
 .story .meta {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -666,7 +673,7 @@ body {
 .plan.is-featured:hover { transform: translateY(-10px); }
 
 .plan .price {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: var(--ff-display);
   font-weight: 700;
   font-size: 38px;
   line-height: 1;
@@ -699,7 +706,7 @@ body {
   border-radius: 999px;
   background: #FF8A3D;
   color: #fff;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
   font-size: 10.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -728,7 +735,7 @@ body {
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
   cursor: pointer;
   width: 100%;
-  font-family: 'Inter Tight', sans-serif;
+  font-family: var(--ff-display);
   font-weight: 600;
   font-size: 17px;
   line-height: 1.35;
@@ -817,7 +824,7 @@ body {
   pointer-events: none;
 }
 .portrait-placeholder .pp-initials {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: var(--ff-display);
   font-weight: 600;
   font-size: clamp(120px, 14vw, 200px);
   line-height: 1;
@@ -868,14 +875,14 @@ body {
 }
 .mock-grid .mock-cell svg { width: 100%; max-width: 110px; height: auto; display: block; }
 .mock-grid .mock-cell .mc-num {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
   font-size: 9.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-mute);
 }
 .mock-grid .mock-cell .mc-title {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: var(--ff-display);
   font-weight: 600;
   font-size: 11.5px;
   letter-spacing: -0.01em;
@@ -932,7 +939,7 @@ body.route-app .cabinet { display: block; }
   border: 1px solid var(--hairline);
   color: var(--ink-soft);
   font-size: 12px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
 }
 
 .cab-body { display: grid; grid-template-columns: 248px 1fr; min-height: 620px; }
@@ -948,7 +955,7 @@ body.route-app .cabinet { display: block; }
 @media (max-width: 860px) { .cab-side { border-right: 0; border-bottom: 1px solid var(--hairline); } }
 
 .cab-side .section-title {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
   font-size: 10.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -980,19 +987,19 @@ body.route-app .cabinet { display: block; }
   border-radius: 999px;
   background: rgba(0,0,0,0.05);
   font-size: 10.5px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
   color: var(--ink-soft);
 }
 
 .cab-main { padding: 28px 32px 32px; position: relative; }
 .cab-main .breadcrumb {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
   font-size: 12px;
   color: var(--ink-soft);
   margin-bottom: 6px;
 }
 .cab-main h2 {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: var(--ff-display);
   font-weight: 700;
   font-size: 28px;
   letter-spacing: -0.025em;
@@ -1011,7 +1018,7 @@ body.route-app .cabinet { display: block; }
 }
 .progress-pill .label { font-size: 13px; font-weight: 600; color: var(--ink); }
 .progress-pill .pct {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
   font-weight: 500; font-size: 12px;
   letter-spacing: 0.04em;
   color: var(--sky-deep);
@@ -1035,7 +1042,7 @@ body.route-app .cabinet { display: block; }
   color: var(--ink-mute);
 }
 .lms-card .lc-title {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: var(--ff-display);
   font-weight: 600;
   font-size: 16px;
   letter-spacing: -0.015em;
@@ -1052,7 +1059,7 @@ body.route-app .cabinet { display: block; }
   border-color: rgba(255,138,61,0.20);
 }
 .lms-card-feedback .lc-quote {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: var(--ff-display);
   font-weight: 500;
   font-size: 14px;
   line-height: 1.45;
@@ -1123,7 +1130,7 @@ body.route-app .cabinet { display: block; }
 }
 .lms-tile .mini-folder { width: 100%; aspect-ratio: 5/4; }
 .lms-tile .t-title {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: var(--ff-display);
   font-weight: 600; font-size: 14px;
   margin-top: 10px;
   color: var(--ink);
@@ -1134,7 +1141,7 @@ body.route-app .cabinet { display: block; }
   display: flex; align-items: center; gap: 8px;
   margin-top: 8px;
   font-size: 11.5px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
   letter-spacing: 0.04em;
   color: var(--ink-soft);
 }
@@ -1223,7 +1230,7 @@ body.route-app .cabinet { display: block; }
   z-index: 7;
 }
 .note-peach .note-h {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--ff-mono);
   font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
   color: rgba(133,72,12,0.85);
 }
@@ -1949,11 +1956,11 @@ body.route-app .cabinet { display: block; }
   // ============ DATA ============
   // Monochrome warm scale by module depth (M1 светлый → M5 насыщенный)
   const FOLDER_COLORS = [
-    { tint: '#FFE2C8', acc: '#F0B07A' }, // M1
-    { tint: '#FFD2A8', acc: '#EE9B5B' }, // M2
-    { tint: '#FFC691', acc: '#E58A2C' }, // M3
-    { tint: '#FFB377', acc: '#DF7A1F' }, // M4
-    { tint: '#F49D54', acc: '#C66C18' }  // M5
+    { tint: '#A8D3F7', acc: '#5AABF5' }, // M1 — light Finder blue
+    { tint: '#8AC1F2', acc: '#3A91E5' }, // M2
+    { tint: '#5AABF5', acc: '#2B7EC6' }, // M3 — classic macOS Finder folder
+    { tint: '#3A91E5', acc: '#1E66A8' }, // M4
+    { tint: '#1F6FC4', acc: '#0F4F94' }  // M5 — deep blue
   ];
 
   const MODULES = [
