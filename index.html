@@ -1774,27 +1774,27 @@ body.route-app .cabinet { display: block; }
 
         <div class="section-title">МОДУЛИ</div>
         <div class="cab-row" data-mod="1">
-          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#A8D3F7"/></svg></span>
+          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#3D7BD9"/></svg></span>
           <span>01 · Фундамент</span>
           <span class="count">3</span>
         </div>
         <div class="cab-row" data-mod="2">
-          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#8AC1F2"/></svg></span>
+          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#3D7BD9"/></svg></span>
           <span>02 · Слушать</span>
           <span class="count">3</span>
         </div>
         <div class="cab-row" data-mod="3">
-          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#5AABF5"/></svg></span>
+          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#3D7BD9"/></svg></span>
           <span>03 · Диалог</span>
           <span class="count">3</span>
         </div>
         <div class="cab-row" data-mod="4">
-          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#3A91E5"/></svg></span>
+          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#3D7BD9"/></svg></span>
           <span>04 · Возражения</span>
           <span class="count">3</span>
         </div>
         <div class="cab-row" data-mod="5">
-          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#1F6FC4"/></svg></span>
+          <span class="ic"><svg viewBox="0 0 16 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 3 Q1 1 3 1 L6 1 Q7 1 7.5 1.6 L8.2 2.5 L13 2.5 Q15 2.5 15 4 L15 11 Q15 13 13 13 L3 13 Q1 13 1 11 Z" fill="#3D7BD9"/></svg></span>
           <span>05 · Система</span>
           <span class="count">3</span>
         </div>
@@ -1937,14 +1937,10 @@ body.route-app .cabinet { display: block; }
 <script>
 (() => {
   // ============ DATA ============
-  // Monochrome warm scale by module depth (M1 светлый → M5 насыщенный)
-  const FOLDER_COLORS = [
-    { tint: '#A8D3F7', acc: '#5AABF5' }, // M1 — light Finder blue
-    { tint: '#8AC1F2', acc: '#3A91E5' }, // M2
-    { tint: '#5AABF5', acc: '#2B7EC6' }, // M3 — classic macOS Finder folder
-    { tint: '#3A91E5', acc: '#1E66A8' }, // M4
-    { tint: '#1F6FC4', acc: '#0F4F94' }  // M5 — deep blue
-  ];
+  // Single macOS Finder blue — same for every module (Tahoe-style).
+  // Modules differentiated by number + title, not by colour.
+  const FOLDER_FILL = { tint: '#7AB4F0', acc: '#3D7BD9' };
+  const FOLDER_COLORS = [FOLDER_FILL, FOLDER_FILL, FOLDER_FILL, FOLDER_FILL, FOLDER_FILL];
 
   const MODULES = [
     {
