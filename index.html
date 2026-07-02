@@ -880,6 +880,45 @@ body {
 /* =====================  CABINET (LMS)  ===================== */
 body.route-app .landing { display: none; }
 body.route-app .cabinet { display: block; }
+
+/* Cabinet access gate: until unlocked, show the lock card instead of the window */
+.cab-lock { display: none; }
+body.cab-locked .cab-window { display: none; }
+body.cab-locked .cab-lock {
+  display: flex;
+  min-height: 72vh;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.cab-lock-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-window);
+  border: 1px solid rgba(255,255,255,0.6);
+  padding: 36px 32px;
+  text-align: center;
+}
+.cab-lock-card input {
+  width: 100%;
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid var(--hairline-strong);
+  background: #fff;
+  padding: 0 14px;
+  font-size: 15px;
+  text-align: center;
+  letter-spacing: 0.08em;
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+.cab-lock-card input:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(10,132,255,0.15); }
+.cab-lock-card input.is-error { border-color: #E5484D; box-shadow: 0 0 0 3px rgba(229,72,77,0.12); }
+.cab-lock-err { color: #E5484D; font-size: 13px; min-height: 18px; }
 .cabinet { display: none; padding: 24px 16px 60px; position: relative; z-index: 10; }
 
 .cab-window {
@@ -1734,6 +1773,25 @@ body.route-app .cabinet { display: block; }
 <!-- ================= CABINET (LMS) ==================== -->
 <!-- =================================================== -->
 <section class="cabinet">
+
+  <!-- ACCESS GATE — shown until the buyer enters the access code -->
+  <div class="cab-lock">
+    <div class="cab-lock-card">
+      <svg width="44" height="44" viewBox="0 0 32 32" style="margin:0 auto 14px; display:block;"><path d="M3 9c0-1.7 1.3-3 3-3h7l3 3h13c1.7 0 3 1.3 3 3v14c0 1.7-1.3 3-3 3H6c-1.7 0-3-1.3-3-3V9z" fill="#3D7BD9"/><path d="M3 9c0-1.7 1.3-3 3-3h7l3 3H3z" fill="#7AB4F0"/></svg>
+      <h2 class="display font-bold text-[22px] mb-2">Кабинет ученика</h2>
+      <p class="text-[14px] leading-relaxed mb-5" style="color: var(--ink-soft);">
+        Доступ открывается после оплаты курса. Введите код доступа —
+        он приходит в сообщении после покупки.
+      </p>
+      <input id="cab-code" type="text" placeholder="Код доступа" autocomplete="off" autocapitalize="characters">
+      <div class="cab-lock-err mt-2" id="cab-code-err"></div>
+      <button id="cab-code-btn" class="pill-sky magnetic inline-flex items-center justify-center h-11 w-full rounded-full text-[14px] font-semibold mt-1">Открыть кабинет</button>
+      <p class="text-[13px] mt-5" style="color: var(--ink-mute);">
+        Ещё нет доступа? <a href="#plans" style="color: var(--sky); font-weight:600;">Посмотреть тарифы</a>
+      </p>
+    </div>
+  </div>
+
   <div class="cab-window">
 
     <!-- TOPBAR -->
@@ -2274,17 +2332,51 @@ body.route-app .cabinet { display: block; }
   }
   updateProgress();
 
+  // --- Cabinet access gate ---
+  // Code is NOT stored in source — only its SHA-256. Client-side gate: keeps
+  // random visitors out; real auth arrives with the LMS backend.
+  const CAB_HASH = '3bac368587bfb7d9e62bdc87938470e51c07862a92274b616cc93adc033cdb06';
+  const cabUnlocked = () => localStorage.getItem('cab_access') === CAB_HASH;
+
+  async function sha256hex(s) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+    return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
   function applyRoute() {
     if (location.hash.startsWith('#cabinet')) {
       body.classList.add('route-app');
+      body.classList.toggle('cab-locked', !cabUnlocked());
       window.scrollTo(0, 0);
     } else {
       body.classList.remove('route-app');
+      body.classList.remove('cab-locked');
       lessonPop.classList.remove('is-open');
     }
   }
   window.addEventListener('hashchange', applyRoute);
   applyRoute();
+
+  const codeInput = document.getElementById('cab-code');
+  const codeBtn = document.getElementById('cab-code-btn');
+  const codeErr = document.getElementById('cab-code-err');
+  async function tryUnlock() {
+    const raw = (codeInput.value || '').trim().toUpperCase().replace(/[\s-]/g, '');
+    if (!raw) return;
+    const h = await sha256hex(raw);
+    if (h === CAB_HASH) {
+      localStorage.setItem('cab_access', h);
+      codeErr.textContent = '';
+      codeInput.classList.remove('is-error');
+      body.classList.remove('cab-locked');
+      window.scrollTo(0, 0);
+    } else {
+      codeErr.textContent = 'Код не подошёл. Проверьте сообщение после оплаты.';
+      codeInput.classList.add('is-error');
+    }
+  }
+  if (codeBtn) codeBtn.addEventListener('click', tryUnlock);
+  if (codeInput) codeInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') tryUnlock(); });
 
   if (cabClose) cabClose.addEventListener('click', () => { location.hash = ''; });
   if (cabExit)  cabExit.addEventListener('click',  (e) => { e.preventDefault(); location.hash = ''; });
