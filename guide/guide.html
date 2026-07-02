@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>7 дыр в ваших переговорах — Елена Созонова</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+@page{size:A4;margin:0}
+html,body{background:#FBFBFD}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  color:#1D1D1F;font-size:10.5pt;line-height:1.55;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+.mono{font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace}
+.blue{color:#3D7BD9}
+.hairline{border:0;border-top:1px solid rgba(0,0,0,0.08)}
+
+.page{
+  width:210mm;height:296mm;page-break-after:always;overflow:hidden;
+  position:relative;padding:18mm 16mm;background:#FBFBFD;
+}
+.page--last{page-break-after:auto}
+
+.eyebrow{
+  font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:8pt;letter-spacing:0.14em;text-transform:uppercase;color:#6E6E73;
+}
+.eyebrow--blue{color:#3D7BD9}
+
+.pfooter{
+  position:absolute;left:16mm;right:16mm;bottom:6.5mm;
+  display:flex;justify-content:space-between;
+  font-size:7pt;letter-spacing:0.12em;text-transform:uppercase;color:#8E8E93;
+}
+
+/* ---------- cover ---------- */
+.cover-blob{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 62% 46% at 78% 10%, rgba(61,123,217,0.08), transparent 70%),
+    radial-gradient(ellipse 52% 40% at 12% 88%, rgba(255,138,61,0.06), transparent 70%);
+}
+.cover-inner{position:relative;height:100%;display:flex;flex-direction:column}
+.cover-mid{margin-top:44mm}
+.cover-title{font-size:50pt;font-weight:700;letter-spacing:-0.025em;line-height:1.05}
+.cover-sub{font-size:12.5pt;color:#6E6E73;line-height:1.55;max-width:142mm;margin-top:9mm}
+.cover-folder{flex:1;display:flex;align-items:center;justify-content:center;padding-bottom:6mm}
+.cover-bottom-row{
+  display:flex;justify-content:space-between;padding-top:4mm;
+  font-size:8pt;letter-spacing:0.14em;text-transform:uppercase;color:#6E6E73;
+}
+
+/* ---------- intro ---------- */
+.intro{padding-top:22mm}
+.intro-body{margin-top:12mm;font-size:11.5pt;line-height:1.7}
+.intro-body p+p{margin-top:5mm}
+.intro-body p:first-child::first-letter{
+  font-size:34pt;font-weight:700;color:#3D7BD9;float:left;
+  line-height:0.85;padding:1.2mm 3mm 0 0;
+}
+.howto{
+  margin-top:9mm;border:1px solid rgba(0,0,0,0.08);border-radius:14px;
+  background:#fff;padding:6mm 7mm;font-size:10.5pt;line-height:1.6;color:#1D1D1F;
+}
+.signature{
+  margin-top:11mm;padding-top:5mm;border-top:1px solid rgba(0,0,0,0.08);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.sig-name{font-size:13pt;font-weight:600;letter-spacing:-0.01em}
+.sig-role{font-size:7.5pt;letter-spacing:0.12em;text-transform:uppercase;color:#6E6E73;margin-top:1.8mm}
+
+/* ---------- hole pages ---------- */
+.page--hole{padding:11mm 15mm 12mm}
+.hole-head{display:flex;align-items:flex-end;gap:5.5mm;margin-bottom:4mm}
+.hole-num{font-size:27pt;font-weight:600;color:#3D7BD9;line-height:0.85}
+.hole-head-txt .eyebrow{margin-bottom:1.4mm;font-size:7.5pt}
+.hole-title{font-size:15.5pt;font-weight:700;letter-spacing:-0.02em;line-height:1.12}
+.hook{
+  border-left:2px solid #7AB4F0;padding-left:4.5mm;
+  font-size:10.5pt;font-weight:500;line-height:1.5;margin-bottom:4mm;
+}
+.desc{font-size:10pt;line-height:1.5;margin-bottom:4mm}
+.desc p+p{margin-top:2mm}
+
+.block-label{
+  font-size:7.5pt;letter-spacing:0.14em;text-transform:uppercase;
+  color:#3D7BD9;margin-bottom:2.2mm;
+}
+.block-label--fix{color:#E06B24}
+
+.signs{
+  border:1px solid rgba(0,0,0,0.08);border-radius:12px;background:#fff;
+  padding:4mm 5mm 4.2mm;margin-bottom:4mm;
+}
+.signs-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.2mm 6mm}
+.sign{font-size:9.5pt;line-height:1.42;padding-left:4mm;position:relative}
+.sign::before{
+  content:"";position:absolute;left:0;top:4pt;width:4.5px;height:4.5px;
+  background:#7AB4F0;border-radius:1px;
+}
+
+.dialogs{display:flex;gap:4mm;margin-bottom:4mm}
+.dialog{
+  flex:1;border:1px solid rgba(0,0,0,0.08);border-radius:12px;background:#fff;
+  padding:4mm 4.5mm 4.2mm;
+}
+.dlg-label{font-size:7.5pt;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:2.2mm}
+.dlg-label--bad{color:#B4443C}
+.dlg-label--good{color:#3D7BD9}
+.dl{font-size:9.5pt;line-height:1.45}
+.dl+.dl{margin-top:1.6mm}
+.sp{font-weight:600}
+.dialog--bad .sp-you{color:#B4443C}
+.dialog--good .sp-you{color:#3D7BD9}
+
+.fix{background:#FFF7F0;border-radius:12px;padding:4mm 5mm 4.2mm;margin-bottom:3.5mm}
+.fix p{font-size:10pt;line-height:1.5}
+
+.cost{
+  font-size:9pt;color:#55555A;line-height:1.5;
+  border-top:1px solid rgba(0,0,0,0.08);padding-top:2.4mm;
+}
+.cost-tag{
+  color:#3D7BD9;letter-spacing:0.14em;text-transform:uppercase;
+  font-size:7.5pt;margin-right:2.5mm;
+}
+
+/* ---------- self-check ---------- */
+.check{padding-top:20mm}
+.section-title{font-size:24pt;font-weight:700;letter-spacing:-0.02em;margin-top:4mm}
+.check-note{font-size:10.5pt;color:#6E6E73;margin-top:3mm}
+.check-list{margin-top:9mm}
+.check-row{
+  display:flex;gap:5mm;align-items:flex-start;
+  padding:4.6mm 0;border-bottom:1px solid rgba(0,0,0,0.08);
+}
+.check-row:first-child{border-top:1px solid rgba(0,0,0,0.08)}
+.check-row p{font-size:10.5pt;line-height:1.5;flex:1}
+.box{
+  flex:none;width:4.2mm;height:4.2mm;margin-top:0.8mm;
+  border:1.5px solid #3D7BD9;border-radius:1.2mm;background:#fff;
+}
+.scale{display:flex;gap:4mm;margin-top:10mm}
+.scale-item{
+  flex:1;border:1px solid rgba(0,0,0,0.08);border-radius:12px;background:#fff;
+  padding:5mm 5.5mm;
+}
+.scale-num{font-size:16pt;font-weight:600;color:#3D7BD9;line-height:1}
+.scale-item--warm .scale-num{color:#FF8A3D}
+.scale-txt{font-size:9.5pt;line-height:1.4;color:#6E6E73;margin-top:2.2mm}
+
+/* ---------- outro / cta ---------- */
+.outro{padding-top:22mm}
+.outro-body{margin-top:10mm;font-size:11pt;line-height:1.65}
+.outro-body p+p{margin-top:4.5mm}
+.cta{
+  margin-top:11mm;border:1px solid rgba(0,0,0,0.08);border-radius:16px;
+  background:#fff;padding:7mm 8mm;
+}
+.cta-text{font-size:10.5pt;line-height:1.6}
+.plaques{display:flex;gap:4mm;margin-top:6mm}
+.plaque{
+  display:inline-block;padding:3.4mm 7mm;border-radius:999px;
+  font-size:9.5pt;letter-spacing:0.04em;
+}
+.plaque--solid{background:#3D7BD9;color:#fff}
+.plaque--line{border:1px solid rgba(0,0,0,0.16);color:#1D1D1F}
+
+/* ---------- back cover ---------- */
+.back{display:flex;flex-direction:column}
+.back-mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7mm}
+.back-brand{font-size:8.5pt;letter-spacing:0.2em;text-transform:uppercase;color:#6E6E73}
+.back-bottom{text-align:center;font-size:7pt;letter-spacing:0.12em;text-transform:uppercase;color:#A9A9AE}
+</style>
+</head>
+<body>
+
+<section class="page cover">
+  <div class="cover-blob"></div>
+  <div class="cover-inner">
+    <div class="eyebrow">Елена Созонова · Продажи без впаривания</div>
+    <div class="cover-mid">
+      <h1 class="cover-title"><span class="blue">7 дыр</span><br>в ваших переговорах</h1>
+      <p class="cover-sub">Через которые тихо утекают клиенты и деньги — и как закрыть каждую техникой, а не талантом</p>
+    </div>
+    <div class="cover-folder"><svg class="" style="width:52mm;height:auto" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><path d="M6 17 C6 12.6 9.6 9 14 9 L35 9 L43.5 17.5 L86 17.5 C90.4 17.5 94 21.1 94 25.5 L94 66 C94 70.4 90.4 74 86 74 L14 74 C9.6 74 6 70.4 6 66 Z" fill="#7AB4F0"/><rect x="6" y="25" width="88" height="49" rx="8" fill="#3D7BD9"/></svg></div>
+    <div class="cover-bottom">
+      <hr class="hairline">
+      <div class="cover-bottom-row mono">
+        <span>sozonovacourse.ru</span>
+        <span>t.me/sozonova_elena_bot</span>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="page intro">
+  <div class="eyebrow eyebrow--blue">Письмо от автора</div>
+  <div class="intro-body">
+    <p>Здравствуйте. Меня зовут Елена Созонова. Двадцать лет я живу в переговорах: продавала сама, обучала отделы продаж, разбирала чужие сделки как тайный покупатель. И за эти годы убедилась в одном: сделки почти никогда не срываются из-за продукта.</p><p>Продукт может быть отличным. Цена — честной. Клиент — тёплым, пришедшим сам. А сделка всё равно рассыпается. Потому что в разговоре есть дыры — места, где клиент перестаёт чувствовать, что его слышат. Он не хлопает дверью и не пишет гневных отзывов. Он просто говорит «я подумаю» и тихо исчезает.</p><p>Хорошая новость: дыры — это не про характер и не про талант. Это про технику. Каждая из семи дыр в этом гайде закрывается конкретным приёмом, и большинство приёмов помещаются в один вопрос.</p>
+  </div>
+  <div class="howto"><p>Как читать этот гайд. Не ищите у себя все семь дыр — так не бывает. Обычно у переговорщика две-три «свои», и именно через них утекает основная часть клиентов. Читайте, отмечайте признаки «это про меня» и начните с одной дыры — той, где узнали себя больнее всего. Одна закрытая дыра меняет цифры заметнее, чем семь прочитанных глав.</p></div>
+  <div class="signature">
+    <div>
+      <div class="sig-name">Елена Созонова</div>
+      <div class="sig-role mono">20 лет в переговорах · автор курса «Продажи без впаривания»</div>
+    </div>
+    <svg class="" style="width:14mm;height:auto" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><path d="M6 17 C6 12.6 9.6 9 14 9 L35 9 L43.5 17.5 L86 17.5 C90.4 17.5 94 21.1 94 25.5 L94 66 C94 70.4 90.4 74 86 74 L14 74 C9.6 74 6 70.4 6 66 Z" fill="#7AB4F0"/><rect x="6" y="25" width="88" height="49" rx="8" fill="#3D7BD9"/></svg>
+  </div>
+  <div class="pfooter mono"><span>Елена Созонова · 7 дыр в ваших переговорах</span><span>02 / 12</span></div>
+</section>
+<section class="page page--hole">
+  <header class="hole-head">
+    <div class="hole-num mono">01</div>
+    <div class="hole-head-txt">
+      <div class="eyebrow eyebrow--blue">Дыра первая</div>
+      <h2 class="hole-title">Отвечаете на запрос, а не на потребность</h2>
+    </div>
+  </header>
+  <p class="hook">Девять из десяти арендодателей в Сочи отвечают на живой вопрос о квартире одной фразой: «всё в объявлении». И теряют жильца, который был готов перевести залог в тот же вечер.</p>
+  <div class="desc"><p>Запрос — это то, что клиент сформулировал за две секунды, чтобы начать разговор: «сколько стоит?», «свободно ли на август?». Потребность — то, ради чего он вообще написал. И она почти всегда шире запроса.</p><p>Дыра открывается в двух вариантах. Первый — ответить сухо только на запрос и замолчать: именно так жилец с деньгами уходит к десятому арендодателю. Второй вариант — не ответить даже на запрос. Однажды я двадцать минут не могла купить сим-карту за двести рублей: на прямой вопрос о цене продавец отвечал чем угодно, кроме цены. Я ушла без покупки — при том что пришла покупать.</p><p>Работает третье: прямой ответ на запрос плюс один вопрос к потребности.</p></div>
+  <div class="signs">
+    <div class="block-label mono">Признаки, что это про вас</div>
+    <div class="signs-grid"><div class="sign">На вопрос «сколько стоит?» вы отвечаете цифрой или ссылкой — и на этом сообщение заканчивается</div><div class="sign">Многие клиенты пропадают сразу после вашего первого ответа</div><div class="sign">Вы узнаёте, зачем клиенту на самом деле был нужен продукт, уже после сделки — или никогда</div><div class="sign">Фраза «всё написано в описании» кажется вам нормальным ответом</div></div>
+  </div>
+  <div class="dialogs">
+    <div class="dialog dialog--bad"><div class="dlg-label mono dlg-label--bad">Так теряют клиента</div><p class="dl"><span class="sp sp-cl">Клиент:</span> Здравствуйте! Квартира на август свободна? Сколько выйдет на десять дней?</p><p class="dl"><span class="sp sp-you">Вы:</span> Всё написано в объявлении.</p><p class="dl"><span class="sp sp-cl">Клиент:</span> Понятно, спасибо.</p></div>
+    <div class="dialog dialog--good"><div class="dlg-label mono dlg-label--good">Так его оставляют</div><p class="dl"><span class="sp sp-cl">Клиент:</span> Здравствуйте! Квартира на август свободна? Сколько выйдет на десять дней?</p><p class="dl"><span class="sp sp-you">Вы:</span> Здравствуйте! Свободна, десять дней выйдут в 38 000. Подскажите, едете вдвоём или с детьми? Спрашиваю, потому что для семьи посоветую другую планировку.</p><p class="dl"><span class="sp sp-cl">Клиент:</span> С двумя детьми, семь и десять лет.</p><p class="dl"><span class="sp sp-you">Вы:</span> Тогда покажу оба варианта — выберете спокойно.</p></div>
+  </div>
+  <div class="fix">
+    <div class="block-label mono block-label--fix">Упражнение недели</div>
+    <p>Каждый раз, когда клиент задаёт вопрос, сначала ответьте на него прямо: цена, наличие, сроки. Без квестов и «напишите в личные». Потом сделайте паузу и спросите себя: какая потребность может стоять за этим запросом? И задайте один уточняющий вопрос про ситуацию клиента. Всего один — не допрос, а интерес. «Подбираете для себя или в подарок?», «Едете семьёй или вдвоём?». Через неделю сравните: сколько диалогов раньше обрывались после первого ответа — и сколько теперь превращаются в разговор.</p>
+  </div>
+  <div class="cost mono"><span class="cost-tag">Цена дыры</span>До девяти клиентов из десяти теряются на первом же контакте: заявки приходят — сделок нет.</div>
+  <div class="pfooter mono"><span>Елена Созонова · 7 дыр в ваших переговорах</span><span>03 / 12</span></div>
+</section>
+<section class="page page--hole">
+  <header class="hole-head">
+    <div class="hole-num mono">02</div>
+    <div class="hole-head-txt">
+      <div class="eyebrow eyebrow--blue">Дыра вторая</div>
+      <h2 class="hole-title">Даёте логику, когда клиент горит импульсом</h2>
+    </div>
+  </header>
+  <p class="hook">Импульс живёт часы, иногда минуты. Подробный прайс, отправленный через шесть часов, читает уже другой человек — тот, у которого эмоция погасла.</p>
+  <div class="desc"><p>Любой клиент проходит до покупки три состояния: Импульс, Обоснование, Безопасность. Импульс — первое. Человек увидел ваш пост, услышал совет знакомого, вспомнил про больную задачу — и написал на эмоции. Импульс живёт недолго: часы, иногда минуты.</p><p>Дыра в том, что переговорщик встречает эту эмоцию логикой. Клиенту, который «горит», отправляют прайс на три экрана, структуру работы, условия оплаты. Информация правильная — момент неправильный. Факты и структура нужны позже, в состоянии Обоснования, когда человек начнёт думать головой и сравнивать. А в Импульсе ему нужно одно: почувствовать, что он попал по адресу и его услышали. Получив вместо этого документ, он вежливо отвечает «спасибо, изучу» — и остывает. Часто навсегда.</p></div>
+  <div class="signs">
+    <div class="block-label mono">Признаки, что это про вас</div>
+    <div class="signs-grid"><div class="sign">Первым сообщением вы отправляете полный прайс или готовое коммерческое предложение</div><div class="sign">На входящие заявки вы отвечаете раз в день, «пачкой»</div><div class="sign">Клиенты, которые писали восторженно, после вашего подробного ответа говорят «спасибо, изучу» — и пропадают</div><div class="sign">Вы гордитесь тем, что сразу даёте максимум информации</div></div>
+  </div>
+  <div class="dialogs">
+    <div class="dialog dialog--bad"><div class="dlg-label mono dlg-label--bad">Так теряют клиента</div><p class="dl"><span class="sp sp-cl">Клиент:</span> Увидела ваш пост про выгорание — это прямо про меня! Хочу к вам.</p><p class="dl"><span class="sp sp-you">Вы:</span> Здравствуйте. Работаю в трёх форматах: разовая консультация — 5 000, пакет из пяти сессий — 22 000, сопровождение три месяца — 60 000. Какой формат вам интересен?</p><p class="dl"><span class="sp sp-cl">Клиент:</span> Спасибо, я изучу и напишу.</p></div>
+    <div class="dialog dialog--good"><div class="dlg-label mono dlg-label--good">Так его оставляют</div><p class="dl"><span class="sp sp-cl">Клиент:</span> Увидела ваш пост про выгорание — это прямо про меня! Хочу к вам.</p><p class="dl"><span class="sp sp-you">Вы:</span> Здравствуйте! Хорошо, что написали сразу. Расскажите в двух словах: что сейчас происходит, что «прямо про вас»?</p><p class="dl"><span class="sp sp-cl">Клиент:</span> Третий месяц просыпаюсь уставшей, работа перестала радовать совсем.</p><p class="dl"><span class="sp sp-you">Вы:</span> Слышу вас. С таким запросом работаю часто — предложу формат под вашу ситуацию, а условия обсудим на первой встрече.</p></div>
+  </div>
+  <div class="fix">
+    <div class="block-label mono block-label--fix">Упражнение недели</div>
+    <p>Правило первой реплики: на входящее сообщение отвечайте быстро и коротко. Одна фраза принятия плюс один вопрос о ситуации — и ничего больше. Прайс, структуру и условия достаёте позже, когда клиент начнёт задавать уточняющие вопросы: это сигнал, что он перешёл из Импульса в Обоснование и готов к фактам. Попробуйте неделю не отправлять полный прайс первым сообщением — ни одному человеку. И понаблюдайте, сколько «горячих» клиентов вместо «спасибо, изучу» останутся в диалоге.</p>
+  </div>
+  <div class="cost mono"><span class="cost-tag">Цена дыры</span>Остывают самые дешёвые клиенты — те, кто пришёл сам и уже хотел купить.</div>
+  <div class="pfooter mono"><span>Елена Созонова · 7 дыр в ваших переговорах</span><span>04 / 12</span></div>
+</section>
+<section class="page page--hole">
+  <header class="hole-head">
+    <div class="hole-num mono">03</div>
+    <div class="hole-head-txt">
+      <div class="eyebrow eyebrow--blue">Дыра третья</div>
+      <h2 class="hole-title">Поддакиваете вместо того, чтобы слышать</h2>
+    </div>
+  </header>
+  <p class="hook">Пятнадцать минут и один вопрос — так директор ювелирного магазина превратила «я просто смотрю» в покупку на 80 000 рублей. Продавец в соседнем магазине молча кивал — и упустил такого же готового покупателя.</p>
+  <div class="desc"><p>Есть тип переговорщика, который я называю «стенка». Клиент говорит — стенка отвечает: «да, конечно», «хорошо», «смотрите». Вежливо, по факту, односложно. Встречных вопросов нет, и разговор быстро упирается в тишину: клиент не чувствует, что с ним работают, и не понимает, разбираетесь ли вы в его ситуации.</p><p>Поддакивание маскируется под слушание, но это не оно. Слышать — значит возвращать человеку его же слова и уточнять. Это техника «эхо»: «правильно понимаю, вы…» В том ювелирном магазине директор сделала ровно это — не промолчала, не согласилась дежурно, а задала вопрос о том, кому и по какому поводу подарок. Пятнадцать минут — и покупка на восемьдесят тысяч. А в соседнем магазине такой же готовый покупатель постоял у витрины в тишине и ушёл.</p></div>
+  <div class="signs">
+    <div class="block-label mono">Признаки, что это про вас</div>
+    <div class="signs-grid"><div class="sign">Ваши ответы обычно короче реплик клиента</div><div class="sign">За разговор вы задаёте меньше двух встречных вопросов</div><div class="sign">После вашего ответа часто повисает пауза, которую нечем заполнить</div><div class="sign">Клиент спрашивает — вы отвечаете; клиент молчит — молчите и вы</div></div>
+  </div>
+  <div class="dialogs">
+    <div class="dialog dialog--bad"><div class="dlg-label mono dlg-label--bad">Так теряют клиента</div><p class="dl"><span class="sp sp-cl">Клиент:</span> Смотрю подарок жене на годовщину, пока не определился.</p><p class="dl"><span class="sp sp-you">Вы:</span> Да, конечно, смотрите. Если что — спрашивайте.</p><p class="dl"><span class="sp sp-cl">Клиент:</span> …Спасибо.</p></div>
+    <div class="dialog dialog--good"><div class="dlg-label mono dlg-label--good">Так его оставляют</div><p class="dl"><span class="sp sp-cl">Клиент:</span> Смотрю подарок жене на годовщину, пока не определился.</p><p class="dl"><span class="sp sp-you">Вы:</span> Годовщина — повод серьёзный. Правильно понимаю, хочется что-то на каждый день или для особых случаев?</p><p class="dl"><span class="sp sp-cl">Клиент:</span> Скорее на каждый день, но чтобы чувствовалось, что дорого.</p><p class="dl"><span class="sp sp-you">Вы:</span> Тогда покажу три варианта и начну с того, который чаще всего берут именно на годовщину.</p></div>
+  </div>
+  <div class="fix">
+    <div class="block-label mono block-label--fix">Упражнение недели</div>
+    <p>Неделя техники «эхо». В каждом диалоге ваша первая реплика после слов клиента начинается с возврата его контекста — «правильно понимаю, вы…» — и заканчивается одним уточняющим вопросом. Запретите себе «да, конечно» и «хорошо» как единственный ответ. В конце разговора посчитайте свои вопросы: если их меньше двух — это была стенка, а не переговоры. Норма живого диалога — три-четыре встречных вопроса до любого предложения.</p>
+  </div>
+  <div class="cost mono"><span class="cost-tag">Цена дыры</span>Готовые покупатели с деньгами уходят к тому, кто первым задал им вопрос.</div>
+  <div class="pfooter mono"><span>Елена Созонова · 7 дыр в ваших переговорах</span><span>05 / 12</span></div>
+</section>
+<section class="page page--hole">
+  <header class="hole-head">
+    <div class="hole-num mono">04</div>
+    <div class="hole-head-txt">
+      <div class="eyebrow eyebrow--blue">Дыра четвёртая</div>
+      <h2 class="hole-title">Пропускаете вопрос о последствиях</h2>
+    </div>
+  </header>
+  <p class="hook">Самый сильный вопрос в переговорах — не о продукте и не о бюджете. Он звучит так: «а если ничего не менять — как это отразится на вас через полгода?»</p>
+  <div class="desc"><p>В Воронке вопросов четыре шага: о ситуации, о проблеме, о последствиях, о желаемом результате. Третий шаг — самый недооценённый, и именно его пропускают чаще всего. Схема знакомая: клиент назвал проблему — переговорщик обрадовался и прыгнул в презентацию. Логично же: есть боль — вот решение.</p><p>Но между «у меня есть проблема» и «мне нужно решать её сейчас» — пропасть. Проблема, у которой нет цены, не горит. Вопрос о последствиях заставляет клиента самому эту цену назвать: что будет через полгода, во что это обходится в деньгах и нервах. В этот момент он сам себе продаёт необходимость решения. Не вы ему — он себе. Пропустили шаг — получили «спасибо, я подумаю» от человека, который сам только что рассказал вам о своей боли.</p></div>
+  <div class="signs">
+    <div class="block-label mono">Признаки, что это про вас</div>
+    <div class="signs-grid"><div class="sign">Вы начинаете презентацию сразу после первой жалобы клиента</div><div class="sign">Клиенты соглашаются, что проблема есть, но покупать не спешат</div><div class="sign">Вы не знаете, во что клиентам обходится их текущая ситуация в деньгах</div><div class="sign">«Я подумаю» — самый частый финал ваших переговоров</div></div>
+  </div>
+  <div class="dialogs">
+    <div class="dialog dialog--bad"><div class="dlg-label mono dlg-label--bad">Так теряют клиента</div><p class="dl"><span class="sp sp-cl">Клиент:</span> Да, заявки теряются, менеджеры отвечают, когда вспомнят.</p><p class="dl"><span class="sp sp-you">Вы:</span> Тогда вам точно нужна наша система. Внедрение — три недели, вот тариф.</p><p class="dl"><span class="sp sp-cl">Клиент:</span> Спасибо, мы подумаем.</p></div>
+    <div class="dialog dialog--good"><div class="dlg-label mono dlg-label--good">Так его оставляют</div><p class="dl"><span class="sp sp-cl">Клиент:</span> Да, заявки теряются, менеджеры отвечают, когда вспомнят.</p><p class="dl"><span class="sp sp-you">Вы:</span> А если оставить как есть — как это отразится на вас через полгода?</p><p class="dl"><span class="sp sp-cl">Клиент:</span> Потеряем сезон. Это миллиона полтора, наверное.</p><p class="dl"><span class="sp sp-you">Вы:</span> Полтора миллиона за сезон. Тогда давайте посмотрим, где именно теряются заявки, — и я предложу решение под эту цифру.</p></div>
+  </div>
+  <div class="fix">
+    <div class="block-label mono block-label--fix">Упражнение недели</div>
+    <p>Добавьте один вопрос перед каждой презентацией: «А если ничего не менять — как это отразится на вас через полгода?» Если для вашей ниши это звучит жёстко, смягчите: «Во что вам сейчас обходится эта ситуация — по деньгам, по времени, по нервам?» Главное правило: дождитесь ответа. Не подсказывайте цифры, не помогайте формулировать, выдержите паузу. То, что клиент произнёс сам, весит в разы больше того, что сказали ему вы.</p>
+  </div>
+  <div class="cost mono"><span class="cost-tag">Цена дыры</span>Каждое «я подумаю» от клиента, который сам описал вам свою проблему, — цена одного незаданного&nbsp;вопроса.</div>
+  <div class="pfooter mono"><span>Елена Созонова · 7 дыр в ваших переговорах</span><span>06 / 12</span></div>
+</section>
+<section class="page page--hole">
+  <header class="hole-head">
+    <div class="hole-num mono">05</div>
+    <div class="hole-head-txt">
+      <div class="eyebrow eyebrow--blue">Дыра пятая</div>
+      <h2 class="hole-title">Давите срочностью в момент страха</h2>
+    </div>
+  </header>
+  <p class="hook">Фразу «завтра будет дороже» ваш клиент чаще всего слышал от мошенников. Сказанная человеку, который боится ошибиться, она не ускоряет сделку — она подтверждает его худшие опасения.</p>
+  <div class="desc"><p>Третье состояние клиента — Безопасность. Он уже почти согласен: сравнил, посчитал, выбрал вас. Осталось последнее — поверить, что он не совершает ошибку. Что вы не исчезнете после оплаты, что результат реален, что есть путь назад, если что-то пойдёт не так.</p><p>И именно в этот момент переговорщик, чувствуя близость сделки, включает ускорение: «акция до пятницы», «осталось два места», «завтра дороже». Для человека в состоянии страха это звучит однозначно: от меня хотят денег быстрее, чем я успею подумать. «Завтра дороже» он слышал от каждого, кто когда-либо пытался его обмануть, — и ваша фраза встаёт в тот же ряд. Большинство «горячих» клиентов теряется именно здесь: на последнем шаге, где нужна была опора, а вместо неё дали ускорение.</p></div>
+  <div class="signs">
+    <div class="block-label mono">Признаки, что это про вас</div>
+    <div class="signs-grid"><div class="sign">Тех, кто «почти готов», вы дожимаете скидкой с дедлайном</div><div class="sign">Клиенты пропадают на этапе оплаты: вроде договорились — и тишина</div><div class="sign">Сделки случаются, но клиенты не возвращаются и не рекомендуют вас</div><div class="sign">Вам самим бывает неловко за фразы, которые вы говорите в конце сделки</div></div>
+  </div>
+  <div class="dialogs">
+    <div class="dialog dialog--bad"><div class="dlg-label mono dlg-label--bad">Так теряют клиента</div><p class="dl"><span class="sp sp-cl">Клиент:</span> Мне всё нравится, но сумма серьёзная. Возьму пару дней подумать.</p><p class="dl"><span class="sp sp-you">Вы:</span> Только учтите: с понедельника цена вырастет, и мест почти не осталось. Лучше бронировать сегодня.</p><p class="dl"><span class="sp sp-cl">Клиент:</span> Понял… Я напишу.</p></div>
+    <div class="dialog dialog--good"><div class="dlg-label mono dlg-label--good">Так его оставляют</div><p class="dl"><span class="sp sp-cl">Клиент:</span> Мне всё нравится, но сумма серьёзная. Возьму пару дней подумать.</p><p class="dl"><span class="sp sp-you">Вы:</span> Конечно, сумма действительно серьёзная. Скажите, что было бы важно прояснить, чтобы решение далось спокойнее?</p><p class="dl"><span class="sp sp-cl">Клиент:</span> Наверное, что будет, если формат мне не подойдёт.</p><p class="dl"><span class="sp sp-you">Вы:</span> Справедливый вопрос. В первые семь дней можно вернуть деньги без объяснений — это моя ответственность, а не ваша. Думайте спокойно, я на связи.</p></div>
+  </div>
+  <div class="fix">
+    <div class="block-label mono block-label--fix">Упражнение недели</div>
+    <p>Замените ускорение опорой. Когда клиент на финальном этапе говорит «мне надо подумать», задайте один вопрос: «Что важно прояснить, чтобы решение далось спокойнее?» — и дайте честный ответ: как устроена работа, что будет, если не подойдёт, какие есть гарантии. Если существует реальный дедлайн — поток стартует, календарь заполняется — назовите его один раз, спокойно и с причиной. Факт, сказанный ради ясности, — это забота. Тот же факт, повторённый ради давления, — дыра, в которую утекают ваши лучшие клиенты.</p>
+  </div>
+  <div class="cost mono"><span class="cost-tag">Цена дыры</span>Разовая сделка вместо LTV: повторные покупки и рекомендации стремятся к нулю, сарафан не&nbsp;работает.</div>
+  <div class="pfooter mono"><span>Елена Созонова · 7 дыр в ваших переговорах</span><span>07 / 12</span></div>
+</section>
+<section class="page page--hole">
+  <header class="hole-head">
+    <div class="hole-num mono">06</div>
+    <div class="hole-head-txt">
+      <div class="eyebrow eyebrow--blue">Дыра шестая</div>
+      <h2 class="hole-title">Не задаёте превентивных вопросов</h2>
+    </div>
+  </header>
+  <p class="hook">Вопрос «счёт общий или раздельный?» занимает три секунды. Его отсутствие стоило ресторану десяти гостей, которые ушли с бизнес-завтрака с осадком — и вряд ли вернутся.</p>
+  <div class="desc"><p>Расскажу про бизнес-завтрак на четырнадцатом этаже. Десять гостей, деловая встреча, красивый вид. Официантка приняла заказ и не задала один вопрос: счёт общий или раздельный? В конце — единый счёт, десять занятых людей с калькулятором, неловкость, смазанное впечатление от всей встречи. Три секунды экономии — минус десять гостей.</p><p>Это паттерн, который я называю «пожарник»: человек не задаёт превентивных вопросов на этапе продажи, а потом героически тушит скандалы. Клиент ждал одного, получил другое, требует возврата — и вся энергия уходит на разборы вместо новых сделок. Противоположность пожарнику — садовник: он задаёт вопросы, при которых проблемы просто не вырастают. По моему опыту, восемьдесят процентов будущих претензий снимаются вопросами до оплаты — на этапе, когда клиенту нужна Безопасность.</p></div>
+  <div class="signs">
+    <div class="block-label mono">Признаки, что это про вас</div>
+    <div class="signs-grid"><div class="sign">Заметная часть недели уходит на разбор претензий из серии «я думал, будет иначе»</div><div class="sign">Условия работы вы подробно проговариваете после оплаты, а не до</div><div class="sign">Возвраты у вас случаются из-за недопонимания, а не из-за качества</div><div class="sign">Вы гордитесь тем, как виртуозно гасите конфликты</div></div>
+  </div>
+  <div class="dialogs">
+    <div class="dialog dialog--bad"><div class="dlg-label mono dlg-label--bad">Так теряют клиента</div><p class="dl"><span class="sp sp-cl">Клиент:</span> Отлично, оплачиваю. Когда стартуем?</p><p class="dl"><span class="sp sp-you">Вы:</span> Завтра и начнём!</p><p class="dl"><span class="sp sp-cl">Клиент (через две недели):</span> Я думал, вы будете на связи каждый день. Так не работает, верните деньги.</p></div>
+    <div class="dialog dialog--good"><div class="dlg-label mono dlg-label--good">Так его оставляют</div><p class="dl"><span class="sp sp-cl">Клиент:</span> Отлично, оплачиваю. Когда стартуем?</p><p class="dl"><span class="sp sp-you">Вы:</span> Завтра. Только давайте сверимся до оплаты: связь — два созвона в неделю плюс чат, отвечаю в течение рабочего дня. Правки — два круга. Вам такой формат подходит?</p><p class="dl"><span class="sp sp-cl">Клиент:</span> Хм, я рассчитывал на ежедневные созвоны.</p><p class="dl"><span class="sp sp-you">Вы:</span> Хорошо, что выяснили это сейчас. Расскажу, какой формат закрывает такую задачу.</p></div>
+  </div>
+  <div class="fix">
+    <div class="block-label mono block-label--fix">Упражнение недели</div>
+    <p>Составьте свой список превентивных вопросов. Вспомните три последних конфликта или возврата — и для каждого найдите вопрос, который предотвратил бы его до оплаты. База, которая подходит почти всем: «Что для вас будет хорошим результатом через месяц?», «Как вы поймёте, что работа идёт хорошо?», «Что вас разочарует?». Задавайте их каждому новому клиенту до денег, а не после. Один вопрос на входе всегда дешевле возврата на выходе.</p>
+  </div>
+  <div class="cost mono"><span class="cost-tag">Цена дыры</span>Половина рабочего времени уходит на тушение проблем, которые снимались одним вопросом на входе, плюс возвраты и удары по репутации.</div>
+  <div class="pfooter mono"><span>Елена Созонова · 7 дыр в ваших переговорах</span><span>08 / 12</span></div>
+</section>
+<section class="page page--hole">
+  <header class="hole-head">
+    <div class="hole-num mono">07</div>
+    <div class="hole-head-txt">
+      <div class="eyebrow eyebrow--blue">Дыра седьмая</div>
+      <h2 class="hole-title">Говорите со всеми на одном языке</h2>
+    </div>
+  </header>
+  <p class="hook">У вашего продукта четыре разных покупателя: один бежит от боли, второй идёт к желанию, третий страхуется, четвёртый растит амбицию. Презентация, написанная «для всех», не попадает ни в одного.</p>
+  <div class="desc"><p>Одну и ту же услугу четыре разных человека покупают по четырём разным причинам. Первый бежит от боли: «так больше нельзя». Второй идёт к желанию: «хочу, чтобы стало вот так». Третий страхуется: «боюсь потерять то, что есть». Четвёртый растит амбицию: «хочу следующий уровень».</p><p>Переговорщик с одной заготовленной презентацией говорит всем четверым одно и то же — про опыт, качество и довольных клиентов. Человеку в боли нужно услышать «это прекратится». Человеку с амбицией — «это выведет вас дальше». Когда слова не совпадают с мотивацией, клиент чувствует конвейер: вы не про него, а про свой процесс. Слова правильные, а сделки нет — он вежливо уходит «подумать», унося с собой деньги, которые был готов оставить вам.</p></div>
+  <div class="signs">
+    <div class="block-label mono">Признаки, что это про вас</div>
+    <div class="signs-grid"><div class="sign">У вас одна презентация и одно коммерческое предложение на всех клиентов</div><div class="sign">Вы рассказываете о продукте, а не об изменении в жизни клиента</div><div class="sign">Аргумент, который сработал с одним клиентом, почему-то не работает с другим</div><div class="sign">Вы не можете сказать, из какой мотивации пришёл ваш последний покупатель</div></div>
+  </div>
+  <div class="dialogs">
+    <div class="dialog dialog--bad"><div class="dlg-label mono dlg-label--bad">Так теряют клиента</div><p class="dl"><span class="sp sp-cl">Клиент:</span> Хочу навести порядок в финансах компании.</p><p class="dl"><span class="sp sp-you">Вы:</span> У нас двенадцать лет опыта, двести довольных клиентов, работаем по стандартам. Отправляю презентацию.</p><p class="dl"><span class="sp sp-cl">Клиент:</span> Спасибо, посмотрю.</p></div>
+    <div class="dialog dialog--good"><div class="dlg-label mono dlg-label--good">Так его оставляют</div><p class="dl"><span class="sp sp-cl">Клиент:</span> Хочу навести порядок в финансах компании.</p><p class="dl"><span class="sp sp-you">Вы:</span> А что стоит за «навести порядок»: что-то уже болит — или готовитесь к росту?</p><p class="dl"><span class="sp sp-cl">Клиент:</span> Скорее второе. Хотим открывать второй филиал, а в цифрах хаос.</p><p class="dl"><span class="sp sp-you">Вы:</span> Значит, задача — финансовая база под масштабирование. Покажу, как мы готовили к росту похожую компанию.</p></div>
+  </div>
+  <div class="fix">
+    <div class="block-label mono block-label--fix">Упражнение недели</div>
+    <p>Перед следующими пятью переговорами задавайте себе один вопрос: из какой мотивации пришёл этот человек — боль, желание, страх или амбиция? Если из контекста непонятно — спросите прямо: «Что для вас главное в этой задаче: прекратить то, что происходит сейчас, или прийти к новому?» И подстройте под ответ одну фразу — первую фразу о результате. Не переписывайте всю презентацию: попадание в мотивацию решает одна точная фраза в начале.</p>
+  </div>
+  <div class="cost mono"><span class="cost-tag">Цена дыры</span>Конверсия из заявки в сделку держится на 10–20% при хороших лидах: клиент чувствует конвейер и вежливо уходит «подумать».</div>
+  <div class="pfooter mono"><span>Елена Созонова · 7 дыр в ваших переговорах</span><span>09 / 12</span></div>
+</section>
+<section class="page check">
+  <div class="eyebrow eyebrow--blue">Самодиагностика</div>
+  <h2 class="section-title">Посчитайте свои дыры</h2>
+  <p class="check-note">Отметьте пункты, где ваш честный ответ — «нет». Каждая отметка — открытая дыра.</p>
+  <div class="check-list"><div class="check-row"><span class="box"></span><p>Отвечая на «сколько стоит?», я называю цену и задаю хотя бы один вопрос о ситуации клиента</p></div><div class="check-row"><span class="box"></span><p>На горячее входящее сообщение я отвечаю быстро и коротко, а не полным прайсом</p></div><div class="check-row"><span class="box"></span><p>В моём обычном диалоге с клиентом есть минимум два встречных вопроса</p></div><div class="check-row"><span class="box"></span><p>Перед презентацией я спрашиваю, во что клиенту обходится текущая ситуация, если ничего не менять</p></div><div class="check-row"><span class="box"></span><p>Когда клиент на финальном этапе говорит «подумаю», я даю ему опору, а не дедлайн</p></div><div class="check-row"><span class="box"></span><p>Условия, сроки и ожидания мы с клиентом сверяем до оплаты, а не после</p></div><div class="check-row"><span class="box"></span><p>Про последних трёх клиентов я могу сказать, из какой мотивации пришёл каждый: боль, желание, страх или амбиция</p></div></div>
+  <div class="scale">
+    <div class="scale-item"><div class="scale-num mono">0–1</div><div class="scale-txt">мастер: утечек почти нет</div></div>
+    <div class="scale-item"><div class="scale-num mono">2–3</div><div class="scale-txt">норма, есть что чинить</div></div>
+    <div class="scale-item scale-item--warm"><div class="scale-num mono">4+</div><div class="scale-txt">вы теряете клиентов каждую неделю</div></div>
+  </div>
+  <div class="pfooter mono"><span>Елена Созонова · 7 дыр в ваших переговорах</span><span>10 / 12</span></div>
+</section>
+<section class="page outro">
+  <div class="eyebrow eyebrow--blue">Вместо заключения</div>
+  <div class="outro-body"><p>Если, читая этот гайд, вы узнали себя в двух-трёх дырах — это нормально. Больше того, это хороший знак: вы увидели, где именно утекают ваши клиенты. Большинство переговорщиков не видят этого годами.</p><p>Напомню важное: дыра — это не характеристика вас как человека. Это привычка, а привычки меняются техникой. Все семь дыр закрываются вопросами, которые можно выучить за вечер и отработать за пару недель. Талант и обаяние — приятный бонус, но они заменяются технологией: мои сильнейшие ученики — интроверты и аналитики.</p><p>Что делать дальше. Выберите одну дыру — свою главную. Возьмите её «Упражнение недели» и применяйте в каждом разговоре. Потом возвращайтесь за следующей. Так, дыра за дырой, разговор перестаёт течь — и заявки наконец начинают превращаться в сделки.</p></div>
+  <div class="cta">
+    <div class="block-label mono">Следующий шаг</div>
+    <p class="cta-text">Если хотите понять, какая из семи дыр — ваша главная, пройдите бесплатную диагностику в боте @sozonova_elena_bot: пять-семь вопросов, около трёх минут, в конце — персональный разбор вашего паттерна переговоров. А если решите закрывать дыры системно — подробности о курсе «Продажи без впаривания» на sozonovacourse.ru. Решение за вами, и любое из них — нормальное.</p>
+    <div class="plaques">
+      <span class="plaque plaque--solid mono">t.me/sozonova_elena_bot</span>
+      <span class="plaque plaque--line mono">sozonovacourse.ru</span>
+    </div>
+  </div>
+  <div class="pfooter mono"><span>Елена Созонова · 7 дыр в ваших переговорах</span><span>11 / 12</span></div>
+</section>
+<section class="page page--last back">
+  <div class="back-mid">
+    <svg class="" style="width:30mm;height:auto" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><path d="M6 17 C6 12.6 9.6 9 14 9 L35 9 L43.5 17.5 L86 17.5 C90.4 17.5 94 21.1 94 25.5 L94 66 C94 70.4 90.4 74 86 74 L14 74 C9.6 74 6 70.4 6 66 Z" fill="#7AB4F0"/><rect x="6" y="25" width="88" height="49" rx="8" fill="#3D7BD9"/></svg>
+    <div class="back-brand mono">Продажи без впаривания</div>
+  </div>
+  <div class="back-bottom mono">© 2026 Елена Созонова · sozonovacourse.ru</div>
+</section>
+</body>
+</html>
