@@ -794,6 +794,11 @@ body {
   border: 1px solid rgba(255,255,255,0.7);
 }
 .portrait svg { width: 100%; height: 100%; display: block; }
+.portrait img {
+  width: 100%; height: 100%; display: block;
+  object-fit: cover;
+  object-position: 50% 22%; /* лицо в верхней трети кадра */
+}
 
 .portrait-placeholder {
   display: flex;
@@ -1418,18 +1423,17 @@ body.cab-locked .cab-lock {
   <div class="mx-auto max-w-[1180px]">
     <div class="grid md:grid-cols-12 gap-10 items-start">
 
-      <!-- Portrait placeholder (фото после фотосессии) -->
+      <!-- Portrait -->
       <div class="md:col-span-5 reveal">
-        <div class="portrait portrait-placeholder">
-          <div class="pp-initials display">ЕС</div>
-          <div class="pp-caption mono">Фотосессия — январь 2026</div>
+        <div class="portrait">
+          <img src="/assets/elena.jpg" alt="Елена Созонова" loading="lazy">
         </div>
       </div>
 
       <!-- Bio -->
       <div class="md:col-span-7 reveal" style="transition-delay:120ms">
         <div class="eyebrow">О ЕЛЕНЕ</div>
-        <h2 class="h2 mt-3">Двадцать лет — от секций<br/>в торговом зале до B2B-сделок.</h2>
+        <h2 class="h2 mt-3">Пятнадцать лет — от секций<br/>в торговом зале до B2B-сделок.</h2>
         <div class="mt-6 space-y-4 text-[16px] leading-[1.65]" style="color: var(--ink-soft); max-width: 56ch;">
           <p>
             Елена прошла путь от рядового продавца до руководителя коммерческого блока в крупных компаниях. Работала в рознице, телекоме, ювелирке, недвижимости и онлайн-образовании. Видела, как одно и то же возражение клиент произносит в магазине у касс и на переговорах за миллион.
@@ -1438,7 +1442,7 @@ body.cab-locked .cab-lock {
             После двух лет в роли наставника отделов продаж она собрала систему, которая держится на трёх простых вещах: уважение к клиенту, умение слышать и спокойная уверенность. Не на манипуляциях, не на «5 этапах за 5 минут» и не на агрессивных скриптах.
           </p>
           <p>
-            Этот курс — её сжатый двадцатилетний опыт. Никаких «волшебных слов» — только то, что работает каждый день в живых разговорах.
+            Этот курс — её сжатый пятнадцатилетний опыт. Никаких «волшебных слов» — только то, что работает каждый день в живых разговорах.
           </p>
         </div>
 
